@@ -47,8 +47,9 @@ class AwardRecipient(models.Model):
 
     # Relationship Fields
     award = models.ForeignKey('awards.Award',)
-    awarder = models.ForeignKey('users.User',)
-    recipient = models.ForeignKey('users.User',)
+
+    awarder = models.ForeignKey('users.User', related_name='awarded')
+    recipient = models.ForeignKey('users.User', related_name='awards')
 
     class Meta:
         ordering = ('-created',)

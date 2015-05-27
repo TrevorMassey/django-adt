@@ -12,7 +12,6 @@ class Codex(models.Model):
     slug = AutoSlugField(populate_from='name', blank=True)
     created = models.DateTimeField(auto_now_add=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
-    is_article = models.BooleanField()
     order = models.IntegerField()
 
     # Relationship Fields
