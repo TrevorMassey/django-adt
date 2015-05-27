@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<table><tr><td>title</td><td>{{ object.title }}</td></tr>
+<tr><td>slug</td><td>{{ object.slug }}</td></tr>
+<tr><td>order</td><td>{{ object.order }}</td></tr>
+</table>
+{% endblock %}
+<a href="{{object.get_update_url}}">Edit AwardCategory</a>

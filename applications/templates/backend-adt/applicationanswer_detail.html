@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block content %}
+<table><tr><td>answer</td><td>{{ object.answer }}</td></tr>
+<tr><td>created</td><td>{{ object.created }}</td></tr>
+</table>
+{% endblock %}
+<a href="{{object.get_update_url}}">Edit ApplicationAnswer</a>

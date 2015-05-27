@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<table><tr><td>created</td><td>{{ object.created }}</td></tr>
+<tr><td>last_updated</td><td>{{ object.last_updated }}</td></tr>
+<tr><td>name</td><td>{{ object.name }}</td></tr>
+<tr><td>gender</td><td>{{ object.gender }}</td></tr>
+<tr><td>birthdate</td><td>{{ object.birthdate }}</td></tr>
+<tr><td>timezone</td><td>{{ object.timezone }}</td></tr>
+<tr><td>longitude</td><td>{{ object.longitude }}</td></tr>
+<tr><td>latitude</td><td>{{ object.latitude }}</td></tr>
+<tr><td>character_name</td><td>{{ object.character_name }}</td></tr>
+<tr><td>character_class</td><td>{{ object.character_class }}</td></tr>
+<tr><td>character_level</td><td>{{ object.character_level }}</td></tr>
+<tr><td>technical_expertise</td><td>{{ object.technical_expertise }}</td></tr>
+<tr><td>technical_skills</td><td>{{ object.technical_skills }}</td></tr>
+<tr><td>playtime</td><td>{{ object.playtime }}</td></tr>
+<tr><td>player_type</td><td>{{ object.player_type }}</td></tr>
+<tr><td>game_detailed_history</td><td>{{ object.game_detailed_history }}</td></tr>
+<tr><td>why_join</td><td>{{ object.why_join }}</td></tr>
+<tr><td>game_officer_history</td><td>{{ object.game_officer_history }}</td></tr>
+</table>
+{% endblock %}
+<a href="{{object.get_update_url}}">Edit Application</a>

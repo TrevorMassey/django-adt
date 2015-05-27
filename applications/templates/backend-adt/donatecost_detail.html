@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<table><tr><td>service</td><td>{{ object.service }}</td></tr>
+<tr><td>slug</td><td>{{ object.slug }}</td></tr>
+<tr><td>created</td><td>{{ object.created }}</td></tr>
+<tr><td>last_updated</td><td>{{ object.last_updated }}</td></tr>
+<tr><td>amount</td><td>{{ object.amount }}</td></tr>
+</table>
+{% endblock %}
+<a href="{{object.get_update_url}}">Edit DonateCost</a>

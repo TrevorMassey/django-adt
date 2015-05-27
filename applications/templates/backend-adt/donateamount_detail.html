@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block content %}
+<table><tr><td>created</td><td>{{ object.created }}</td></tr>
+<tr><td>amount</td><td>{{ object.amount }}</td></tr>
+</table>
+{% endblock %}
+<a href="{{object.get_update_url}}">Edit DonateAmount</a>

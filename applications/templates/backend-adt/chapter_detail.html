@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<table><tr><td>open_date</td><td>{{ object.open_date }}</td></tr>
+<tr><td>launch_date</td><td>{{ object.launch_date }}</td></tr>
+<tr><td>close_date</td><td>{{ object.close_date }}</td></tr>
+</table>
+{% endblock %}
+<a href="{{object.get_update_url}}">Edit Chapter</a>

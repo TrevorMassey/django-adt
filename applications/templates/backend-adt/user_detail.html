@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<table><tr><td>display_name</td><td>{{ object.display_name }}</td></tr>
+<tr><td>slug</td><td>{{ object.slug }}</td></tr>
+<tr><td>created</td><td>{{ object.created }}</td></tr>
+<tr><td>email</td><td>{{ object.email }}</td></tr>
+<tr><td>signed_in</td><td>{{ object.signed_in }}</td></tr>
+<tr><td>last_active</td><td>{{ object.last_active }}</td></tr>
+<tr><td>password</td><td>{{ object.password }}</td></tr>
+<tr><td>is_admin</td><td>{{ object.is_admin }}</td></tr>
+</table>
+{% endblock %}
+<a href="{{object.get_update_url}}">Edit User</a>

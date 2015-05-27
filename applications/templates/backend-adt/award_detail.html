@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<table><tr><td>title</td><td>{{ object.title }}</td></tr>
+<tr><td>slug</td><td>{{ object.slug }}</td></tr>
+<tr><td>level_limit</td><td>{{ object.level_limit }}</td></tr>
+<tr><td>order</td><td>{{ object.order }}</td></tr>
+<tr><td>description</td><td>{{ object.description }}</td></tr>
+<tr><td>image</td><td>{{ object.image }}</td></tr>
+</table>
+{% endblock %}
+<a href="{{object.get_update_url}}">Edit Award</a>

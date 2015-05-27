@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block content %}
+<table><tr><td>reason</td><td>{{ object.reason }}</td></tr>
+<tr><td>created</td><td>{{ object.created }}</td></tr>
+</table>
+{% endblock %}
+<a href="{{object.get_update_url}}">Edit AwardRecipient</a>
