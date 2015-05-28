@@ -32,6 +32,11 @@ class UserManager(BaseUserManager):
         return self._create_user(email, password, True, True,
                                  **extra_fields)
 
+def user_image_path(instance, filename):
+    path, ext = filename.split('.')
+    return 'images/avatars/{filename}.{ext}'.format(filename=instance.display_name, ext=ext)
+
+
 class User(AbstractBaseUser, PermissionsMixin):
     """
     An abstract base class implementing a fully featured User model with
@@ -50,6 +55,10 @@ class User(AbstractBaseUser, PermissionsMixin):
                                     help_text=_('Designates whether this user should be treated as '
                                                 'active. Unselect this instead of deleting accounts.'))
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
+
+    rank = models.OneToOneField('users.Rank', null=True, blank=True)
+
+    avatar = models.ImageField(upload_to=user_image_path)
 
     objects = UserManager()
 
@@ -70,13 +79,21 @@ class User(AbstractBaseUser, PermissionsMixin):
         "Returns the short name for the user."
         return self.display_name
 
+    def __unicode__(self):
+        return u'%s' % self.display_name
+
+
+def rank_image_path(instance, filename):
+    path, ext = filename.split('.')
+    return 'images/ranks/{filename}.{ext}'.format(filename=instance.number, ext=ext)
+
 class Rank(models.Model):
 
     # Fields
-    title = models.CharField(max_length=255)
-    slug = AutoSlugField(populate_from='title', blank=True)
+    title = models.CharField(max_length=30)
+    slug = AutoSlugField(populate_from='title', blank=True, unique=True)
     number = models.IntegerField()
-    image = models.FilePathField()
+    image = models.ImageField(upload_to=rank_image_path)
     description = models.TextField()
     color = models.CharField(max_length=6)
 
@@ -84,5 +101,5 @@ class Rank(models.Model):
         ordering = ('-id',)
 
     def __unicode__(self):
-        return u'%s' % self.slug
+        return u'%s' % self.title
 

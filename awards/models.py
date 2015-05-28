@@ -6,14 +6,14 @@ class Award(models.Model):
 
     # Fields
     title = models.CharField(max_length=255)
-    slug = AutoSlugField(populate_from='name', blank=True)
+    slug = AutoSlugField(populate_from='title', blank=True, unique=True)
     level_limit = models.IntegerField()
     order = models.IntegerField()
     description = models.TextField()
-    image = models.FilePathField()
 
     # Relationship Fields
     category = models.ForeignKey('awards.AwardCategory',)
+    image = models.ForeignKey('awards.AwardImage')
 
     class Meta:
         ordering = ('-id',)
@@ -26,14 +26,17 @@ class AwardCategory(models.Model):
 
     # Fields
     title = models.CharField(max_length=255)
-    slug = AutoSlugField(populate_from='name', blank=True)
+    slug = AutoSlugField(populate_from='title', blank=True, unique=True)
     order = models.IntegerField()
 
     # Relationship Fields
-    chapter = models.OneToOneField('games.Chapter',)
+    chapter = models.ForeignKey('games.Chapter',)
 
     class Meta:
         ordering = ('-id',)
+        unique_together = (
+            ('title', 'chapter'),
+        )
 
     def __unicode__(self):
         return u'%s' % self.slug
@@ -49,10 +52,26 @@ class AwardRecipient(models.Model):
     award = models.ForeignKey('awards.Award',)
 
     awarder = models.ForeignKey('users.User', related_name='awarded')
-    recipient = models.ForeignKey('users.User', related_name='awards')
+    recipient = models.ForeignKey('users.User', related_name='award_recipients')
 
     class Meta:
         ordering = ('-created',)
 
     def __unicode__(self):
         return u'%s' % self.id
+
+
+def award_image_path(instance, filename):
+    path, ext = filename.split('.')
+    return 'images/awards/{filename}.{ext}'.format(filename=instance.slug, ext=ext)
+
+
+class AwardImage(models.Model):
+
+    # Fields
+    title = models.CharField(max_length=30)
+    slug = AutoSlugField(populate_from='title', blank=True, unique=True)
+    image = models.ImageField(upload_to=award_image_path)
+
+    def __unicode__(self):
+        return u'%s' % self.title

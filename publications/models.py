@@ -9,7 +9,7 @@ class Codex(models.Model):
 
     # Fields
     title = models.CharField(max_length=255)
-    slug = AutoSlugField(populate_from='name', blank=True)
+    slug = AutoSlugField(populate_from='title', blank=True)
     created = models.DateTimeField(auto_now_add=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
     order = models.IntegerField()
@@ -29,7 +29,7 @@ class Article(models.Model):
 
     # Fields
     title = models.CharField(max_length=255)
-    slug = AutoSlugField(populate_from='name', blank=True)
+    slug = AutoSlugField(populate_from='title', blank=True)
     created = models.DateTimeField(auto_now_add=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
     body = models.TextField()
@@ -42,7 +42,7 @@ class Article(models.Model):
         ordering = ('-created',)
 
     def __unicode__(self):
-        return u'%s' % self.slug
+        return u'%s' % self.title
 
 
 class News(models.Model):
@@ -55,4 +55,4 @@ class News(models.Model):
         ordering = ('-id',)
 
     def __unicode__(self):
-        return u'%s' % self.id
+        return u'%s' % self.article
