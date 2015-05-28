@@ -102,4 +102,4 @@ export WORKON_HOME=$HOME/.virtualenvs
 
 source /usr/local/bin/virtualenvwrapper.sh
 
-export DJANGO_SETTINGS_MODULE=smartpager.settings
+export DJANGO_SETTINGS_MODULE=django_adt.settings
