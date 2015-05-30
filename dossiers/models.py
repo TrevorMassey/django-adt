@@ -30,7 +30,7 @@ class Role(models.Model):
     guild = models.ForeignKey('dossiers.Guild',)
     game = models.ForeignKey('games.Game',)
     application = models.ForeignKey('applications.Application', blank=True, null=True)
-    # This either needs to relate to a user directly, or a global
+    # TODO: This either needs to relate to a user directly, or a global
     # dossier directly as we can add Games, Guilds, and Roles to
     # a dossier that is created for someone who has not applied
 
