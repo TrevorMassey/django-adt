@@ -15,9 +15,9 @@ class Migration(migrations.Migration):
             name='Chapter',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('open_date', models.DateTimeField()),
-                ('launch_date', models.DateTimeField()),
-                ('close_date', models.DateTimeField()),
+                ('open_date', models.DateTimeField(null=True, blank=True)),
+                ('launch_date', models.DateTimeField(null=True, blank=True)),
+                ('close_date', models.DateTimeField(null=True, blank=True)),
             ],
             options={
                 'ordering': ('-id',),
@@ -29,7 +29,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('title', models.CharField(max_length=255)),
-                ('slug', django_extensions.db.fields.AutoSlugField(populate_from=b'name', editable=False, blank=True)),
+                ('slug', django_extensions.db.fields.AutoSlugField(populate_from=b'title', editable=False, blank=True)),
             ],
             options={
                 'ordering': ('-id',),

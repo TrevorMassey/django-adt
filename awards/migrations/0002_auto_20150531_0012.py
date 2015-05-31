@@ -23,19 +23,29 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='awardrecipient',
             name='recipient',
-            field=models.ForeignKey(related_name='awards', to=settings.AUTH_USER_MODEL),
+            field=models.ForeignKey(related_name='award_recipients', to=settings.AUTH_USER_MODEL),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='awardcategory',
             name='chapter',
-            field=models.OneToOneField(to='games.Chapter'),
+            field=models.ForeignKey(to='games.Chapter'),
             preserve_default=True,
+        ),
+        migrations.AlterUniqueTogether(
+            name='awardcategory',
+            unique_together=set([('title', 'chapter')]),
         ),
         migrations.AddField(
             model_name='award',
             name='category',
             field=models.ForeignKey(to='awards.AwardCategory'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='award',
+            name='image',
+            field=models.ForeignKey(to='awards.AwardImage'),
             preserve_default=True,
         ),
     ]

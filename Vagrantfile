@@ -24,11 +24,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define "spv2" do |spv2|
     spv2.vm.network :forwarded_port, guest:8000, host:8000, auto_correct: true
     spv2.vm.network :forwarded_port, guest:9080, host:9080, auto_correct: true
-    spv2.vm.network :forwarded_port, guest:5432, host:15432
-    spv2.vm.network :forwarded_port, guest:15672, host:45672
+    spv2.vm.network :forwarded_port, guest:5432, host:15432, auto_correct: true
+    spv2.vm.network :forwarded_port, guest:15672, host:45672, auto_correct: true
 
     spv2.vm.synced_folder ".", "/home/vagrant/django_adt"
-    spv2.vm.network "private_network", ip: "10.10.10.10"
+    spv2.vm.network "private_network", ip: "10.10.10.50"
 
     spv2.vm.provision :shell, :path => "Vagrant-setup/install.sh", :args => "django_adt"
   end

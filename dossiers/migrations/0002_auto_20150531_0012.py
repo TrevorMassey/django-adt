@@ -24,10 +24,4 @@ class Migration(migrations.Migration):
             field=models.ForeignKey(to='dossiers.Guild'),
             preserve_default=True,
         ),
-        migrations.AddField(
-            model_name='guild',
-            name='game',
-            field=models.OneToOneField(to='games.Game'),
-            preserve_default=True,
-        ),
     ]

@@ -2,15 +2,12 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-from django.conf import settings
 import django_extensions.db.fields
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('games', '0003_auto_20150527_0500'),
     ]
 
     operations = [
@@ -63,29 +60,10 @@ class Migration(migrations.Migration):
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('last_updated', models.DateTimeField(auto_now=True)),
                 ('order', models.IntegerField()),
-                ('chapter', models.ForeignKey(to='games.Chapter')),
             ],
             options={
                 'ordering': ('-created',),
             },
             bases=(models.Model,),
-        ),
-        migrations.AddField(
-            model_name='applicationanswer',
-            name='question',
-            field=models.OneToOneField(to='applications.ApplicationQuestion'),
-            preserve_default=True,
-        ),
-        migrations.AddField(
-            model_name='application',
-            name='answers',
-            field=models.ManyToManyField(to='applications.ApplicationQuestion'),
-            preserve_default=True,
-        ),
-        migrations.AddField(
-            model_name='application',
-            name='user',
-            field=models.ForeignKey(to=settings.AUTH_USER_MODEL),
-            preserve_default=True,
         ),
     ]
