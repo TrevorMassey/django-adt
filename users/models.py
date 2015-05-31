@@ -54,11 +54,14 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(_('active'), default=True,
                                     help_text=_('Designates whether this user should be treated as '
                                                 'active. Unselect this instead of deleting accounts.'))
+    email_verified = models.BooleanField(default=False)
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
-
     rank = models.OneToOneField('users.Rank', null=True, blank=True)
-
     avatar = models.ImageField(upload_to=user_image_path)
+
+    # External UIDS
+    ts_uid = models.CharField(max_length=50, blank=True, null=True)  # tJL8iDNxG+1yeU5MQG61HnkC4nE=
+    steam_id = models.CharField(max_length=20, blank=True, null=True)  # 76561197961103742
 
     objects = UserManager()
 
