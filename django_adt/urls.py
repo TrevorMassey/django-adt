@@ -32,6 +32,7 @@ router.register(r'news', NewsViewSet)
 
 urlpatterns += patterns('',
     url(r'^api/', include(router.urls)),
+    url(r'^api-token-auth/', 'rest_framework_jwt.views.obtain_jwt_token'),
 )
 
 if settings.DEBUG:
