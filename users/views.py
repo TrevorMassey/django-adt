@@ -23,8 +23,6 @@ class UserVerifyEmailView(View):
 
         key = kwargs.get('key')
 
-        logger.info(key)
-
         try:
             user = User.objects.get(key=key)
         except User.DoesNotExist:
