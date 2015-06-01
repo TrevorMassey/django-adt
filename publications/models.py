@@ -1,11 +1,13 @@
 from django.core.urlresolvers import reverse
 from django.db import models
 
+from mptt.models import MPTTModel, TreeForeignKey
+
 # Create your models here.
 from django_extensions.db.fields import AutoSlugField
 
 
-class Codex(models.Model):
+class Codex(MPTTModel):
 
     # Fields
     title = models.CharField(max_length=255)
@@ -15,11 +17,14 @@ class Codex(models.Model):
     order = models.IntegerField()
 
     # Relationship Fields
-    parent = models.OneToOneField('publications.Codex',)
-    article = models.OneToOneField('publications.Article',)
+    parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True)
+    article = models.OneToOneField('publications.Article', blank=True, null=True)
 
     class Meta:
         ordering = ('-created',)
+
+    class MPTTMeta:
+        order_insertion_by = 'order'
 
     def __unicode__(self):
         return u'%s' % self.slug
