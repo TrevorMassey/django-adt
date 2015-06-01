@@ -1,7 +1,6 @@
 from django_extensions.db.fields import AutoSlugField
 from django.db import models
 
-
 class Award(models.Model):
 
     # Fields
@@ -14,12 +13,21 @@ class Award(models.Model):
     # Relationship Fields
     category = models.ForeignKey('awards.AwardCategory',)
     image = models.ForeignKey('awards.AwardImage')
+    type = models.ForeignKey('awards.AwardType', )
 
     class Meta:
         ordering = ('-id',)
 
     def __unicode__(self):
         return u'%s' % self.slug
+
+
+class AwardType(models.Model):
+    name = models.CharField(max_length=20, unique=True)
+    slug = AutoSlugField(populate_from='name', blank=True, unique=True)
+
+    def __unicode__(self):
+        return u'%s' % self.name
 
 
 class AwardCategory(models.Model):

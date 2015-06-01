@@ -1,5 +1,6 @@
 from django.contrib import admin
-from awards.models import Award, AwardCategory, AwardRecipient, AwardImage
+from awards.models import Award, AwardCategory, AwardRecipient, AwardImage, AwardType
+
 
 class AwardAdmin(admin.ModelAdmin):
     list_display = ('title',)
@@ -19,3 +20,4 @@ admin.site.register(Award, AwardAdmin)
 admin.site.register(AwardCategory, AwardCategoryAdmin)
 admin.site.register(AwardRecipient, AwardRecipientAdmin)
 admin.site.register(AwardImage, AwardImageAdmin)
+admin.site.register(AwardType)
