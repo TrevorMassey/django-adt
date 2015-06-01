@@ -11,7 +11,7 @@ class Award(models.Model):
     description = models.TextField()
 
     # Relationship Fields
-    category = models.ForeignKey('awards.AwardCategory',)
+    category = models.ForeignKey('awards.AwardCategory', related_name='awards')
     image = models.ForeignKey('awards.AwardImage')
     type = models.ForeignKey('awards.AwardType', )
 
@@ -38,7 +38,7 @@ class AwardCategory(models.Model):
     order = models.IntegerField()
 
     # Relationship Fields
-    chapter = models.ForeignKey('games.Chapter',)
+    chapter = models.ForeignKey('games.Chapter', related_name='award_categories')
 
     class Meta:
         ordering = ('-id',)
@@ -57,7 +57,7 @@ class AwardRecipient(models.Model):
     created = models.DateTimeField(auto_now_add=True, editable=False)
 
     # Relationship Fields
-    award = models.ForeignKey('awards.Award',)
+    award = models.ForeignKey('awards.Award', related_name='award_recipient')
 
     awarder = models.ForeignKey('users.User', related_name='awarded')
     recipient = models.ForeignKey('users.User', related_name='award_recipients')

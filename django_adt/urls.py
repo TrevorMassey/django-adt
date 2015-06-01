@@ -1,8 +1,9 @@
 from django.conf.urls import patterns, include, url
+from django.conf.urls.static import static
 from django.contrib import admin
 from rest_framework.routers import DefaultRouter
 from games.api import GameViewSet, ChapterViewSet
-from awards.api import AwardViewSet, AwardCategoryViewSet, AwardRecipientViewSet, AwardImageViewSet
+from awards.api import AwardViewSet, AwardCategoryViewSet, AwardRecipientViewSet, AwardImageViewSet, AwardSummaryListAPIView
 from users.api import RankViewSet
 from publications.api import ArticleViewSet, NewsViewSet
 from accounting.api import DonateCostViewSet, DonateAmountViewSet
@@ -34,6 +35,8 @@ urlpatterns += patterns('',
     url(r'^api/', include(router.urls)),
     url(r'^api-token-auth/', 'rest_framework_jwt.views.obtain_jwt_token'),
 
+    url(r'^api/awards-summary/$', 'awards.api.awards_summary', name='awards_summary'),
+
     url(r'^verify/(?P<key>[A-Za-z0-9]{32})/$', 'users.views.verify_email', name='verify_email'),
 )
 
@@ -42,3 +45,4 @@ if settings.DEBUG:
     urlpatterns += patterns('',
         url(r'^__debug__/', include(debug_toolbar.urls)),
     )
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

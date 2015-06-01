@@ -109,6 +109,7 @@ DEBUG_TOOLBAR_PATCH_SETTINGS = False
 INTERNAL_IPS = ('10.10.10.1',)
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 
 REST_FRAMEWORK = {
