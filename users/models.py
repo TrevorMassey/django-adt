@@ -59,6 +59,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     rank = models.OneToOneField('users.Rank', null=True, blank=True)
     avatar = models.ImageField(upload_to=user_image_path)
 
+    email_key_expires = models.DateTimeField(blank=True, null=True)
+    key = models.CharField(max_length=40, unique=True, blank=True, null=True)
+
     # External UIDS
     ts_uid = models.CharField(max_length=50, blank=True, null=True)  # tJL8iDNxG+1yeU5MQG61HnkC4nE=
     steam_id = models.CharField(max_length=20, blank=True, null=True)  # 76561197961103742
