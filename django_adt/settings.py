@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+SITE_URL = 'http://10.10.10.10:8000'
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
@@ -39,6 +41,7 @@ INSTALLED_APPS = (
 
     'rest_framework',
     'debug_toolbar',
+    'django_extensions',
 
     'accounting',
     'applications',
@@ -76,6 +79,9 @@ DATABASES = {
         'PASSWORD': 'django_adt',
     }
 }
+
+EMAIL_HOST = '127.0.0.1'
+EMAIL_PORT = 1025
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
@@ -117,3 +123,50 @@ REST_FRAMEWORK = {
 }
 
 JWT_AUTH_HEADER_PREFIX = 'Bearer'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'formatters': {
+        'standard': {
+            'format': "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+            'datefmt': "%d/%b/%Y %H:%M:%S"
+        },
+    },
+    'handlers': {
+        'null': {
+            'level': 'INFO',
+            'class': 'django.utils.log.NullHandler',
+        },
+        'logfile': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(BASE_DIR, "logfile.log"),
+            'maxBytes': 1024*1024*10,
+            'backupCount': 2,
+            'formatter': 'standard',
+        },
+        'console':{
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'standard'
+        },
+    },
+    'loggers': {
+        '': {
+            'handlers': ['console', ],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'django': {
+            'handlers': ['console', ],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'django.db.backends': {
+            'handlers': ['console', ],
+            'level': 'INFO',
+            'propagate': False,
+        },
+    }
+}

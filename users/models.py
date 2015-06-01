@@ -1,9 +1,13 @@
+import uuid
+from django.conf import settings
+
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from django_extensions.db.fields import AutoSlugField
-
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.utils import timezone
+
+from templated_email import send_templated_mail
 
 class UserManager(BaseUserManager):
 
@@ -60,7 +64,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     avatar = models.ImageField(upload_to=user_image_path)
 
     email_key_expires = models.DateTimeField(blank=True, null=True)
-    key = models.CharField(max_length=40, unique=True, blank=True, null=True)
+    key = models.CharField(max_length=32, unique=True, blank=True, null=True)
 
     # External UIDS
     ts_uid = models.CharField(max_length=50, blank=True, null=True)  # tJL8iDNxG+1yeU5MQG61HnkC4nE=
@@ -87,6 +91,28 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __unicode__(self):
         return u'%s' % self.display_name
+
+    def generate_email_key(self):
+        return uuid.uuid4().hex
+
+    def send_verification_email(self):
+        self.key = self.generate_email_key()
+        self.email_key_expires = timezone.now() + timezone.timedelta(days=7)
+
+        self.save()
+
+        # TODO: send templated email
+
+        context = {
+            'user': self,
+            'SITE_URL': settings.SITE_URL,
+        }
+
+        send_templated_mail(template_name='verification',
+                            from_email='no-reply@addictguild.com',
+                            recipient_list=[self.email],
+                            context=context,)
+
 
 
 def rank_image_path(instance, filename):

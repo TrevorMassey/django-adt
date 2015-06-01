@@ -33,6 +33,8 @@ router.register(r'news', NewsViewSet)
 urlpatterns += patterns('',
     url(r'^api/', include(router.urls)),
     url(r'^api-token-auth/', 'rest_framework_jwt.views.obtain_jwt_token'),
+
+    url(r'^verify/(?P<key>[A-Za-z0-9]{32})/$', 'users.views.verify_email', name='verify_email'),
 )
 
 if settings.DEBUG:
