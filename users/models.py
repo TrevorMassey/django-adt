@@ -60,7 +60,7 @@ class User(AbstractBaseUser, PermissionsMixin):
                                                 'active. Unselect this instead of deleting accounts.'))
     email_verified = models.BooleanField(default=False)
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
-    rank = models.OneToOneField('users.Rank', null=True, blank=True)
+
     avatar = models.ImageField(upload_to=user_image_path)
 
     email_key_expires = models.DateTimeField(blank=True, null=True)
@@ -117,17 +117,18 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 def rank_image_path(instance, filename):
     path, ext = filename.split('.')
-    return 'images/ranks/{filename}.{ext}'.format(filename=instance.number, ext=ext)
+    return 'images/ranks/{filename}.{ext}'.format(filename=instance.title, ext=ext)
 
 class Rank(models.Model):
 
     # Fields
     title = models.CharField(max_length=30)
     slug = AutoSlugField(populate_from='title', blank=True, unique=True)
-    number = models.IntegerField()
+    order = models.IntegerField(unique=True)
     image = models.ImageField(upload_to=rank_image_path)
     description = models.TextField()
     color = models.CharField(max_length=6)
+    users = models.ForeignKey('users.User', related_name='rank', blank=True, null=True)
 
     class Meta:
         ordering = ('-id',)

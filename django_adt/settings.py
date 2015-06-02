@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from django.conf import global_settings
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 SITE_URL = 'http://10.10.10.10:8000'
@@ -42,6 +43,9 @@ INSTALLED_APPS = (
     'rest_framework',
     'debug_toolbar',
     'django_extensions',
+    'fsm_admin',
+
+
     'mptt',
 
     'accounting',
@@ -172,3 +176,7 @@ LOGGING = {
         },
     }
 }
+
+TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
+    'django.core.context_processors.request',
+)

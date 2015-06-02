@@ -5,4 +5,4 @@ from users.models import Rank
 class RankSerializer(serializers.ModelSerializer):
     class Meta:
         model = Rank
-        fields = ('title', 'number', 'image', 'description', 'color')
+        fields = ('title', 'order', 'image', 'description', 'color')
