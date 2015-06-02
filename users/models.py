@@ -60,8 +60,8 @@ class User(AbstractBaseUser, PermissionsMixin):
                                                 'active. Unselect this instead of deleting accounts.'))
     email_verified = models.BooleanField(default=False)
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
-
-    avatar = models.ImageField(upload_to=user_image_path)
+    rank = models.ForeignKey('users.Rank', related_name='users', blank=True, null=True)
+    avatar = models.ImageField(upload_to=user_image_path, blank=True, null=True)
 
     email_key_expires = models.DateTimeField(blank=True, null=True)
     key = models.CharField(max_length=32, unique=True, blank=True, null=True)
@@ -128,7 +128,6 @@ class Rank(models.Model):
     image = models.ImageField(upload_to=rank_image_path)
     description = models.TextField()
     color = models.CharField(max_length=6)
-    users = models.ForeignKey('users.User', related_name='rank', blank=True, null=True)
 
     class Meta:
         ordering = ('-id',)
