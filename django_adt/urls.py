@@ -39,6 +39,9 @@ urlpatterns += patterns('',
     url(r'^api/codex/$', 'publications.api.codex_list', name='codex_list'),
     url(r'^api/codex/(?P<pk>\d+)/$', 'publications.api.codex_detail', name='codex_detail'),
 
+    url(r'^api/users/register/$', 'users.api.user_registration', name='user_registration'),
+    url(r'^api/users/profile/$', 'users.api.user_profile', name='user_profile'),
+
     url(r'^verify/(?P<key>[A-Za-z0-9]{32})/$', 'users.views.verify_email', name='verify_email'),
 )
 
