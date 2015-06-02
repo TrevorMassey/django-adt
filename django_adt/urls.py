@@ -11,7 +11,7 @@ from django.conf import settings
 
 urlpatterns = patterns('',
     # Examples:
-    # url(r'^$', 'django_adt.views.home', name='home'),
+    url(r'^$', 'frontend.views.spa', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
