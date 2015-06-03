@@ -1,0 +1,64 @@
+/*
+ * News
+ *
+ */
+.news-post {
+  font-size: 13px;
+  margin-bottom: 10px;
+  position: relative;
+  .box-shadow(0 0 40px rgba(0, 0, 0, 0.5));
+  .transition(color 0.2s);
+
+  .news-title {
+    cursor: pointer;
+    width: 100%;
+    position: absolute;
+    font-family: 'proxima_novasemibold';
+    font-size: 72px;
+    text-align: center;
+    text-transform: uppercase;
+    margin-top: 100px;
+    text-shadow: 0 0 10px rgba(0,0,0,1);
+    .transition(color 0.2s);
+  }
+
+  &:hover .news-title {
+    color: @gray-lighter;
+    .transition(color 0.2s);
+  }
+
+  .news-bar {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    min-height: 50px;
+    background: rgba(0, 0, 0, 0.75);
+    padding: 9px 13px 9px 13px;
+
+    .news-game {
+      line-height: 2;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .news-comments {
+      font-family: 'proxima_novasemibold';
+      line-height: 2;
+      text-align: right;
+    }
+
+    .news-img {
+      margin-right: 5px;
+    }
+
+    .news-muted {
+      display: block;
+      font-family: 'proxima_novalight';
+      color: @gray-dark;
+      line-height: 1;
+    }
+    .news-member {
+      font-size: 15px;
+    }
+  }
+}

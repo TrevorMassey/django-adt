@@ -1,0 +1,19 @@
+<scrollable static class="activity-list">
+    <ul class="media-list">
+        <li class="media animate" data-ng-repeat="activity in activities.data">
+            <div class="media-left">
+                <a href="#">
+                    <avatar member="{{activity.actor.displayName}}" width="32px" height="32px"></avatar>
+                </a>
+            </div>
+            <div class="media-body">
+                <div class="media-heading">
+                    <username>{{activity.actor.displayName}}</username>
+                    <span class="activity-date text-muted">{{activity.verb + 'd at '}}</span>
+                    <timestamp time="activity.createdAt"></timestamp>
+                </div>
+                <p data-ng-bind="activity.object.title"></p>
+            </div>
+        </li>
+    </ul>
+</scrollable>
