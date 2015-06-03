@@ -56,6 +56,7 @@ INSTALLED_APPS = (
     'games',
     'publications',
     'users',
+    'frontend',
 )
 
 MIDDLEWARE_CLASSES = (
