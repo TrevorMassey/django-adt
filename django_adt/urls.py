@@ -42,6 +42,11 @@ urlpatterns += patterns('',
     url(r'^api/users/register/$', 'users.api.user_registration', name='user_registration'),
     url(r'^api/users/profile/$', 'users.api.user_profile', name='user_profile'),
 
+    url(r'api/feed-posts/$', 'activityfeed.api.feed_post_list', name='feed_item_post'),
+
+    url(r'api/feed-items/$', 'activityfeed.api.feed_item_list', name='feed_item_list'),
+    url(r'api/feed-items/(?P<pk>\d+)/$', 'activityfeed.api.feed_item_detail', name='feed_item_detail'),
+
     url(r'^verify/(?P<key>[A-Za-z0-9]{32})/$', 'users.views.verify_email', name='verify_email'),
 )
 

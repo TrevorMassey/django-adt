@@ -1,6 +1,6 @@
 import uuid
 from django.conf import settings
-
+from model_utils import FieldTracker
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from django_extensions.db.fields import AutoSlugField
@@ -61,7 +61,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     email_verified = models.BooleanField(default=False)
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
     rank = models.ForeignKey('users.Rank', related_name='users', blank=True, null=True)
-    avatar = models.ImageField(upload_to=user_image_path, blank=True, null=True)
+    rank_tracker = FieldTracker(fields=['rank'])
+    avatar = models.ImageField(upload_to=user_image_path, blank=True, null=True, )
 
     email_key_expires = models.DateTimeField(blank=True, null=True)
     key = models.CharField(max_length=32, unique=True, blank=True, null=True)

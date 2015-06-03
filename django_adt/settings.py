@@ -45,11 +45,10 @@ INSTALLED_APPS = (
     'debug_toolbar',
     'django_extensions',
     'fsm_admin',
-
-
     'mptt',
 
     'accounting',
+    'activityfeed',
     'applications',
     'awards',
     'dossiers',
@@ -123,7 +122,7 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.DjangoModelPermissions',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        # 'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     ),
 }
@@ -164,6 +163,11 @@ LOGGING = {
     },
     'loggers': {
         '': {
+            'handlers': ['console', ],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'games.signals': {
             'handlers': ['console', ],
             'level': 'INFO',
             'propagate': False,

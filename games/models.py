@@ -12,6 +12,7 @@ class Chapter(models.Model):
     # Relationship Fields
     members = models.ManyToManyField('users.User', blank=True)
     game = models.ForeignKey('games.Game',)
+    creator = models.ForeignKey('users.User', related_name='+')
 
     class Meta:
         ordering = ('-id',)
@@ -32,4 +33,3 @@ class Game(models.Model):
 
     def __unicode__(self):
         return u'%s' % self.title
-

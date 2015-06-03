@@ -38,3 +38,17 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
     def get_user_permissions(self, obj):
         return [perm for perm in obj.get_all_permissions()]
+
+
+class BasicUserSerializer(serializers.ModelSerializer):
+
+    rank = RankSerializer(read_only=True)
+
+    class Meta:
+        model = User
+        fields = (
+            'display_name',
+            'avatar',
+            'rank',
+            'id',
+        )
