@@ -1,0 +1,246 @@
+/*
+ * Main CSS rules
+ *
+ */
+
+body {
+  text-rendering: geometricPrecision;
+  padding-top: 110px;
+  margin: 0;
+}
+
+textarea:hover,
+input:hover,
+textarea:active,
+input:active,
+textarea:focus,
+input:focus,
+button:focus,
+button:active,
+button:hover
+{
+  outline:0px !important;
+  -webkit-appearance: none;
+}
+
+h1 {
+  background-color: rgba(0, 0, 0, 0.65);
+  color: @gray-lighter;
+  display: inline-block;
+  margin-top: 0;
+  padding: 10px 15px 10px 15px;
+  text-transform: uppercase;
+  .box-shadow(0 0 40px rgba(0, 0, 0, 0.5));
+  .transition(color 0.2s);
+  &:hover {
+    color: #fff;
+    .transition(color 0.2s);
+  }
+}
+
+h2,h3,h4,h5,h6 {
+  margin: 0;
+}
+
+h2,h3,h3,h5 {
+  font-family: 'proximanova-semiboldbook';
+}
+h5 {
+  display: inline;
+}
+
+h2,h3,h4,h5,h6 {
+  .transition(color 0.2s);
+  &:hover {
+    color: @gray-lighter;
+    .transition(color 0.2s);
+  }
+}
+
+a {
+  transition: color 0.2s, text-shadow 0.2s;
+  &:hover {
+    color: @gray-lighter;
+    text-decoration: none;
+    text-shadow: 0 0 3px @brand-primary;
+    transition: color 0.2s, text-shadow 0.2s;
+  }
+  &:focus,
+  .active {
+    color: @brand-primary;
+    text-decoration:none;
+    transition: color 0.2s, text-shadow 0.2s;
+  }
+}
+
+input {
+  color: @gray-light;
+  .transition(color 0.2s);
+  &:hover,
+  &:focus {
+    color: @gray-lighter;
+    .transition(color 0.2s);
+  }
+}
+
+hr {
+  border-top: 1px solid @adt-border;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.text-muted {
+  color: @gray;
+  .transition(color 0.2s);
+  &:hover {
+    color: @gray-light;
+    .transition(color 0.2s);
+  }
+}
+
+.nowrap {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-bottom: 1px;
+}
+.adt-username {
+  font-family: 'proximanova-semiboldbook';
+  font-size: 15px;
+}
+.timestamp {
+  cursor: help;
+}
+
+/* Panels */
+
+.panel {
+  border: 0;
+  margin-bottom: 10px;
+  .box-shadow(none);
+  .transition(color 0.2s);
+  &:hover {
+    .transition(color 0.2s);
+  }
+}
+
+.panel-adt {
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.7);
+  margin-bottom: 1px;
+  padding: 15px;
+  transition: color 0.2s, background-color 0.2s;
+  .box-shadow(0 0 40px rgba(0, 0, 0, 0.5));
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+    transition: color 0.2s, background-color 0.2s;
+  }
+}
+
+/*
+ * Breadcrumbs
+ *
+ */
+.breadcrumb {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  line-height: 1.0;
+  font-family: 'proxima_novalight';
+  font-size: 16px;
+  margin: 0 0 10px 0;
+  padding: 15px;
+  padding-bottom: 9px;
+  text-transform: uppercase;
+  .transition(background-color 0.2s);
+  .box-shadow(0 0 40px rgba(0, 0, 0, 0.5));
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.6) !important;
+    .transition(background-color 0.2s);
+  }
+}
+
+/*
+ * Buttons
+ *
+ */
+
+
+.btn-default {
+  background-color: @adt-bgo;
+  transition: text-shadow 0.2s, color 0.2s, background-color 0.2s, border-color 0.2s;
+  .box-shadow(0 0 40px rgba(0, 0, 0, 0.5));
+  &:hover {
+    color: @gray-lighter;
+    text-shadow: 0 0 3px @brand-primary;
+    background-color: lighten(@adt-bgo, 1%);
+    border-color: lighten(@adt-border, 2%);
+    transition: text-shadow 0.2s, color 0.2s, background-color 0.2s, border-color 0.2s;
+  }
+}
+.btn-primary {
+  background-color: @adt-bgo;
+  transition: text-shadow 0.2s, color 0.2s, background-color 0.2s, border-color 0.2s;
+  .box-shadow(0 0 40px rgba(0, 0, 0, 0.5));
+  &:hover {
+    color: @gray-lighter;
+    text-shadow: 0 0 3px @brand-primary;
+    background-color: lighten(@adt-bgo, 1%);
+    border-color: lighten(@brand-primary, 1%);
+    transition: text-shadow 0.2s, color 0.2s, background-color 0.2s, border-color 0.2s;
+  }
+}
+
+.btn-success {
+  background-color: @adt-bgo;
+  transition: text-shadow 0.2s, color 0.2s, background-color 0.2s, border-color 0.2s;
+  .box-shadow(0 0 40px rgba(0, 0, 0, 0.5));
+  &:hover {
+    color: @gray-lighter;
+    text-shadow: 0 0 3px @brand-primary;
+    background-color: lighten(@adt-bgo, 1%);
+    border-color: lighten(@brand-success, 1%);
+    transition: text-shadow 0.2s, color 0.2s, background-color 0.2s, border-color 0.2s;
+  }
+}
+
+.btn-info {
+  background-color: @adt-bgo;
+  transition: text-shadow 0.2s, color 0.2s, background-color 0.2s, border-color 0.2s;
+  .box-shadow(0 0 40px rgba(0, 0, 0, 0.5));
+  &:hover {
+    color: @gray-lighter;
+    text-shadow: 0 0 3px @brand-primary;
+    background-color: lighten(@adt-bgo, 1%);
+    border-color: lighten(@brand-info, 1%);
+    transition: text-shadow 0.2s, color 0.2s, background-color 0.2s, border-color 0.2s;
+  }
+}
+
+.btn-warning {
+  background-color: @adt-bgo;
+  transition: text-shadow 0.2s, color 0.2s, background-color 0.2s, border-color 0.2s;
+  .box-shadow(0 0 40px rgba(0, 0, 0, 0.5));
+  &:hover {
+    color: @gray-lighter;
+    text-shadow: 0 0 3px @brand-primary;
+    background-color: lighten(@adt-bgo, 1%);
+    border-color: lighten(@brand-warning, 1%);
+    transition: text-shadow 0.2s, color 0.2s, background-color 0.2s, border-color 0.2s;
+  }
+}
+
+.btn-danger {
+  background-color: @adt-bgo;
+  transition: text-shadow 0.2s, color 0.2s, background-color 0.2s, border-color 0.2s;
+  .box-shadow(0 0 40px rgba(0, 0, 0, 0.5));
+  &:hover {
+    color: @gray-lighter;
+    text-shadow: 0 0 3px @brand-primary;
+    background-color: lighten(@adt-bgo, 1%);
+    border-color: lighten(@brand-danger, 1%);
+    transition: text-shadow 0.2s, color 0.2s, background-color 0.2s, border-color 0.2s;
+  }
+}
+
+.nano > .nano-content:focus {
+  outline: none;
+}

@@ -1,0 +1,19 @@
+<scrollable static>
+    <ul class="list-group">
+        <li ng-repeat="user in vm.users.data | filter: search"
+            class="users-list-group-item animate"
+            data-trigger="hover"
+            data-animation="am-fade"
+            data-content="User Stats"
+            data-auto-close="1"
+            data-container="body"
+            ng-show="user.signedIn"
+            bs-popover>
+            <div class="pull-left">
+                <avatar member="{{user.username}}" width="25px" height="25px"></avatar>
+            </div>
+            <span class="users-list-user"><username>{{user.displayName}}</username></span>
+        </li>
+    </ul>
+</scrollable>
+

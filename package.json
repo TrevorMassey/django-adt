@@ -1,0 +1,48 @@
+{
+  "name": "django-adt",
+  "version": "0.0.0",
+  "description": "Frontend of django-adt App",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AddictGuild/django-adt.git"
+  },
+  "author": "unkleara",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AddictGuild/django-adt/issues"
+  },
+  "homepage": "https://github.com/AddictGuild/django-adt",
+  "dependencies": {
+    "bootstrap": "^3.3.4",
+    "angular": "^1.4.0",
+    "angular-ui-router": "^0.2.15",
+    "satellizer": "^0.10.1",
+    "angular-strap": "^2.2.4",
+    "rx": "^2.5.3",
+    "rx-angular": "0.0.14",
+    "angular-breadcrumb": "^0.4.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "node-libs-browser": "^0.5.2",
+    "webpack": "^1.9.10",
+    "gulp-webpack": "^1.4.0",
+    "vinyl-source-stream": "^1.1.0",
+    "gulp-load-plugins": "^0.10.0",
+    "gulp-concat-util": "^0.5.2",
+    "less": "^2.5.1",
+    "less-loader": "^2.2.0",
+    "style-loader": "^0.12.3",
+    "file-loader": "^0.8.4",
+    "css-loader": "^0.14.4",
+    "url-loader": "^0.5.6",
+    "extract-text-webpack-plugin": "^0.8.1",
+    "gulp-angular-templatecache": "^1.6.0",
+    "path": "^0.11.14"
+  }
+}

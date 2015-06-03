@@ -1,0 +1,36 @@
+
+
+.activity-list {
+  line-height: 1.25;
+  .transition(background-color 0.2s);
+  .activity-date {
+    color: @gray-dark;
+    font-size: 13px;
+  }
+
+  p {
+    margin: 0;
+    .transition(color 0.2s);
+  }
+
+  .media {
+    padding: 5px 10px 5px 10px;
+    margin-top: 0;
+  }
+  .media-heading {
+    margin-bottom: 2px;
+  }
+
+  .media:hover {
+    background: rgba(0,0,0,0.7);
+    .transition(background-color 0.2s);
+    p {
+      color: @gray-lighter;
+      .transition(color 0.2s);
+    }
+  }
+
+  .media-left {
+    padding-right: 5px;
+  }
+}

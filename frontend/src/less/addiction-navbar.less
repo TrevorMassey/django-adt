@@ -1,0 +1,78 @@
+/*
+ * Header
+ *
+ */
+
+/*
+* Navbar
+*
+*/
+.navbar {
+  border: 0;
+  .box-shadow(none);
+}
+
+.navbar-adt {
+  font-family: 'proxima_novasemibold';
+  .navbar-nav {
+    text-transform: uppercase;
+    @media (min-width: @screen-sm-min) {
+      font-size: 18px;
+    }
+    @media (min-width: @screen-md-min) {
+      font-size: 24px;
+    }
+  }
+  q .navbar-avatar {
+    padding: 4px;
+  }
+  .navbar-subnav {
+    font-family: 'proxima_novaregular';
+    font-size: 18px;
+    text-transform: uppercase;
+    height: 49px;
+    padding: 0 5px 0 5px;
+    > li {
+      border-right: 1px solid @dropdown-divider-bg;
+      &:first-child {
+        border-left: 1px solid @dropdown-divider-bg;
+      }
+      > a {
+        padding: 15px;
+      }
+    }
+  }
+  .navbar-icon {
+    padding-right: 5px;
+    > li > a {
+      padding: 15px;
+    }
+    i {
+      font-size: 20px;
+    }
+  }
+  .navbar-divider {
+    height: 0;
+    margin: 0;
+  }
+}
+.navbar-nav > li > a {
+  padding-left: 0;
+  padding-right: 20px;
+  height: 50px;
+}
+.navbar-right .dropdown-menu {
+  right: inherit;
+}
+.navbar-brand {
+  @media (min-width: @screen-md-min) {
+    font-size: 24px;
+  }
+  text-transform: uppercase;
+  padding: 15px 20px 15px 0px;
+}
+.navbar-user {
+  font-family: 'proxima_novalight';
+  font-size: 16px;
+  text-transform: capitalize;
+}

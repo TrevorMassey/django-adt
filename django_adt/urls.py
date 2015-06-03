@@ -11,7 +11,7 @@ from django.conf import settings
 
 urlpatterns = patterns('',
     # Examples:
-    url(r'^$', 'frontend.views.spa', name='home'),
+    url(r'^$', 'frontend.views.index', name='index'),
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
@@ -56,3 +56,8 @@ if settings.DEBUG:
         url(r'^__debug__/', include(debug_toolbar.urls)),
     )
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+urlpatterns = patterns('',
+                       url(r'^.*$', 'frontend.views.index', name='catchall')
+                       )
