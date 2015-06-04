@@ -35,11 +35,6 @@
             e.stopPropagation();
         }
 
-        $scope.setLocation = function (viewLocation) {
-            console.log(viewLocation);
-            $scope.navLocation = viewLocation;
-        };
-
         $scope.isActive = function (viewLocation) {
             return $scope.navLocation === viewLocation;
         }

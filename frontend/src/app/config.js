@@ -5,21 +5,20 @@ var ApplicationConfiguration = (function() {
 	// Init module configuration options
 	var applicationModuleName = 'app';
 	var applicationModuleVendorDependencies = [
-		//'ngResource',
-        //'ngMessages',
-		//'ngAnimate',
+		'ngResource',
+        'ngMessages',
+		'ngAnimate',
         'templates',
         'ui.router',
 		'satellizer',
 		'ui.bootstrap',
 		'mgcrea.ngStrap',
-
         'rx',
-		//'angularMoment',
+		'angularMoment',
 		//'sun.scrollable',
 		'ncy-angular-breadcrumb',
-		//'angular-loading-bar',
-		//'restangular',
+		'angular-loading-bar',
+		'restangular',
 		//'ui.tree',
 		'ngFitText'
 	];

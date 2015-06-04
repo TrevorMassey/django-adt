@@ -1,23 +1,18 @@
 /* Side Panels */
 
-#leftPanel {
-  //vertical-align: middle;
-  float: left;
-}
-
-#rightPanel {
-  //vertical-align: middle;
-  float: right;
-}
+//variables available from addiction-variables.less
+//@leftPanelWidth
+//@rightPanelWidth
 
 .sidePanelHeader {
   max-width: 200px;
-  padding-top: 10px;
+  padding-top: 13px;
   h4 {
     cursor: pointer;
     white-space: nowrap;
     font-size: 24px;
-    @media (min-width: @screen-sm-min) {
+    text-transform: uppercase;
+    @media (max-width: @screen-sm-min) {
       font-size: 18px;
     }
 
@@ -28,6 +23,17 @@
   .form-control {
     background-color: white;
   }
+}
+
+#leftPanel {
+  vertical-align: middle;
+  float: left;
+  min-width: 200px;
+}
+
+#rightPanel {
+  //vertical-align: middle;
+  float: right;
 }
 
 .border-box {
@@ -42,45 +48,46 @@ side-panel {
 side-panel > div {
   position: fixed;
   z-index: 2;
-  top: 117px;
+  top: 110px;
   width: 200px;
   height: 100%;
   background: rgba(0,0,0,0.7);
   box-sizing: border-box;
   -moz-box-sizing: border-box;
-  -webkit-transition: -webkit-transform ease 250ms;
-  -moz-transition: -webkit-transform ease 250ms;
-  -ms-transition: -webkit-transform ease 250ms;
-  -o-transition: -webkit-transform ease 250ms;
-  transition: -webkit-transform ease 250ms;
-  -webkit-transition: transform ease 250ms;
-  -moz-transition: transform ease 250ms;
-  -ms-transition: transform ease 250ms;
-  -o-transition: transform ease 250ms;
-  transition: transform ease 250ms;
+  -webkit-transition: -webkit-transform ease @leftPanelWidth ms;
+  -moz-transition: -webkit-transform ease @leftPanelWidth ms;
+  -ms-transition: -webkit-transform ease @leftPanelWidth ms;
+  -o-transition: -webkit-transform ease @leftPanelWidth ms;
+  transition: -webkit-transform ease @leftPanelWidth ms;
+  -webkit-transition: transform ease @leftPanelWidth ms;
+  -moz-transition: transform ease @leftPanelWidth ms;
+  -ms-transition: transform ease @leftPanelWidth ms;
+  -o-transition: transform ease @leftPanelWidth ms;
+  transition: transform ease @leftPanelWidth ms;
 }
 side-panel > div.left {
+  width: @leftPanelWidth;
   background-color: rgba(0, 0, 0, 0.65);
-  left: -250px;
+  left: -@leftPanelWidth;
 }
 side-panel > div.show.left {
-  transform: translate3d(250px, 0, 0);
-  -ms-transform: translate3d(250px, 0, 0);
-  -webkit-transform: translate3d(250px, 0, 0);
-  -o-transform: translate3d(250px, 0, 0);
-  -moz-transform: translate3d(250px, 0, 0);
+  transform: translate3d(@leftPanelWidth, 0, 0);
+  -ms-transform: translate3d(@leftPanelWidth, 0, 0);
+  -webkit-transform: translate3d(@leftPanelWidth, 0, 0);
+  -o-transform: translate3d(@leftPanelWidth, 0, 0);
+  -moz-transform: translate3d(@leftPanelWidth, 0, 0);
 }
 side-panel > div.right {
-  width: 300px;
+  width: @rightPanelWidth;
   background-color: rgba(0, 0, 0, 0.65);
-  right: -340px;
+  right: -@rightPanelWidth;
 }
 side-panel > div.show.right {
-  transform: translate3d(-340px, 0, 0);
-  -ms-transform: translate3d(-340px, 0, 0);
-  -webkit-transform: translate3d(-340px, 0, 0);
-  -o-transform: translate3d(-340px, 0, 0);
-  -moz-transform: translate3d(-340px, 0, 0);
+  transform: translate3d(-@rightPanelWidth, 0, 0);
+  -ms-transform: translate3d(-@rightPanelWidth, 0, 0);
+  -webkit-transform: translate3d(-@rightPanelWidth, 0, 0);
+  -o-transform: translate3d(-@rightPanelWidth, 0, 0);
+  -moz-transform: translate3d(-@rightPanelWidth, 0, 0);
 }
 side-panel > div > side-panel-item {
   display: block;
@@ -103,3 +110,4 @@ side-panel > div > side-panel-item > div > span {
   float: left;
   color: inherit;
 }
+

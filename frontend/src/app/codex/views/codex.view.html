@@ -1,0 +1,22 @@
+<script type="text/ng-template" id="nodes_renderer.html">
+    <div class="codex">
+        <i class="pull-left codex-icon" ng-class="(node.file) ? 'glyphicon glyphicon-file' : 'glyphicon glyphicon-folder-open'"></i>
+        <h3 ng-if="(!node.file)" class="codex-folder">{{node.title}}</h3>
+        <span class="codex-file" ng-if="(node.file)">{{node.title}}</span>
+    </div>
+    <ol ui-tree-nodes="" ng-model="node.children">
+        <li ng-repeat="node in node.children" ui-tree-node ng-include="'nodes_renderer.html'">
+        </li>
+    </ol>
+
+</script>
+<h1>Codex</h1>
+<div class="panel">
+    <div class="panel-adt">
+        <div ui-tree data-drag-enabled="false">
+            <ol ui-tree-nodes="" ng-model="vm.codex" id="tree-root">
+                <li ng-repeat="node in vm.codex" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+            </ol>
+        </div>
+    </div>
+</div>

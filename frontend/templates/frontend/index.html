@@ -25,6 +25,7 @@
             <div class="col-sm-2">
                 <left-panel-header></left-panel-header>
             </div>
+
             <div class="col-xs-12 col-sm-8" data-fittext data-fittext-min="18" data-fittext-max="26">
                 <nav-bar class="navbar-adt" bs-navbar></nav-bar>
 
@@ -38,23 +39,20 @@
 
 
 
-<div class="col-sm-3 col-md-2">
-    <side-panel visible="leftVisible" alignment="left">
-        <online-user-list></online-user-list>
-    </side-panel>
-</div>
 
+<side-panel visible="leftVisible" alignment="left" class="hidden-xs">
+    <online-user-list></online-user-list>
+</side-panel>
 
-<main id="content">
+<main id="main" ng-class="{'hidden-left': !leftVisible, 'hidden-right': !rightVisible  }">
     <div ncy-breadcrumb></div>
-    <section class="fadeZoom col-sm-8 col-md-push-2" ui-view></section>
+    <div ui-view></div>
 </main>
 
-<div class="col-sm-3 col-md-2">
-    <side-panel visible="rightVisible" alignment="right" class="hidden-xs">
-        <activity-list></activity-list>
-    </side-panel>
-</div>
+
+<side-panel visible="rightVisible" alignment="right" class="hidden-xs">
+    <activity-list></activity-list>
+</side-panel>
 
 
 

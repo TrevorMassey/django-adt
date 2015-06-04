@@ -516,21 +516,20 @@ var ApplicationConfiguration = (function() {
 	// Init module configuration options
 	var applicationModuleName = 'app';
 	var applicationModuleVendorDependencies = [
-		//'ngResource',
-        //'ngMessages',
-		//'ngAnimate',
+		'ngResource',
+        'ngMessages',
+		'ngAnimate',
         'templates',
         'ui.router',
 		'satellizer',
 		'ui.bootstrap',
 		'mgcrea.ngStrap',
-
         'rx',
-		//'angularMoment',
+		'angularMoment',
 		//'sun.scrollable',
 		'ncy-angular-breadcrumb',
-		//'angular-loading-bar',
-		//'restangular',
+		'angular-loading-bar',
+		'restangular',
 		//'ui.tree',
 		'ngFitText'
 	];
@@ -587,6 +586,18 @@ var ApplicationConfiguration = (function() {
     ApplicationConfiguration.registerModule('auth');
 
 }());
+(function() {
+    'use strict';
+
+    // Use Applicaion configuration module to register a new module
+    ApplicationConfiguration.registerModule('codex');
+
+}());
+'use strict';
+
+// Use Applicaion configuration module to register a new module
+ApplicationConfiguration.registerModule('common');
+
 (function() {
     'use strict';
 
@@ -763,6 +774,38 @@ var ApplicationConfiguration = (function() {
 (function() {
     'use strict';
 
+    angular.module('codex').controller('CodexCtrl', [
+        '$scope', 'Restangular',
+        function($scope, Restangular) {
+            var vm = this;
+            vm.codex = {};
+            Restangular.all('codex-tree').getList().then(function(codex) {
+                vm.codex = codex;
+            });
+        }]);
+}());
+
+(function() {
+    'use strict';
+
+    angular.module('codex')
+        .config(['$locationProvider', '$stateProvider', '$urlRouterProvider', '$authProvider',
+        function ($locationProvider, $stateProvider, $urlRouterProvider, $authProvider) {
+            $stateProvider
+                .state('codex', {
+                    url: '/codex',
+                    templateUrl: '/codex.view.html',
+                    controller: 'CodexCtrl as vm',
+                    ncyBreadcrumb: {
+                        label: 'Codex'
+                    }
+                })
+
+        }]);
+}());
+(function() {
+    'use strict';
+
     var API_URL = 'http://localhost:1337';
 
     var config = {
@@ -813,11 +856,6 @@ var ApplicationConfiguration = (function() {
             $scope.rightVisible = !$scope.rightVisible;
             e.stopPropagation();
         }
-
-        $scope.setLocation = function (viewLocation) {
-            console.log(viewLocation);
-            $scope.navLocation = viewLocation;
-        };
 
         $scope.isActive = function (viewLocation) {
             return $scope.navLocation === viewLocation;
@@ -1062,6 +1100,23 @@ angular.module('auth')
     };
   });
 (function() {
+    'use strict';
+
+    angular.module('common').directive('avatar', [
+        'config',
+        function(config) {
+            return {
+                restrict: 'E',
+                template: '<img ng-src="https://placeimg.com/50/50/people" />',
+                replace: true,
+                link: function postLink(scope, element, attrs) {
+
+                }
+            };
+        }
+    ]);
+}());
+(function() {
   'use strict';
 
   var module = angular.module('core');
@@ -1093,6 +1148,41 @@ angular.module('auth')
 
 }());
 
+(function() {
+    'use strict';
+
+    angular.module('common').directive('timestamp', ['$filter',
+        function() {
+            return {
+                restrict: 'E',
+                templateUrl: '/timestamp.view.html',
+                scope: {
+                    stamp: '=time'
+                },
+                controller: function($scope, $filter) {
+                    var fullStamp = $filter('amDateFormat')($scope.stamp,'dddd, MMMM Do YYYY, h:mm a');
+                    $scope.tooltip = {
+                        "title": fullStamp
+                    };
+
+                }
+            };
+        }
+    ]);
+}());
+(function() {
+    'use strict';
+
+    angular.module('common').directive('username', [
+        function() {
+            return {
+                restrict: 'E',
+                templateUrl: '/username.view.html',
+                transclude: true
+            };
+        }
+    ]);
+}());
 (function() {
     'use strict';
 

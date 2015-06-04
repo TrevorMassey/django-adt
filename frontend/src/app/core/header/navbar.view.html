@@ -2,7 +2,7 @@
 
 <!-- Title -->
 <div class="pull-left">
-    <a href="/" class="navbar-brand" ng-click="setLocation('/')" data-ui-sref="home">Addiction</a>
+    <a href="/" class="navbar-brand" data-ui-sref="home">Addiction</a>
 </div>
 
 
@@ -10,10 +10,10 @@
 <div class="collapse navbar-collapse navbar-left" collapse="!isCollapsed" role="navigation">
     <!--  pull-right keeps the drop-down in line -->
     <ul class="nav navbar-nav nav-pills pull-right">
-        <li data-ui-sref-active="active"><a ng-click="setLocation('/forum')" data-ui-sref="forum" href="/forum">Forum</a></li>
-        <li data-ui-sref-active="active"><a ng-click="setLocation('/media')" data-ui-sref="media" href="/media">Media</a></li>
-        <li data-ui-sref-active="active"><a ng-click="setLocation('/codex')" data-ui-sref="codex" href="/codex">Codex</a></li>
-        <li data-ui-sref-active="active"><a ng-click="setLocation('/about')" data-ui-sref="about" href="/about">About</a></li>
+        <li data-ui-sref-active="active"><a data-ui-sref="forum" href="/forum">Forum</a></li>
+        <li data-ui-sref-active="active"><a data-ui-sref="media" href="/media">Media</a></li>
+        <li data-ui-sref-active="active"><a data-ui-sref="codex" href="/codex">Codex</a></li>
+        <li data-ui-sref-active="active"><a data-ui-sref="about" href="/about">About</a></li>
     </ul>
 </div>
 
@@ -29,8 +29,8 @@
     </button>
 
     <ul class="nav navbar-nav nav-pills pull-lef">
-        <li data-ui-sref-active="active"><a data-ui-sref="authentication.signin" target="_self">Sign In</a></li>
-        <li data-ui-sref-active="active"><a href="/signin" target="_self">Sign up</a></li>
+        <li data-ui-sref-active="active"><a data-ui-sref="signin">Sign In</a></li>
+        <li data-ui-sref-active="active"><a data-ui-sref="signup">Sign up</a></li>
     </ul>
 
     <ul class="nav pull-left" ng-if="isAuthenticated()">
@@ -44,6 +44,7 @@
                 <avatar member="{{session.currentUser.username}}" style="width: 45px; height: 45px;"></avatar>
                 <span data-ng-bind="session.currentUser.displayName"></span> <b class="caret"></b>
             </a>
+
             <ul class="dropdown-menu" role="navigation">
                 <li data-ui-sref-active="active">
                     <a data-ui-sref="settings.profile">Edit Profile</a>
