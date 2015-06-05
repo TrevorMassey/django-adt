@@ -64,7 +64,7 @@ class ChapterRole(models.Model):
     role = models.CharField(max_length=255, blank=True, null=True)
 
     # Relationship Fields
-    division = models.ForeignKey('games.ChapterDivision')
+    division = models.ForeignKey('games.ChapterDivision', related_name='members')
     member = models.ForeignKey('users.User', related_name='role')
 
     class Meta:

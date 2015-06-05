@@ -2,7 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
 from django.contrib import admin
 from rest_framework.routers import DefaultRouter
-from games.api import GameViewSet, ChapterViewSet
+from games.api import GameViewSet, ChapterViewSet, ChapterMemberViewSet, ChapterRoleViewSet
 from awards.api import AwardViewSet, AwardCategoryViewSet, AwardRecipientViewSet, AwardImageViewSet
 from users.api import RankViewSet
 from publications.api import ArticleViewSet, NewsViewSet
@@ -21,6 +21,8 @@ router = DefaultRouter()
 
 router.register(r'games', GameViewSet)
 router.register(r'chapters', ChapterViewSet)
+router.register(r'chapter-members', ChapterMemberViewSet)
+router.register(r'chapter-roles', ChapterRoleViewSet)
 router.register(r'awards', AwardViewSet)
 router.register(r'awards-categories', AwardCategoryViewSet)
 router.register(r'awards-recipients', AwardRecipientViewSet)
@@ -38,6 +40,9 @@ urlpatterns += patterns('',
     url(r'^api/awards-summary/$', 'awards.api.awards_summary', name='awards_summary'),
     url(r'^api/codex/$', 'publications.api.codex_list', name='codex_list'),
     url(r'^api/codex/(?P<pk>\d+)/$', 'publications.api.codex_detail', name='codex_detail'),
+
+    url(r'^api/chapter-divisions/$', 'games.api.chapter_division_list', name='chapter_division_list'),
+    url(r'^api/chapter-divisions/(?P<pk>\d+)/$', 'games.api.chapter_division_detail', name='chapter_division_detail'),
 
     url(r'^api/users/register/$', 'users.api.user_registration', name='user_registration'),
     url(r'^api/users/profile/$', 'users.api.user_profile', name='user_profile'),
