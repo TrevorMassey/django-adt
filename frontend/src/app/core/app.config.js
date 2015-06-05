@@ -7,10 +7,12 @@
         API_URL: API_URL
     };
 
-    angular.module('core').value('config', config);
+    angular.module('core')
+        .value('config', config);
 
-    //angular.module('core').config(function(RestangularProvider) {
-    //    RestangularProvider.setBaseUrl('/api/');
-    //})
+    angular.module('core')
+        .config(function(RestangularProvider) {
+        RestangularProvider.setBaseUrl('/api/');
+    });
 
 }());

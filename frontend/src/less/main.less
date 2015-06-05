@@ -1,8 +1,10 @@
+body {
+  background-image: url("../images/bg.jpg") !important;
+}
+
 #header {
   display: block;
-  //height: 100px;
   margin: 0;
-  //padding: 0 13px 0 0;
   background-color: #f3f3f3;
   background-image: -moz-linear-gradient(top,#f3f3f3,#e2e2e2);
   background-image: -webkit-gradient(linear,0 0,0 100%,from(#f3f3f3),to(#e2e2e2));
@@ -14,9 +16,30 @@
   z-index: 905;
 }
 
-#content {
-  margin-top: 25px;
+#main {
+  position: relative;
+  margin-left: ((10px + @leftPanelWidth));
+  margin-right: ((10px + @rightPanelWidth));
+;
+  height: 100%;
+  /* Small devices (tablets, 768px and below) */
+  @media (max-width: @screen-sm-min) {
+    margin-left: 0;
+    margin-right: 0;;
+    padding-right: 5px;
+    padding-left: 5px;
+  }
 }
+
+#main.hidden-left {
+  margin-left: 0;
+}
+
+#main.hidden-right {
+  margin-right: 0;
+  padding-right: 25px;
+}
+
 
 /*********************
 * Animations

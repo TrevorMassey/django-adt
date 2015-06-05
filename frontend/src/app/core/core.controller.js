@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('core').controller('AppCtrl', [
-        '$scope', '$location', 'auth',
-        function($scope, $location, auth) {
+        '$scope', '$location', 'auth', 'toastr',
+        function($scope, $location, auth, toastr) {
 
         $scope.session = { currentUser: {} };
         $scope.site = { title: "Addiction "};
@@ -13,7 +13,7 @@
         $scope.leftVisible = true;
         $scope.rightVisible = true;
         $scope.navLocation = '/' + $location.url().split('/')[1];
-
+            toastr.success('Hello world!', 'Toastr fun!');
         ////$scope.isCollapsed = true;
         //
         //$scope.session.currentUser = auth.currentUser;
@@ -34,11 +34,6 @@
             $scope.rightVisible = !$scope.rightVisible;
             e.stopPropagation();
         }
-
-        $scope.setLocation = function (viewLocation) {
-            console.log(viewLocation);
-            $scope.navLocation = viewLocation;
-        };
 
         $scope.isActive = function (viewLocation) {
             return $scope.navLocation === viewLocation;

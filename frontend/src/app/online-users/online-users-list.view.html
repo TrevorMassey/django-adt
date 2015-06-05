@@ -1,4 +1,4 @@
-<scrollable static>
+<div class="animated slideInLeft">
     <ul class="list-group">
         <li ng-repeat="user in vm.users.data | filter: search"
             class="users-list-group-item animate"
@@ -15,5 +15,4 @@
             <span class="users-list-user"><username>{{user.displayName}}</username></span>
         </li>
     </ul>
-</scrollable>
-
+</div>

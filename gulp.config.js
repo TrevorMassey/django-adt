@@ -4,12 +4,13 @@ module.exports = function() {
     var srcRoot = './frontend/src';
 
     var config = {
+        srcFiles: srcRoot,
         main: srcRoot + '/main.js',
         frontend: {
-            scripts: './frontend/static/scripts'
+            scripts: './frontend/static/scripts',
+            index: './frontend/static/index.html'
         },
         views: {
-            index: srcRoot + '/index.html',
             all: srcRoot + '/app/**/*.html'
         },
         less : [srcRoot + '/less/addiction-theme.less'],
@@ -26,20 +27,7 @@ module.exports = function() {
         ],
         webGLScripts: [
             srcRoot +'/js/*.js',
-            srcRoot + '/js/webgl-shader.frag'],
-
-        //Directories to copy into or inject from into index.html
-        temp: {
-            root: './.tmp',
-            index: './.tmp/index.html',
-            styles: './.tmp/css/',
-            scripts : './.tmp/scripts/',
-            css : ['./.tmp/**/*.css'],
-            fonts : './.tmp/fonts/',
-
-            //inject into index.html
-            ngScripts : ['./.tmp/**/*.js']
-        }
+            srcRoot + '/js/webgl-shader.frag']
     };
 
     return config;
