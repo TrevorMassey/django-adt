@@ -19,17 +19,18 @@
 </head>
 <body ng-controller="AppCtrl">
 
-<header id="header">
-    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+<header id="header" data-fittext data-fittext-load-delay="500">
+    <nav class="navbar navbar-default navbar-fixed-top animated fadeInDown" role="navigation">
         <div class="row">
-            <div class="col-sm-2">
+            <div id="leftPanel" class="col-sm-2">
                 <left-panel-header></left-panel-header>
             </div>
+
             <div class="col-xs-12 col-sm-8" data-fittext data-fittext-min="18" data-fittext-max="26">
                 <nav-bar class="navbar-adt" bs-navbar></nav-bar>
 
             </div>
-            <div class="col-sm-2">
+            <div id="rightPanel" class="col-sm-2">
                 <right-panel-header></right-panel-header>
             </div>
         </div>
@@ -38,23 +39,20 @@
 
 
 
-<div class="col-sm-3 col-md-2">
-    <side-panel visible="leftVisible" alignment="left">
-        <online-user-list></online-user-list>
-    </side-panel>
-</div>
 
+<side-panel visible="leftVisible" alignment="left" class="hidden-xs">
+    <online-user-list></online-user-list>
+</side-panel>
 
-<main id="content">
+<main id="main" ng-class="{'hidden-left': !leftVisible, 'hidden-right': !rightVisible  }">
     <div ncy-breadcrumb></div>
-    <section class="fadeZoom col-sm-8 col-md-push-2" ui-view></section>
+    <div ui-view></div>
 </main>
 
-<div class="col-sm-3 col-md-2">
-    <side-panel visible="rightVisible" alignment="right" class="hidden-xs">
-        <activity-list></activity-list>
-    </side-panel>
-</div>
+
+<side-panel visible="rightVisible" alignment="right" class="hidden-xs">
+    <activity-list></activity-list>
+</side-panel>
 
 
 

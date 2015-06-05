@@ -13,13 +13,15 @@ var config = {
   entry: {
     app: ['./frontend/src/main.js'],
     vendors: [
+      'lodash',
       'angular',
+      'angular-resource',
+      'angular-messages',
+      'angular-animate',
       'angular-ui-router',
       'satellizer',
-      'rx',
-      'rx-angular',
-      'angular-strap',
-      'angular-breadcrumb'
+      'restangular'
+
     ]
   },
   resolve: {
@@ -35,7 +37,7 @@ var config = {
       //{ test: /\.html$/, loader: 'file-loader' },
       { test: /\.css/, loader: 'style!css' },
       { test: /\.less$/, loader: 'style!css!less' },
-      { test: /\.jpe?g$|\.gif$|\.png$|\.wav$|\.mp3$/, loader: 'file-loader' },
+      { test: /\.jpe?g$|\.gif$|\.png$|\.wav$|\.mp3$/, loader: 'url' },
       { test: /\.svg$|\.woff$|\.woff2$|\.eot$|\.ttf$/, loader: 'url-loader?limit=100000' }
 
       //setup later for production
@@ -43,10 +45,11 @@ var config = {
     ]
   },
   plugins: [
+
     // We add a plugin called CommonsChunkPlugin that will take the vendors chunk
     // and create a vendors.js file. As you can see the first argument matches the key
     // of the entry, "vendors"
-    new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js')
+    new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'),
 
     //setup later for production
     //new ExtractTextPlugin("[name].css")

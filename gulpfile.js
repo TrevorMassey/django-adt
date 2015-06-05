@@ -1,8 +1,11 @@
 var gulp = require('gulp'),
-    webpack = require('gulp-webpack'),
+    //webpack = require('gulp-webpack'),
     source = require('vinyl-source-stream'),
     path = require('path'),
     config = require('./gulp.config')();
+var _ = require('lodash');
+
+var webpack = require('./webpack.config.js');
 
 var gulpPlugin = require('gulp-load-plugins')({lazy: false});
 
@@ -32,13 +35,18 @@ gulp.task('templates', function () {
 
 gulp.task('web-pack', ['scripts'], function() {
     return gulp.src(config.main)
-        .pipe(webpack( require('./webpack.config.js') ))
+        .pipe(gulpPlugin.webpack(webpack))
         .pipe(gulp.dest(config.frontend.scripts));
 });
 
+
+var filestoWatch = _.flatten([config.views.all, config.js, config.lessDir]);
+console.log(filestoWatch);
 gulp.task('watch', function() {
-    gulp.watch([config.js], ['web-pack']);
-    gulp.watch([config.views.all], ['web-pack']);
+    return gulp.watch(filestoWatch, ['web-pack']);
+    //return gulp.src(filestoWatch)
+        //.pipe(gulpPlugin.webpack(_.assign({}, webpack, { watch: true })))
+        //.pipe(gulp.dest(config.frontend.scripts));
 });
 
 /** Runs all application js tasks */
