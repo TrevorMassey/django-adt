@@ -34,7 +34,8 @@
     "restangular": "^1.5.1",
     "angular-loading-bar": "^0.7.1",
     "animate.css": "^3.2.5",
-    "angular-quill": "^0.1.5"
+    "angular-quill": "^0.1.5",
+    "angular-toastr": "^1.4.1"
   },
   "devDependencies": {
     "gulp": "^3.9.0",

@@ -20,13 +20,8 @@ var config = {
       'angular-animate',
       'angular-ui-router',
       'satellizer',
-      'restangular',
-      'rx',
-      'rx-angular',
-      'angular-strap',
-      'angular-breadcrumb',
-      'angular-moment',
-      'angular-loading-bar'
+      'restangular'
+
     ]
   },
   resolve: {

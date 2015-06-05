@@ -1,11 +1,11 @@
-<div id="rightPanel" class="sidePanelHeader center-block hidden-xs">
-    <h4  ng-click="toggleRightPanel($event)" data-fittext data-fittext-min="18" data-fittext-max="24">
+<div class="sidePanelHeader hidden-xs">
+    <h4 ng-click="toggleRightPanel($event)" data-fittext data-fittext-min="18" data-fittext-max="24">
         ACTIVITY FEED
     </h4>
     <form name="postForm" class="form-horizontal" ng-controller="MessageCtrl" novalidate>
         <div class="form-group" ng-hide="!rightVisible">
 
-            <div class="input-group">
+            <div class="input-group animated slideInRight">
                 <input type="text"
                        class="form-control input-sm"
                        data-ng-model="message.body"

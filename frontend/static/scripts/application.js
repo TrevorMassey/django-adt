@@ -531,7 +531,8 @@ var ApplicationConfiguration = (function() {
 		'angular-loading-bar',
 		'restangular',
 		//'ui.tree',
-		'ngFitText'
+		'ngFitText',
+		'toastr'
 	];
 
 	// Add a new vertical module
@@ -603,6 +604,13 @@ ApplicationConfiguration.registerModule('common');
 
     // Use Applicaion configuration module to register a new module
     ApplicationConfiguration.registerModule('core');
+
+}());
+(function() {
+    'use strict';
+
+    // Use Applicaion configuration module to register a new module
+    ApplicationConfiguration.registerModule('donate');
 
 }());
 (function() {
@@ -779,7 +787,7 @@ ApplicationConfiguration.registerModule('common');
         function($scope, Restangular) {
             var vm = this;
             vm.codex = {};
-            Restangular.all('codex-tree').getList().then(function(codex) {
+            Restangular.all('codex').getList().then(function(codex) {
                 vm.codex = codex;
             });
         }]);
@@ -812,11 +820,13 @@ ApplicationConfiguration.registerModule('common');
         API_URL: API_URL
     };
 
-    angular.module('core').value('config', config);
+    angular.module('core')
+        .value('config', config);
 
-    //angular.module('core').config(function(RestangularProvider) {
-    //    RestangularProvider.setBaseUrl('/api/');
-    //})
+    angular.module('core')
+        .config(function(RestangularProvider) {
+        RestangularProvider.setBaseUrl('/api/');
+    });
 
 }());
 
@@ -824,8 +834,8 @@ ApplicationConfiguration.registerModule('common');
     'use strict';
 
     angular.module('core').controller('AppCtrl', [
-        '$scope', '$location', 'auth',
-        function($scope, $location, auth) {
+        '$scope', '$location', 'auth', 'toastr',
+        function($scope, $location, auth, toastr) {
 
         $scope.session = { currentUser: {} };
         $scope.site = { title: "Addiction "};
@@ -835,7 +845,7 @@ ApplicationConfiguration.registerModule('common');
         $scope.leftVisible = true;
         $scope.rightVisible = true;
         $scope.navLocation = '/' + $location.url().split('/')[1];
-
+            toastr.success('Hello world!', 'Toastr fun!');
         ////$scope.isCollapsed = true;
         //
         //$scope.session.currentUser = auth.currentUser;
@@ -888,6 +898,71 @@ ApplicationConfiguration.registerModule('common');
 
         }]);
 
+}());
+(function() {
+    'use strict';
+
+    angular.module('donate').controller('DonateCtrl', [
+        '$scope', 'Donations', 'Costs',
+        function($scope, Donations, Costs) {
+            var vm = this;
+            vm.goal = {amount : 816, visible: true};
+            vm.totalDonations = 0;
+            vm.totalCosts = 0;
+
+            vm.donationQuery = function() {
+                vm.donations = Donations.query(function () {
+                    vm.tallyDonations();
+                });
+            };
+            vm.costs = Costs.query(function() {
+                vm.tallyCosts();
+            });
+
+            vm.donateButton = function() {
+                Donations.save(vm.newDonation, function(donate) {
+                    console.log(donate);
+                    vm.donationQuery();
+                }, function(error) {
+                    console.log(error);
+                });
+            };
+
+            vm.tallyDonations = function() {
+                vm.totalDonations = 0;
+                angular.forEach(vm.donations, function(donation) {
+                    vm.totalDonations += donation.amount;
+                });
+            };
+
+            vm.tallyCosts = function() {
+                angular.forEach(vm.costs, function(cost) {
+                    vm.totalCosts += cost.amount;
+                })
+            };
+
+            vm.donationQuery();
+    }]);
+
+}());
+
+(function() {
+    'use strict';
+
+    angular.module('donate')
+        .config(['$locationProvider', '$stateProvider',
+        function ($locationProvider, $stateProvider) {
+            $stateProvider
+                .state('donate', {
+                    url: '/donate',
+                    templateUrl: '/donate.view.html',
+                    controller: 'DonateCtrl as vm',
+                    ncyBreadcrumb: {
+                        label: 'Donate'
+                    }
+                })
+
+        }]);
 }());
 (function() {
     'use strict';
@@ -1193,4 +1268,21 @@ angular.module('auth')
                 templateUrl: '/navbar.view.html'
             };
         }]);
+}());
+(function() {
+    'use strict';
+
+    angular.module('donate')
+        .factory('Donations', ['$resource',  function($resource) {
+            return $resource('http://localhost:1337/donation', {});
+        }])
+        .factory('Costs', ['$resource', function($resource) {
+            return $resource('http://localhost:1337/cost', {});
+
+        }])
+        .filter('reverse', function() {
+            return function(items) {
+                return items.slice().reverse();
+            };
+        });
 }());

@@ -20,7 +20,8 @@ var ApplicationConfiguration = (function() {
 		'angular-loading-bar',
 		'restangular',
 		//'ui.tree',
-		'ngFitText'
+		'ngFitText',
+		'toastr'
 	];
 
 	// Add a new vertical module

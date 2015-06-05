@@ -19,10 +19,10 @@
 </head>
 <body ng-controller="AppCtrl">
 
-<header id="header">
-    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+<header id="header" data-fittext data-fittext-load-delay="500">
+    <nav class="navbar navbar-default navbar-fixed-top animated fadeInDown" role="navigation">
         <div class="row">
-            <div class="col-sm-2">
+            <div id="leftPanel" class="col-sm-2">
                 <left-panel-header></left-panel-header>
             </div>
 
@@ -30,7 +30,7 @@
                 <nav-bar class="navbar-adt" bs-navbar></nav-bar>
 
             </div>
-            <div class="col-sm-2">
+            <div id="rightPanel" class="col-sm-2">
                 <right-panel-header></right-panel-header>
             </div>
         </div>

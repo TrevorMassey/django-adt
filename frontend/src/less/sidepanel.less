@@ -5,16 +5,16 @@
 //@rightPanelWidth
 
 .sidePanelHeader {
-  max-width: 200px;
+ // max-width: 200px;
   padding-top: 13px;
   h4 {
     cursor: pointer;
     white-space: nowrap;
     font-size: 24px;
-    text-transform: uppercase;
-    @media (max-width: @screen-sm-min) {
-      font-size: 18px;
-    }
+    //text-transform: uppercase;
+    //@media (max-width: @screen-sm-min) {
+    //  font-size: 18px;
+    //}
 
   }
   .form-group {
@@ -26,9 +26,13 @@
 }
 
 #leftPanel {
-  vertical-align: middle;
   float: left;
-  min-width: 200px;
+  //min-width: 200px;
+  h4 {
+    display: block;
+    width: 250px;
+  }
+
 }
 
 #rightPanel {
@@ -48,7 +52,7 @@ side-panel {
 side-panel > div {
   position: fixed;
   z-index: 2;
-  top: 110px;
+  top: 100px;
   width: 200px;
   height: 100%;
   background: rgba(0,0,0,0.7);
@@ -76,13 +80,19 @@ side-panel > div.show.left {
   -webkit-transform: translate3d(@leftPanelWidth, 0, 0);
   -o-transform: translate3d(@leftPanelWidth, 0, 0);
   -moz-transform: translate3d(@leftPanelWidth, 0, 0);
+  animation-name: slideFromRight;
+  -webkit-animation-name: slideFromRight;
+  animation-duration: 1s;
+  -webkit-animation-duration: 1s;
 }
 side-panel > div.right {
+
   width: @rightPanelWidth;
   background-color: rgba(0, 0, 0, 0.65);
   right: -@rightPanelWidth;
 }
 side-panel > div.show.right {
+  //width: -@rightPanelWidth;
   transform: translate3d(-@rightPanelWidth, 0, 0);
   -ms-transform: translate3d(-@rightPanelWidth, 0, 0);
   -webkit-transform: translate3d(-@rightPanelWidth, 0, 0);
