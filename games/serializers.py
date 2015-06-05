@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from games.models import Game, Chapter
+from games.models import Game, Chapter, ChapterMember
 
 class GameSerializer(serializers.ModelSerializer):
     class Meta:
@@ -12,4 +12,11 @@ class ChapterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Chapter
-        fields = ('id', 'game', 'open_date', 'launch_date', 'close_date')
+        fields = ('id', 'game', 'open_date', 'launch_date', 'close_date',)
+
+
+class ChapterMemberSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ChapterMember
+        fields = ('member', 'join_date', 'leave_date',)

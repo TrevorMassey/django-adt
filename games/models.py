@@ -10,7 +10,6 @@ class Chapter(models.Model):
     close_date = models.DateTimeField(blank=True, null=True)
 
     # Relationship Fields
-    members = models.ManyToManyField('users.User', blank=True)
     game = models.ForeignKey('games.Game',)
     creator = models.ForeignKey('users.User', related_name='+')
 
@@ -19,6 +18,17 @@ class Chapter(models.Model):
 
     def __unicode__(self):
         return u'%s' % self.game
+
+
+class ChapterMember(models.Model):
+
+    # Fields
+    join_date = models.DateTimeField(auto_now_add=True)
+    leave_date = models.DateTimeField(blank=True, null=True)
+
+    # Relationship Fields
+    member = models.ForeignKey('users.User', related_name='chapters')
+    chapter = models.ForeignKey('games.Chapter', related_name='members')
 
 
 # Create your models here.

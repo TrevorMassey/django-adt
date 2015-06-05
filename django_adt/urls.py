@@ -58,6 +58,6 @@ if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
-urlpatterns = patterns('',
+urlpatterns += patterns('',
                        url(r'^.*$', 'frontend.views.index', name='catchall')
                        )
