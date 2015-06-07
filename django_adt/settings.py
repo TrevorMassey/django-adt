@@ -55,6 +55,7 @@ INSTALLED_APPS = (
     'games',
     'publications',
     'users',
+    'polls',
     'frontend',
 )
 

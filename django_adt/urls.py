@@ -7,6 +7,7 @@ from awards.api import AwardViewSet, AwardCategoryViewSet, AwardRecipientViewSet
 from users.api import RankViewSet
 from publications.api import ArticleViewSet, NewsViewSet
 from accounting.api import DonateCostViewSet, DonateAmountViewSet
+from polls.api import PollViewSet, ItemViewSet, VoteViewSet
 from django.conf import settings
 
 urlpatterns = patterns('',
@@ -32,6 +33,9 @@ router.register(r'donation-costs', DonateCostViewSet)
 router.register(r'donation-amounts', DonateAmountViewSet)
 router.register(r'articles', ArticleViewSet)
 router.register(r'news', NewsViewSet)
+router.register(r'poll', PollViewSet)
+router.register(r'poll-item', ItemViewSet)
+router.register(r'poll-vote', VoteViewSet)
 
 urlpatterns += patterns('',
     url(r'^api/', include(router.urls)),
@@ -64,5 +68,5 @@ if settings.DEBUG:
 
 
 urlpatterns += patterns('',
-                       url(r'^.*$', 'frontend.views.index', name='catchall')
-                       )
+                        url(r'^.*$', 'frontend.views.index', name='catchall')
+                        )
