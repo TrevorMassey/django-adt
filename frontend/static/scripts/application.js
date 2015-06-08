@@ -530,6 +530,7 @@ var ApplicationConfiguration = (function() {
 		'ncy-angular-breadcrumb',
 		'angular-loading-bar',
 		'restangular',
+		//'js-data',
 		//'ui.tree',
 		'ngFitText',
 		'toastr'
@@ -814,22 +815,65 @@ ApplicationConfiguration.registerModule('common');
 (function() {
     'use strict';
 
-    var API_URL = 'http://localhost:1337';
+    angular.module('common').factory('common', [
+        'exception', 'logger',
+        function(exception, logger) {
 
+            var service = {
+                logger: logger,
+                exception: exception,
+                extractError: extractError
+            };
+
+            return service;
+            /////////////////////
+
+            function extractError(errors) {
+                var errorMsgs = [];
+                angular.forEach(errors, function(value, key) {
+                    errorMsgs.push(errors[key]);
+                });
+                return errorMsgs.toString();
+            }
+
+        }]);
+}());
+(function() {
+    'use strict';
+
+    var app = angular.module('core');
+
+    var appName = 'ADT';
     var config = {
-        API_URL: API_URL
+        appErrorPrefix: appName + ' Error: ',
+        appTitle: appName,
+        API_URL: 'http://localhost:8000'
     };
 
-    angular.module('core')
-        .value('config', config);
+    app.value('config', config);
 
-    angular.module('core')
-        .config(function(RestangularProvider) {
-        RestangularProvider.setBaseUrl('/api/');
+    app.config(function(toastrConfig) {
+        angular.extend(toastrConfig, {
+            timeOut: 3000
+        });
     });
 
-}());
+    app.config(configure);
 
+    function configure($logProvider, exceptionHandlerProvider, RestangularProvider) {
+        if ($logProvider.debugEnabled) {
+            $logProvider.debugEnabled(true);
+        }
+        exceptionHandlerProvider.configure(config.appErrorPrefix);
+
+        //DSProvider.defaults.basePath = '/api/';
+        //DSProvider.defaults.suffix = '/';
+
+        RestangularProvider.setBaseUrl('/api/');
+        RestangularProvider.setRequestSuffix('/');
+    }
+
+}());
 (function() {
     'use strict';
 
@@ -1257,6 +1301,123 @@ angular.module('auth')
             };
         }
     ]);
+}());
+(function() {
+    'use strict';
+
+    angular
+        .module('common')
+        .factory('exception', ['logger',
+            function exception(logger) {
+                var service = {
+                    catcher: catcher
+                };
+                return service;
+
+                function catcher(message) {
+                    return function(reason) {
+                        logger.error(message, reason);
+                    };
+                }
+            }]);
+})();
+(function() {
+    'use strict';
+
+    /***
+     ** Catch generic Angular exceptions
+     ***********************************/
+
+    angular.module('common')
+        .provider('exceptionHandler', function() {
+            this.config = {
+                appErrorPrefix: undefined
+            };
+
+            this.configure = function (appErrorPrefix) {
+                this.config.appErrorPrefix = appErrorPrefix;
+            };
+
+            this.$get = function() {
+                return {
+                    config: this.config
+                };
+            };
+        });
+
+    angular.module('common')
+        .config(function($provide) {
+            $provide.decorator('$exceptionHandler', [
+                '$delegate', 'exceptionHandler', '$injector',
+                function($delegate, exceptionHandler, $injector) {
+                    return function(exception, cause) {
+
+                        /**
+                         * Get logger service inside because of circular dependency error with $exceptionHandler **/
+                        var logger = $injector.get('logger');
+
+                        var appErrorPrefix = exceptionHandler.config.appErrorPrefix || '';
+                        var errorData = {exception: exception, cause: cause};
+                        exception.message = appErrorPrefix + exception.message;
+                        $delegate(exception, cause);
+                        /**
+                         * Could add the error to a service's collection,
+                         * add errors to $rootScope, log errors to remote web server,
+                         * or log locally. Or throw hard. It is entirely up to you.
+                         * throw exception;
+                         *
+                         * @example
+                         *     throw { message: 'error message we added' };
+                         */
+                        logger.error(exception.message, errorData);
+                    };
+                }]);
+        });
+
+}());
+(function() {
+    'use strict';
+
+    angular.module('common')
+        .factory('logger', ['$log', 'toastr', function($log, toastr) {
+
+            var service = {
+                showToasts: true,
+
+                error   : error,
+                info    : info,
+                success : success,
+                warning : warning,
+
+                // straight to console; bypass toastr
+                log     : $log.log //logger.log(message)
+            };
+
+            return service;
+            /////////////////////
+
+            function error(message, data, title) {
+                toastr.error(message, title);
+                $log.error('Error: ' + message, data);
+            }
+
+            function info(message, data, title) {
+                toastr.info(message, title);
+                $log.info('Info: ' + message, data);
+            }
+
+            function success(message, data, title) {
+                toastr.success(message, title);
+                $log.info('Success: ' + message, data);
+            }
+
+            function warning(message, data, title) {
+                toastr.warning(message, title);
+                $log.warn('Warning: ' + message, data);
+            }
+
+        }]);
+
 }());
 (function() {
     'use strict';
