@@ -57,6 +57,7 @@ INSTALLED_APPS = (
     'users',
     'polls',
     'notifications',
+    'comments',
     'frontend',
 )
 

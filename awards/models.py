@@ -41,6 +41,8 @@ class AwardCategory(models.Model):
     chapter = models.ForeignKey('games.Chapter', related_name='award_categories')
 
     class Meta:
+        verbose_name = 'award category'
+        verbose_name_plural = 'award categories'
         ordering = ('-id',)
         unique_together = (
             ('title', 'chapter'),

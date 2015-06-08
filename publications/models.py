@@ -58,6 +58,8 @@ class News(models.Model):
 
     class Meta:
         ordering = ('-id',)
+        verbose_name = 'news'
+        verbose_name_plural = 'news'
 
     def __unicode__(self):
         return u'%s' % self.article
