@@ -1,18 +1,36 @@
 (function() {
     'use strict';
 
-    var API_URL = 'http://localhost:1337';
+    var app = angular.module('core');
 
+    var appName = 'ADT';
     var config = {
-        API_URL: API_URL
+        appErrorPrefix: appName + ' Error: ',
+        appTitle: appName,
+        API_URL: 'http://localhost:8000'
     };
 
-    angular.module('core')
-        .value('config', config);
+    app.value('config', config);
 
-    angular.module('core')
-        .config(function(RestangularProvider) {
-        RestangularProvider.setBaseUrl('/api/');
+    app.config(function(toastrConfig) {
+        angular.extend(toastrConfig, {
+            timeOut: 3000
+        });
     });
+
+    app.config(configure);
+
+    function configure($logProvider, exceptionHandlerProvider, RestangularProvider, DSProvider) {
+        if ($logProvider.debugEnabled) {
+            $logProvider.debugEnabled(true);
+        }
+        exceptionHandlerProvider.configure(config.appErrorPrefix);
+
+        DSProvider.defaults.basePath = '/api/';
+        DSProvider.defaults.suffix = '/';
+
+        RestangularProvider.setBaseUrl('/api/');
+        RestangularProvider.setRequestSuffix('/');
+    }
 
 }());
