@@ -46,3 +46,8 @@ class Notification(models.Model):
 
     def __unicode__(self):
         return u'%s' % (self.user,)
+
+    class Meta:
+        ordering = ('-created',)
+        verbose_name = 'notification'
+        verbose_name_plural = 'notifications'
