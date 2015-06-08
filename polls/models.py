@@ -1,5 +1,4 @@
 from django.db import models
-from users.models import User
 
 
 class Poll(models.Model):
@@ -49,9 +48,9 @@ class Vote(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     # Relationships
-    poll = models.ForeignKey(Poll)
-    item = models.ForeignKey(Item)
-    user = models.ForeignKey(User)
+    poll = models.ForeignKey('polls.Poll')
+    item = models.ForeignKey('polls.Item')
+    user = models.ForeignKey('users.User')
 
     class Meta:
         verbose_name = 'vote'

@@ -56,6 +56,8 @@ urlpatterns += patterns('',
     url(r'api/feed-items/$', 'activityfeed.api.feed_item_list', name='feed_item_list'),
     url(r'api/feed-items/(?P<pk>\d+)/$', 'activityfeed.api.feed_item_detail', name='feed_item_detail'),
 
+    url(r'api/notifications/$', 'notifications.api.notification_list', name='notification_list'),
+
     url(r'^verify/(?P<key>[A-Za-z0-9]{32})/$', 'users.views.verify_email', name='verify_email'),
 )
 

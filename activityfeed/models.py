@@ -3,13 +3,18 @@ from django.utils import timezone
 
 
 class FeedPost(models.Model):
-    author = models.ForeignKey('users.User', blank=True, null=True)
+
+    # Fields
     created = models.DateTimeField(default=timezone.now)
     body = models.TextField()
+
+    # Relationships
+    author = models.ForeignKey('users.User', blank=True, null=True)
 
 
 class FeedItem(models.Model):
 
+    # Choices
     FORUM_POST = 'forum_post'
     FEED_POST = 'feed_post'
     JOIN_CHAPTER = 'join_chapter'
@@ -21,6 +26,7 @@ class FeedItem(models.Model):
     DEMOTION = 'demotion'
     AWARD = 'award'
     NEWS = 'news'
+    KICKED = 'kicked'
 
     FEED_TYPES = (
         (FEED_POST, 'New Feed Post'),
@@ -34,9 +40,11 @@ class FeedItem(models.Model):
         (DEMOTION, 'Demoted'),
         (AWARD, 'New Award Recipient'),
         (NEWS, 'New News'),
+        (KICKED, 'Kicked'),
     )
 
-    user = models.ForeignKey('users.User')
+    # Fields
+
     type = models.CharField(max_length=15, choices=FEED_TYPES)
     public = models.BooleanField(default=False)
     created = models.DateField(default=timezone.now)
@@ -44,6 +52,9 @@ class FeedItem(models.Model):
     is_deleted = models.BooleanField(default=False)
     deleted_by = models.ForeignKey('users.User', blank=True, null=True, related_name='+')
     deleted_time = models.DateTimeField(blank=True, null=True)
+
+    # Relationships
+    user = models.ForeignKey('users.User')
 
     chapter = models.ForeignKey('games.Chapter', blank=True, null=True)
     news = models.ForeignKey('publications.News', blank=True, null=True)
@@ -64,13 +75,3 @@ class FeedItem(models.Model):
         self.is_deleted = True
         self.deleted_time = timezone.now()
         self.save()
-
-    # forum_post
-
-    # Gromph posted a message <message body>
-    # Excentric joined the guild for ArcheAge
-    # Nadasdy added a screenshot, "Mediocre". <screenshot>
-    # Yawgmoth added a new quote, "Quote title", "Quote body"
-    # Gromph opened a new chapter for Star Citizen
-
-    # USER   ACTION   TARGET
