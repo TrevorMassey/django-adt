@@ -19,6 +19,7 @@ var ApplicationConfiguration = (function() {
 		'ncy-angular-breadcrumb',
 		'angular-loading-bar',
 		'restangular',
+		'js-data',
 		//'ui.tree',
 		'ngFitText',
 		'toastr'
