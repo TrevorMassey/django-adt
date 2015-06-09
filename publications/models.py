@@ -12,7 +12,7 @@ class Codex(MPTTModel):
     slug = AutoSlugField(populate_from='title', blank=True)
     created = models.DateTimeField(auto_now_add=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
-    order = models.IntegerField()
+    order = models.PositiveIntegerField(default=0)
 
     # Relationship Fields
     parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True)
