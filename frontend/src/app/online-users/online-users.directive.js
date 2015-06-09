@@ -23,7 +23,7 @@
                         ];
 
                         angular.copy(fakeData, vm.users.data);
-                        console.log(vm.users.data);
+
                         // Rx subscribe to mousemove events as 2.5s interval
                         // Check to see if current user is logged in to mark them online
 

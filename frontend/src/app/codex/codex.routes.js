@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('codex')
-        .config(['$locationProvider', '$stateProvider', '$urlRouterProvider', '$authProvider',
-        function ($locationProvider, $stateProvider, $urlRouterProvider, $authProvider) {
+        .config(['$locationProvider', '$stateProvider',
+        function ($locationProvider, $stateProvider) {
             $stateProvider
                 .state('codex', {
                     url: '/codex',

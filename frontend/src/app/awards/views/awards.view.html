@@ -1,0 +1,31 @@
+<h1>Awards</h1>
+<div class="panel">
+    <div class="panel-adt" ng-repeat="chapter in vm.awards">
+        <h2>{{chapter.game.name}}</h2>
+        <ul class="media-list">
+            <li class="media" ng-repeat="category in chapter.awardCategories">
+                <div class="media-body-awards">
+                    <h3 class="award-heading">{{category.title}}</h3>
+                    <ul class="media-list">
+                        <li class="media" ng-repeat="award in category.childAwards">
+                            <div class="media-left">
+                                <img class="media-object" src="/.tmp/images/awards/10_Praetor.gif">
+                            </div>
+                            <div class="media-body">
+                                <div class="pull-right">
+                                    <ng-pluralize count="award.recipients.length"
+                                                  when="{'0': '',
+                                                        'one': '1 recipient',
+                                                        'other': '{} recipients'}">
+                                    </ng-pluralize>
+                                </div>
+                                <h4 class="media-heading">{{award.name}}</h4>
+                                <p>{{award.description}}</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

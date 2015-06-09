@@ -11,6 +11,7 @@ var ApplicationConfiguration = (function() {
         'templates',
         'ui.router',
 		'satellizer',
+		'LocalStorageModule',
 		'ui.bootstrap',
 		'mgcrea.ngStrap',
         'rx',
@@ -19,7 +20,7 @@ var ApplicationConfiguration = (function() {
 		'ncy-angular-breadcrumb',
 		'angular-loading-bar',
 		'restangular',
-		//'js-data',
+		'js-data',
 		//'ui.tree',
 		'ngFitText',
 		'toastr'

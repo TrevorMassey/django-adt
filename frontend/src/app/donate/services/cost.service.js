@@ -2,10 +2,10 @@
     'use strict';
 
     angular.module('donate')
-        .factory('Donation', ['DS',  function(DS) {
+        .factory('Cost', ['DS', function(DS) {
             return DS.defineResource({
-                name: 'donation',
-                endpoint: 'donation-amounts'
+                name: 'cost',
+                endpoint: 'donation-costs'
             });
         }])
 

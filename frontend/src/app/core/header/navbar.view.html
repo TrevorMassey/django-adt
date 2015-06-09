@@ -28,20 +28,20 @@
         <span class="icon-bar"></span>
     </button>
 
-    <ul class="nav navbar-nav nav-pills pull-right">
+    <ul class="nav navbar-nav nav-pills pull-right" ng-if="!isAuthenticated()">
         <li data-ui-sref-active="active"><a data-ui-sref="signin">Sign In</a></li>
         <li data-ui-sref-active="active"><a data-ui-sref="signup">Sign up</a></li>
     </ul>
 
-    <ul class="nav pull-left" ng-if="isAuthenticated()">
+    <ul class="nav pull-right" ng-if="isAuthenticated()">
         <!-- This works well for static text, like a username -->
 
         <!-- Add any additional bootstrap header items.  This is a drop-down from an users avatar image -->
-        <li class="pull-right" dropdown="true">
+        <li dropdown="true">
 
-            <a href="#" dropdown-toggle class="profile-dropdown-toggle" style="color:#777; margin-top: 5px;">
+            <a href="#" dropdown-toggle class="profile-dropdown-toggle">
                 <!--<img data-ng-src="{{authentication.currentUser.profileImageURL}}" alt="{{authentication.currentUser.displayName}}" class="header-profile-image"/>-->
-                <avatar member="{{session.currentUser.username}}" style="width: 45px; height: 45px;"></avatar>
+                <avatar member="{{session.currentUser.username}}" width="40" height="40"></avatar>
                 <span data-ng-bind="session.currentUser.displayName"></span> <b class="caret"></b>
             </a>
 
@@ -51,7 +51,7 @@
                 </li>
                 <li class="divider"></li>
                 <li>
-                    <a href="/api/auth/signout" target="_self">Signout</a>
+                    <a data-ui-sref="logout" target="_self">Signout</a>
                 </li>
             </ul>
         </li>
@@ -64,7 +64,7 @@
     <!--pull-right keeps the drop-down in line-->
     <ul class="nav navbar-nav pull-right">
         <li class="pull-left">
-            <a><span class="glyphicon glyphicon-comment" aria-hidden="true"></span></a>
+            <a href="/"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span></a>
         </li>
         <li class="pull-left">
             <a ui-sref="donate"><span class="glyphicon glyphicon-flag" aria-hidden="true"></span></a>

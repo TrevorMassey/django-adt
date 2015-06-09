@@ -24,6 +24,7 @@
         if ($logProvider.debugEnabled) {
             $logProvider.debugEnabled(true);
         }
+
         exceptionHandlerProvider.configure(config.appErrorPrefix);
 
         DSProvider.defaults.basePath = '/api/';
@@ -32,5 +33,12 @@
         RestangularProvider.setBaseUrl('/api/');
         RestangularProvider.setRequestSuffix('/');
     }
+
+    //app.run(function($rootScope, $state) {
+    //    $rootScope.$on('$stateChangeStart', function(e, to) {
+    //
+    //    });
+    //});
+
 
 }());

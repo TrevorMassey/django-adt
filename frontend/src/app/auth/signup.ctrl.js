@@ -2,22 +2,27 @@
     'use strict';
 
     angular.module('auth')
-        .controller('SignupCtrl',['$location', 'auth', function($location, auth) {
+        .controller('SignupCtrl', [
+            'common', '$location', 'auth',
+            function(common, $location, auth) {
+                if (auth.isAuthenticated()) $location.path('/');
 
-            if (auth.isAuthenticated()) $location.path('/');
-            var vm = this;
-            vm.credentials = {};
+                var exception = common.exception;
+                var vm = this;
 
-            vm.signup = function () {
-                auth.signup(vm.credentials)
-                    .then(function(response) {
-                        vm.credentials = {};
-                    })
-                    .catch(function(error) {
-                        console.log(error);
-                    });
-            };
+                vm.credentials = {};
 
-        }]);
+                vm.signup = function () {
+                    auth.signup(vm.credentials)
+                        .then(function(response) {
+                            vm.credentials = {};
+                        })
+                        .catch(function(error) {
+                            var message = common.extractError(error.data);
+                            exception.catcher(message)(error)
+                        });
+                };
+
+            }]);
 
 }());
