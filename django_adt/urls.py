@@ -45,6 +45,7 @@ router.register(r'quotes', QuoteViewSet)
 urlpatterns += patterns('',
     url(r'^api/', include(router.urls)),
     url(r'^api-token-auth/', 'rest_framework_jwt.views.obtain_jwt_token'),
+    url(r'^api-token-refresh/', 'rest_framework_jwt.views.refresh_jwt_token'),
 
     url(r'^api/awards-summary/$', 'awards.api.awards_summary', name='awards_summary'),
     url(r'^api/codex/$', 'publications.api.codex_list', name='codex_list'),
