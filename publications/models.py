@@ -2,8 +2,6 @@ from django.core.urlresolvers import reverse
 from django.db import models
 
 from mptt.models import MPTTModel, TreeForeignKey
-
-# Create your models here.
 from django_extensions.db.fields import AutoSlugField
 
 
@@ -58,6 +56,8 @@ class News(models.Model):
 
     class Meta:
         ordering = ('-id',)
+        verbose_name = 'news'
+        verbose_name_plural = 'news'
 
     def __unicode__(self):
         return u'%s' % self.article

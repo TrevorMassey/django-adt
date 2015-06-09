@@ -3,6 +3,7 @@ from django.dispatch import receiver
 
 from activityfeed.models import FeedItem
 from games.models import Chapter, ChapterMember
+from notifications.models import Notification
 
 
 @receiver(post_save, sender=Chapter)
@@ -25,4 +26,12 @@ def create_chapter_member_feed_item(sender, instance, created, **kwargs):
         feed_item.chapter_id = instance.chapter_id
         feed_item.save()
 
+@receiver(post_save, sender=ChapterMember)
+def create_chapter_notification(sender, instance, created, **kwargs):
 
+    if created:
+        notification = Notification()
+        notification.user_id = instance.member_id
+        notification.type = Notification.JOIN_CHAPTER
+        notification.chapter_id = instance.chapter_id
+        notification.save()

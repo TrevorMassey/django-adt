@@ -4,9 +4,11 @@ from django.contrib import admin
 from rest_framework.routers import DefaultRouter
 from games.api import GameViewSet, ChapterViewSet, ChapterMemberViewSet, ChapterRoleViewSet
 from awards.api import AwardViewSet, AwardCategoryViewSet, AwardRecipientViewSet, AwardImageViewSet
+from multimedia.api import ScreenshotViewSet, QuoteViewSet
 from users.api import RankViewSet
 from publications.api import ArticleViewSet, NewsViewSet
 from accounting.api import DonateCostViewSet, DonateAmountViewSet
+from polls.api import PollViewSet, ItemViewSet, VoteViewSet
 from django.conf import settings
 
 urlpatterns = patterns('',
@@ -32,10 +34,18 @@ router.register(r'donation-costs', DonateCostViewSet)
 router.register(r'donation-amounts', DonateAmountViewSet)
 router.register(r'articles', ArticleViewSet)
 router.register(r'news', NewsViewSet)
+router.register(r'poll', PollViewSet)
+router.register(r'poll-item', ItemViewSet)
+router.register(r'poll-vote', VoteViewSet)
+router.register(r'screenshots', ScreenshotViewSet)
+router.register(r'quotes', QuoteViewSet)
+
+
 
 urlpatterns += patterns('',
     url(r'^api/', include(router.urls)),
     url(r'^api-token-auth/', 'rest_framework_jwt.views.obtain_jwt_token'),
+    url(r'^api-token-refresh/', 'rest_framework_jwt.views.refresh_jwt_token'),
 
     url(r'^api/awards-summary/$', 'awards.api.awards_summary', name='awards_summary'),
     url(r'^api/codex/$', 'publications.api.codex_list', name='codex_list'),
@@ -52,6 +62,8 @@ urlpatterns += patterns('',
     url(r'api/feed-items/$', 'activityfeed.api.feed_item_list', name='feed_item_list'),
     url(r'api/feed-items/(?P<pk>\d+)/$', 'activityfeed.api.feed_item_detail', name='feed_item_detail'),
 
+    url(r'api/notifications/$', 'notifications.api.notification_list', name='notification_list'),
+
     url(r'^verify/(?P<key>[A-Za-z0-9]{32})/$', 'users.views.verify_email', name='verify_email'),
 )
 
@@ -64,5 +76,5 @@ if settings.DEBUG:
 
 
 urlpatterns += patterns('',
-                       url(r'^.*$', 'frontend.views.index', name='catchall')
-                       )
+                        url(r'^.*$', 'frontend.views.index', name='catchall')
+                        )

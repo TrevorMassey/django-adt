@@ -45,7 +45,9 @@ INSTALLED_APPS = (
     'debug_toolbar',
     'django_extensions',
     'fsm_admin',
+    'filer',
     'mptt',
+    'easy_thumbnails',
 
     'accounting',
     'activityfeed',
@@ -55,6 +57,10 @@ INSTALLED_APPS = (
     'games',
     'publications',
     'users',
+    'polls',
+    'notifications',
+    'comments',
+    'multimedia',
     'frontend',
 )
 
@@ -73,6 +79,7 @@ ROOT_URLCONF = 'django_adt.urls'
 
 WSGI_APPLICATION = 'django_adt.wsgi.application'
 
+MIGRATION_MODULES = {'filer': 'filer.migrations_django'}
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
@@ -126,12 +133,22 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     ),
+    'DEFAULT_RENDERER_CLASSES': (
+        'djangorestframework_camel_case.render.CamelCaseJSONRenderer',  # Any other renders
+    ),
+
+    'DEFAULT_PARSER_CLASSES': (
+        'djangorestframework_camel_case.parser.CamelCaseJSONParser',  # Any other parsers
+    ),
 }
 
 JWT_AUTH = {
     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
     'JWT_VERIFY_EXPIRATION': True,
     'JWT_EXPIRATION_DELTA': timezone.timedelta(days=14),
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'users.jwt.jwt_response_payload_handler',
+    'JWT_ALLOW_REFRESH': False,
+    'JWT_REFRESH_EXPIRATION_DELTA': timezone.timedelta(days=7),
 }
 
 

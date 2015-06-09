@@ -20,15 +20,15 @@
 
     app.config(configure);
 
-    function configure($logProvider, exceptionHandlerProvider, RestangularProvider, DSProvider) {
+    function configure($logProvider, exceptionHandlerProvider, RestangularProvider) {
         if ($logProvider.debugEnabled) {
             $logProvider.debugEnabled(true);
         }
 
         exceptionHandlerProvider.configure(config.appErrorPrefix);
 
-        DSProvider.defaults.basePath = '/api/';
-        DSProvider.defaults.suffix = '/';
+        //DSProvider.defaults.basePath = '/api/';
+        //DSProvider.defaults.suffix = '/';
 
         RestangularProvider.setBaseUrl('/api/');
         RestangularProvider.setRequestSuffix('/');
