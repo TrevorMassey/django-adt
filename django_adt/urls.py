@@ -4,6 +4,7 @@ from django.contrib import admin
 from rest_framework.routers import DefaultRouter
 from games.api import GameViewSet, ChapterViewSet, ChapterMemberViewSet, ChapterRoleViewSet
 from awards.api import AwardViewSet, AwardCategoryViewSet, AwardRecipientViewSet, AwardImageViewSet
+from multimedia.api import ScreenshotViewSet, QuoteViewSet
 from users.api import RankViewSet
 from publications.api import ArticleViewSet, NewsViewSet
 from accounting.api import DonateCostViewSet, DonateAmountViewSet
@@ -36,6 +37,10 @@ router.register(r'news', NewsViewSet)
 router.register(r'poll', PollViewSet)
 router.register(r'poll-item', ItemViewSet)
 router.register(r'poll-vote', VoteViewSet)
+router.register(r'screenshots', ScreenshotViewSet)
+router.register(r'quotes', QuoteViewSet)
+
+
 
 urlpatterns += patterns('',
     url(r'^api/', include(router.urls)),

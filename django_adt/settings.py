@@ -45,7 +45,9 @@ INSTALLED_APPS = (
     'debug_toolbar',
     'django_extensions',
     'fsm_admin',
+    'filer',
     'mptt',
+    'easy_thumbnails',
 
     'accounting',
     'activityfeed',
@@ -58,6 +60,7 @@ INSTALLED_APPS = (
     'polls',
     'notifications',
     'comments',
+    'multimedia',
     'frontend',
 )
 
