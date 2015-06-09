@@ -2,25 +2,11 @@ body {
   background-image: url("../images/bg.jpg") !important;
 }
 
-#header {
-  display: block;
-  margin: 0;
-  background-color: #f3f3f3;
-  background-image: -moz-linear-gradient(top,#f3f3f3,#e2e2e2);
-  background-image: -webkit-gradient(linear,0 0,0 100%,from(#f3f3f3),to(#e2e2e2));
-  background-image: -webkit-linear-gradient(top,#f3f3f3,#e2e2e2);
-  background-image: -o-linear-gradient(top,#f3f3f3,#e2e2e2);
-  background-image: linear-gradient(to bottom,#f3f3f3,#e2e2e2);
-  background-repeat: repeat-x;
-  position: relative;
-  z-index: 905;
-}
 
 #main {
   position: relative;
   margin-left: ((10px + @leftPanelWidth));
   margin-right: ((10px + @rightPanelWidth));
-;
   height: 100%;
   /* Small devices (tablets, 768px and below) */
   @media (max-width: @screen-sm-min) {
@@ -33,11 +19,12 @@ body {
 
 #main.hidden-left {
   margin-left: 0;
+  padding-left: 3px;
 }
 
 #main.hidden-right {
   margin-right: 0;
-  padding-right: 25px;
+  padding-right: 3px;
 }
 
 

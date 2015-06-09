@@ -1,3 +1,6 @@
+//TODO: confirm animations with gromph before removing
+
+/*
 .animate.ng-enter,
 {
   .transition(0.5s linear opacity);
@@ -11,12 +14,12 @@
   opacity: 0;
 }
 .animate.ng-enter-stagger {
-  /* this will have a 100ms delay between each successive leave animation */
+  /!* this will have a 100ms delay between each successive leave animation *!/
   -webkit-transition-delay: 0.1s;
   transition-delay: 0.1s;
 
-  /* in case the stagger doesn't work then these two values
-   must be set to 0 to avoid an accidental CSS inheritance */
+  /!* in case the stagger doesn't work then these two values
+   must be set to 0 to avoid an accidental CSS inheritance *!/
   -webkit-transition-duration: 0s;
   transition-duration: 0s;
 }
@@ -25,32 +28,37 @@
 .animate.ng-leave {
   opacity: 1;
 }
+*/
 
 
 [ui-view].ng-enter, [ui-view].ng-leave {
-  position: absolute;
-  .transition(0.25s linear opacity);
+  //.transition(0.5s linear opacity);
 }
+
+//[ui-view].ng-enter-stagger,
+//[ui-view].ng-leave-stagger {
+//  /* this will have a 100ms delay between each successive leave animation */
+//  -webkit-transition-delay: 0.1s;
+//  transition-delay: 0.1s;
+//
+//  /* in case the stagger doesn't work then these two values
+//   must be set to 0 to avoid an accidental CSS inheritance */
+//  -webkit-transition-duration: 0s;
+//  transition-duration: 0s;
+//}
+
 
 [ui-view].ng-enter {
-  opacity: 0;
-}
-
-[ui-view].ng-enter-stagger,
-[ui-view].ng-leave-stagger {
-  /* this will have a 100ms delay between each successive leave animation */
-  -webkit-transition-delay: 0.1s;
-  transition-delay: 0.1s;
-
-  /* in case the stagger doesn't work then these two values
-   must be set to 0 to avoid an accidental CSS inheritance */
-  -webkit-transition-duration: 0s;
-  transition-duration: 0s;
+  -webkit-animation: fadeIn;
+  animation-name: fadeIn;
+  -webkit-animation-duration: .5s;
+  animation-duration: .5s;
 }
 
 [ui-view].ng-enter-active {
   opacity: 1;
 }
+
 
 [ui-view].ng-leave {
   opacity: 1;

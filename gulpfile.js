@@ -41,7 +41,6 @@ gulp.task('web-pack', ['scripts'], function() {
 
 
 var filestoWatch = _.flatten([config.views.all, config.js, config.lessDir]);
-console.log(filestoWatch);
 gulp.task('watch', function() {
     return gulp.watch(filestoWatch, ['web-pack']);
     //return gulp.src(filestoWatch)

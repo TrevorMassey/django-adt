@@ -1,12 +1,16 @@
 /*
  * Header
- *
  */
+#header {
+  margin: 0;
+  position: relative;
+  z-index: 905;
+}
 
 /*
 * Navbar
-*
 */
+
 .navbar {
   border: 0;
   .box-shadow(none);
@@ -16,11 +20,12 @@
   font-family: 'proxima_novasemibold';
   .navbar-nav {
     text-transform: uppercase;
-    @media (min-width: @screen-sm-min) {
-      font-size: 18px;
+    font-size: 24px;
+    @media (max-width: @screen-md-min) {
+      font-size: 20px;
     }
-    @media (min-width: @screen-md-min) {
-      font-size: 24px;
+    @media (max-width: @screen-sm-min) {
+      font-size: 16px;
     }
   }
   q .navbar-avatar {
@@ -51,9 +56,13 @@
       font-size: 20px;
     }
   }
+
   .navbar-divider {
     height: 0;
     margin: 0;
+  }
+  .navbar-toggle.collapsed {
+    background-color: white;
   }
 }
 .navbar-nav > li > a {
@@ -61,15 +70,19 @@
   padding-right: 20px;
   height: 50px;
 }
-.navbar-right .dropdown-menu {
-  right: inherit;
-}
+
+//TODO: remove inherit
+//.navbar-right .dropdown-menu {
+//  right: inherit;
+//}
+
 .navbar-brand {
-  @media (min-width: @screen-md-min) {
-    font-size: 24px;
+  font-size: 24px;
+  @media (max-width: @screen-xs-min) {
+    font-size: 26px;
   }
   text-transform: uppercase;
-  padding: 15px 20px 15px 0px;
+  padding: 15px 20px 15px 0;
 }
 .navbar-user {
   font-family: 'proxima_novalight';
