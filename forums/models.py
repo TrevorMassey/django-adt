@@ -112,7 +112,6 @@ class Post(models.Model):
     poster_signature = models.CharField(max_length=255, null=True, blank=True)
 
     body = models.TextField()
-    body_clean = models.TextField()
 
     posted = models.DateTimeField(auto_now_add=True)
 

@@ -1,10 +1,12 @@
 from rest_framework import serializers
 from publications.models import Article, News, Codex
 from games.serializers import ChapterSerializer
+from users.serializers import BasicUserSerializer
 
 
 class ArticleSerializer(serializers.ModelSerializer):
-    #author = UserSerializer
+    author = BasicUserSerializer()
+
     class Meta:
         model = Article
         fields = ('title', 'created', 'last_updated', 'body', 'body_clean', 'author')
