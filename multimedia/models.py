@@ -1,16 +1,19 @@
 from django.db import models
-from filer.fields.image import FilerImageField
 from django_extensions.db.fields import AutoSlugField
 
+
+def screenshot_image_path(instance, filename):
+    path, ext = filename.split('.')
+    return 'images/screenshots/{filename}.{ext}'.format(filename=instance.slug, ext=ext)
 
 class Screenshot(models.Model):
 
     # Fields
     title = models.CharField(max_length=255)
-    slug = AutoSlugField(populate_from='title', blank=True)
-    views = models.IntegerField(default=0) #
+    slug = AutoSlugField(populate_from='title', blank=True, unique=True)
+    views = models.PositiveIntegerField(default=0) # Needs to increment somehow
     created = models.DateTimeField(auto_now_add=True)
-    image = FilerImageField(related_name="screenshot")
+    image = models.ImageField(upload_to=screenshot_image_path)
 
     # Relationships
     poster = models.ForeignKey('users.User')
@@ -25,7 +28,7 @@ class Screenshot(models.Model):
 
 def quote_image_path(instance, filename):
     path, ext = filename.split('.')
-    return 'images/quotes/{filename}.{ext}'.format(filename=instance.title, ext=ext)
+    return 'images/quotes/{filename}.{ext}'.format(filename=instance.slug, ext=ext)
 
 class Quote(models.Model):
 
@@ -39,6 +42,7 @@ class Quote(models.Model):
 
     # Fields
     title = models.CharField(max_length=255)
+    slug = AutoSlugField(populate_from='title', blank=True, unique=True)
     body = models.TextField()
     type = models.CharField(max_length=15, choices=QUOTE_TYPE)
     created = models.DateTimeField(auto_now_add=True)
