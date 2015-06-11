@@ -1,14 +1,33 @@
 from django.contrib import admin
-from dossiers.models import Role, Guild
+from dossiers.models import UserRole, DossierRole, Guild, Dossier, Heading, Note
 
 
 class GuildAdmin(admin.ModelAdmin):
     list_display = ('title',)
 
 
-class RoleAdmin(admin.ModelAdmin):
+class UserRoleAdmin(admin.ModelAdmin):
     list_display = ('role', 'duration',)
 
 
+class DossierRoleAdmin(admin.ModelAdmin):
+    list_display = ('role', 'duration',)
+
+
+class DossierAdmin(admin.ModelAdmin):
+    list_display = ('subject',)
+
+
+class HeadingAdmin(admin.ModelAdmin):
+    list_display = ('title',)
+
+
+class NoteAdmin(admin.ModelAdmin):
+    list_display = ('heading',)
+
 admin.site.register(Guild, GuildAdmin)
-admin.site.register(Role, RoleAdmin)
+admin.site.register(UserRole, UserRoleAdmin)
+admin.site.register(DossierRole, DossierRoleAdmin)
+admin.site.register(Dossier, DossierAdmin)
+admin.site.register(Heading, HeadingAdmin)
+admin.site.register(Note, NoteAdmin)

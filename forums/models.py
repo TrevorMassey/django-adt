@@ -141,6 +141,12 @@ class Post(models.Model):
 class Label(models.Model):
     # Prefix label instead of tags for threads
     forums = models.ManyToManyField('forums.Forum')
-    name = models.CharField(max_length=255)
+    title = models.CharField(max_length=255)
     slug = AutoSlugField(populate_from='title', blank=True)
     css_class = models.CharField(max_length=255, null=True, blank=True)
+
+    class Meta:
+        ordering = ('-id',)
+
+    def __unicode__(self):
+        return u'%s' % self.title

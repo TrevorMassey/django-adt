@@ -20,6 +20,8 @@ class Codex(MPTTModel):
 
     class Meta:
         ordering = ('-created',)
+        verbose_name = 'codex'
+        verbose_name_plural = 'codex'
 
     class MPTTMeta:
         order_insertion_by = 'order'
@@ -36,7 +38,6 @@ class Article(models.Model):
     created = models.DateTimeField(auto_now_add=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
     body = models.TextField()
-    body_clean = models.TextField()
 
     # Relationship Fields
     author = models.ForeignKey('users.User', )
@@ -49,6 +50,10 @@ class Article(models.Model):
 
 
 class News(models.Model):
+
+    # TODO: should this be changed to use Multi-table inheritance?  - was reading up on abstract classes
+
+    # TODO: add image
 
     # Relationship Fields
     article = models.OneToOneField('publications.Article', blank=True, null=True)
