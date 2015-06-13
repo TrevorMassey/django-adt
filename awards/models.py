@@ -5,7 +5,7 @@ class Award(models.Model):
 
     # Fields
     title = models.CharField(max_length=255)
-    slug = AutoSlugField(populate_from='title', blank=True, unique=True)
+    slug = AutoSlugField(populate_from='title', unique=True)
     level_limit = models.IntegerField()
     order = models.IntegerField()
     description = models.TextField()
@@ -24,7 +24,7 @@ class Award(models.Model):
 
 class AwardType(models.Model):
     name = models.CharField(max_length=20, unique=True)
-    slug = AutoSlugField(populate_from='name', blank=True, unique=True)
+    slug = AutoSlugField(populate_from='name', unique=True)
 
     def __unicode__(self):
         return u'%s' % self.name
@@ -34,7 +34,7 @@ class AwardCategory(models.Model):
 
     # Fields
     title = models.CharField(max_length=255)
-    slug = AutoSlugField(populate_from='title', blank=True, unique=True)
+    slug = AutoSlugField(populate_from='title', unique=True)
     order = models.IntegerField()
 
     # Relationship Fields
@@ -80,7 +80,7 @@ class AwardImage(models.Model):
 
     # Fields
     title = models.CharField(max_length=30)
-    slug = AutoSlugField(populate_from='title', blank=True, unique=True)
+    slug = AutoSlugField(populate_from='title', unique=True)
     image = models.ImageField(upload_to=award_image_path)
 
     def __unicode__(self):

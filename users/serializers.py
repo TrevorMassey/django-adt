@@ -5,7 +5,14 @@ from users.models import Rank, User
 class RankSerializer(serializers.ModelSerializer):
     class Meta:
         model = Rank
-        fields = ('title', 'order', 'image', 'description', 'color')
+        fields = (
+            'title',
+            'slug',
+            'order',
+            'image',
+            'description',
+            'color'
+        )
 
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
@@ -17,7 +24,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         fields = (
             'display_name',
             'email',
-            'password',
+            'password'
         )
 
     def create(self, validated_data):
@@ -35,7 +42,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
             'username',
             'slug',
             'email',
-            'permissions',
+            'permissions'
         )
 
     def get_user_permissions(self, obj):

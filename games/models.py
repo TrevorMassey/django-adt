@@ -71,8 +71,8 @@ class ChapterDivision(MPTTModel):
 class Game(models.Model):
 
     # Fields
-    title = models.CharField(max_length=255)
-    slug = AutoSlugField(populate_from='title', blank=True)
+    title = models.CharField(max_length=255, unique=True)
+    slug = AutoSlugField(populate_from='title', unique=True)
 
     class Meta:
         ordering = ('-id',)

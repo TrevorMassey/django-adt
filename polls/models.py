@@ -1,10 +1,12 @@
 from django.db import models
+from django_extensions.db.fields import AutoSlugField
 
 
 class Poll(models.Model):
 
     # Fields
     title = models.CharField(max_length=255)
+    slug = AutoSlugField(populate_from='title', unique=True)
     created = models.DateTimeField(auto_now_add=True, editable=True)
 
     class Meta:
@@ -15,9 +17,10 @@ class Poll(models.Model):
     def __unicode__(self):
         return self.title
 
-    def get_vote_count(self):
-        return Vote.objects.filter(poll=self).count()
-    vote_count = property(fget=get_vote_count)
+    # TODO optimize this, or count item counts on frontend
+    # def get_vote_count(self):
+    #     return Vote.objects.filter(poll=self).count()
+    # vote_count = property(fget=get_vote_count)
 
 
 class Item(models.Model):
@@ -27,16 +30,17 @@ class Item(models.Model):
     order = models.IntegerField(default=0)
 
     # Relationships
-    poll = models.ForeignKey(Poll)
+    poll = models.ForeignKey('polls.Poll', related_name='items')
 
     class Meta:
-        verbose_name = 'answer'
-        verbose_name_plural = 'answers'
+        verbose_name = 'choice'
+        verbose_name_plural = 'choices'
         ordering = ['order']
 
     def __unicode__(self):
         return u'%s' % (self.answer,)
 
+    # TODO optimize this
     def get_vote_count(self):
         return Vote.objects.filter(item=self).count()
     vote_count = property(fget=get_vote_count)

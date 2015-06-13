@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from accounting.models import DonateCost, DonateAmount
+from accounting.models import DonateCost, DonateAmount, DonateGoal
 
 
 class DonateCostSerializer(serializers.ModelSerializer):
@@ -16,5 +16,5 @@ class DonateAmountSerializer(serializers.ModelSerializer):
 
 class DonateGoalSerializer(serializers.ModelSerializer):
     class Meta:
-        model = DonateAmount
+        model = DonateGoal
         fields = ('amount', 'created', 'end', 'description',)

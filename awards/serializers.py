@@ -2,6 +2,7 @@ from rest_framework import serializers
 from awards.models import Award, AwardCategory, AwardRecipient, AwardImage
 from games.models import Chapter
 from games.serializers import ChapterSerializer, GameSerializer
+from users.serializers import BasicUserSerializer
 
 
 class AwardSerializer(serializers.ModelSerializer):
@@ -14,11 +15,11 @@ class AwardCategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AwardCategory
-        fields = ('chapter', 'title',)
+        fields = ('chapter', 'title', 'slug',)
 
 
 class AwardRecipientSerializer(serializers.ModelSerializer):
-    #recipient = UserSerializer()
+    recipient = BasicUserSerializer()
     award = AwardSerializer()
 
     class Meta:
@@ -30,7 +31,7 @@ class AwardImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AwardImage
-        fields = ('title', 'image',)
+        fields = ('title', 'slug', 'image',)
 
 
 class AwardSummaryRecipientSerializer(serializers.ModelSerializer):

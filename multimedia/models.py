@@ -10,8 +10,8 @@ class Screenshot(models.Model):
 
     # Fields
     title = models.CharField(max_length=255)
-    slug = AutoSlugField(populate_from='title', blank=True, unique=True)
-    views = models.PositiveIntegerField(default=0) # Needs to increment somehow
+    slug = AutoSlugField(populate_from='title', unique=True)
+    views = models.PositiveIntegerField(default=0)  # Needs to increment somehow
     created = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to=screenshot_image_path)
 
@@ -42,7 +42,7 @@ class Quote(models.Model):
 
     # Fields
     title = models.CharField(max_length=255)
-    slug = AutoSlugField(populate_from='title', blank=True, unique=True)
+    slug = AutoSlugField(populate_from='title', unique=True)
     body = models.TextField()
     type = models.CharField(max_length=15, choices=QUOTE_TYPE)
     created = models.DateTimeField(auto_now_add=True)

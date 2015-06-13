@@ -3,10 +3,12 @@ from polls.models import Poll, Item, Vote
 from users.serializers import BasicUserSerializer
 
 
-class PollSerializer(serializers.ModelSerializer):
+class VoteSerializer(serializers.ModelSerializer):
+    user = BasicUserSerializer()
+
     class Meta:
-        model = Poll
-        fields = ('title', 'created', 'vote_count',)
+        model = Vote
+        fields = ('created', 'poll', 'item', 'user',)
 
 
 class ItemSerializer(serializers.ModelSerializer):
@@ -15,9 +17,9 @@ class ItemSerializer(serializers.ModelSerializer):
         fields = ('answer', 'order', 'poll', 'vote_count',)
 
 
-class VoteSerializer(serializers.ModelSerializer):
-    user = BasicUserSerializer()
+class PollSerializer(serializers.ModelSerializer):
+    items = ItemSerializer(many=True)
 
     class Meta:
-        model = Vote
-        fields = ('created', 'poll', 'item', 'user',)
+        model = Poll
+        fields = ('title', 'slug', 'created', 'items',)

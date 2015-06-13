@@ -5,8 +5,8 @@ from django_extensions.db.fields import AutoSlugField
 class Guild(models.Model):
 
     # Fields
-    title = models.CharField(max_length=255)
-    slug = AutoSlugField(populate_from='title', blank=True)
+    title = models.CharField(max_length=255, unique=True)
+    slug = AutoSlugField(populate_from='title', unique=True)
     created = models.DateTimeField(auto_now_add=True, editable=False)
 
     class Meta:
@@ -54,7 +54,7 @@ class Dossier(models.Model):
 
     # Subject may not be a user on this website (dossier on enemy leader)
     subject = models.CharField(max_length=255)
-    slug = AutoSlugField(populate_from='subject', blank=True)
+    slug = AutoSlugField(populate_from='subject', unique=True)
     # Only one Dossier per user
     subject_rel = models.OneToOneField('users.User', related_name='dossier', blank=True, null=True)
 
