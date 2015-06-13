@@ -7,6 +7,9 @@ from rest_framework.generics import ListCreateAPIView, RetrieveDestroyAPIView, L
 from activityfeed.models import FeedItem, FeedPost
 from activityfeed import serializers
 
+
+# TODO @Gromph I don't think this needs to be a List, just create
+# Should make a second class that lists feed_items for a specific user perhaps?
 class FeedPostListCreateAPIView(ListCreateAPIView):
 
     serializer_class = serializers.FeedPostSerializer

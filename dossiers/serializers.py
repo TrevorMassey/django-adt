@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from dossiers.models import Guild, UserRole, DossierRole, Dossier, Heading, Note
 from games.serializers import GameSerializer
+from users.serializers import BasicUserSerializer
 
 
 class GuildSerializer(serializers.ModelSerializer):
@@ -27,19 +28,25 @@ class DossierRoleSerializer(serializers.ModelSerializer):
         fields = ('role', 'created', 'duration', 'guild', 'game',)
 
 
-class DossierSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Dossier
-        fields = ('subject', 'slug', 'subject_rel', 'created', 'created_by',)
-
-
 class HeadingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Heading
-        fields = ('title', 'created', 'created_by',)
+        fields = ('id', 'title', 'created', 'created_by',)
 
 
 class NoteSerializer(serializers.ModelSerializer):
+    created_by = BasicUserSerializer()
+    game = GameSerializer()
+
     class Meta:
         model = Note
-        fields = ('body', 'created', 'created_by',)
+        fields = ('id', 'body', 'created', 'created_by', 'game',)
+
+
+class DossierSerializer(serializers.ModelSerializer):
+    roles = DossierRoleSerializer(many=True)
+    notes = NoteSerializer(many=True)
+
+    class Meta:
+        model = Dossier
+        fields = ('subject', 'slug', 'subject_rel', 'created', 'created_by', 'roles', 'notes')

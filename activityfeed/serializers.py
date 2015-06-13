@@ -9,6 +9,7 @@ from awards.serializers import AwardSerializer
 
 
 class FeedPostSerializer(ModelSerializer):
+    author = BasicUserSerializer()
 
     class Meta:
         model = FeedPost
@@ -19,7 +20,6 @@ class FeedPostSerializer(ModelSerializer):
         )
 
 class FeedItemSerializer(ModelSerializer):
-
     user = BasicUserSerializer()
 
     feed_post = FeedPostSerializer()
@@ -31,6 +31,7 @@ class FeedItemSerializer(ModelSerializer):
     class Meta:
         model = FeedItem
         fields = (
+            'id',
             'user',
             'type',
             'created',

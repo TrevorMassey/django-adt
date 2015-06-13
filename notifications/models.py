@@ -14,7 +14,7 @@ class Notification(models.Model):
     KICKED = 'kicked'
     QUOTE = 'quote'
     SCREENSHOT = 'screenshot'
-    CHAPTER = 'chapter'
+    JOIN_CHAPTER = 'chapter'
 
     NOTIFICATION_TYPES = (
         (USERNAME_MENTION_COMMENT, 'Username Mentioned in Comment'),
@@ -27,7 +27,7 @@ class Notification(models.Model):
         (KICKED, 'Kicked from guild'),
         (QUOTE, 'You were quoted'),
         (SCREENSHOT, 'You were tagged in a screenshot'),
-        (CHAPTER, 'You were added to a chapter'),
+        (JOIN_CHAPTER, 'You were added to a chapter'),
     )
 
     # Fields

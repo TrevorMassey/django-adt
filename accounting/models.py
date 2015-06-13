@@ -1,7 +1,4 @@
-from django.core.urlresolvers import reverse
 from django.db import models
-
-# Create your models here.
 from django_extensions.db.fields import AutoSlugField
 
 
@@ -35,3 +32,18 @@ class DonateCost(models.Model):
 
     def __unicode__(self):
         return u'%s' % self.slug
+
+
+class DonateGoal(models.Model):
+
+    # Fields
+    amount = models.DecimalField(max_digits=9, decimal_places=2)
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+    end = models.DateTimeField(blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
+
+    class Meta:
+        ordering = ('-created',)
+
+    def __unicode__(self):
+        return u'%s' % self.amount

@@ -10,11 +10,11 @@ class AddictionUserAdmin(UserAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
 
-    list_display = ('display_name', 'email', 'rank',)
+    list_display = ('display_name', 'username', 'slug', 'email', 'rank',)
     ordering = ('display_name', )
 
     fieldsets = (
-        (None, {'fields': ('display_name', 'email', 'password', 'rank', 'avatar')}),
+        (None, {'fields': ('display_name', 'username', 'slug', 'email', 'password', 'rank', 'avatar')}),
         (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser',
                                        'groups', 'user_permissions')}),
         (_('Important dates'), {'fields': ('last_login', 'date_joined')}),

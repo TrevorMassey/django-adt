@@ -1,5 +1,6 @@
 import uuid
 from django.conf import settings
+from django.core import validators
 from model_utils import FieldTracker
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
@@ -8,10 +9,12 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseU
 from django.utils import timezone
 
 from templated_email import send_templated_mail
+from dossiers.models import Dossier, DossierRole
+
 
 class UserManager(BaseUserManager):
 
-    def _create_user(self, email, password,
+    def _create_user(self, username, email, password,
                      is_staff, is_superuser, **extra_fields):
         """
         Creates and saves a User with the given username, email and password.
@@ -21,6 +24,7 @@ class UserManager(BaseUserManager):
             raise ValueError('The given username must be set')
         email = self.normalize_email(email)
         user = self.model(email=email,
+                          username=username,
                           is_staff=is_staff, is_active=True,
                           is_superuser=is_superuser, last_login=now,
                           date_joined=now, **extra_fields)
@@ -28,12 +32,12 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_user(self, email=None, password=None, **extra_fields):
-        return self._create_user(email, password, False, False,
+    def create_user(self, username=None, email=None, password=None, **extra_fields):
+        return self._create_user(username, email, password, False, False,
                                  **extra_fields)
 
-    def create_superuser(self, email, password, **extra_fields):
-        return self._create_user(email, password, True, True,
+    def create_superuser(self, username, email, password, **extra_fields):
+        return self._create_user(username, email, password, True, True,
                                  **extra_fields)
 
 def user_image_path(instance, filename):
@@ -50,6 +54,13 @@ class User(AbstractBaseUser, PermissionsMixin):
     """
 
     display_name = models.CharField(max_length=30)
+    username = models.CharField(_('username'), max_length=30, unique=True, db_index=True,
+        help_text=_('Required. 30 characters or fewer. Letters, digits and '
+                    '@/./+/-/_ only.'),
+        validators=[
+            validators.RegexValidator(r'^[\w.@+-]+$', _('Enter a valid username.'), 'invalid')
+        ])
+    slug = AutoSlugField(populate_from='username', blank=True, db_index=True, overwrite=True, editable=True, unique=True)
     email = models.EmailField(_('email address'), unique=True, db_index=True)
 
     is_staff = models.BooleanField(_('staff status'), default=False,
@@ -73,8 +84,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     objects = UserManager()
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['display_name']
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['display_name', 'email']
 
     class Meta:
         verbose_name = _('user')
@@ -113,6 +124,22 @@ class User(AbstractBaseUser, PermissionsMixin):
                             from_email='no-reply@addictguild.com',
                             recipient_list=[self.email],
                             context=context,)
+
+    def create_dossier(self, creator):
+        defaults = {
+            'subject': self.display_name,
+            'created_by': creator}
+        dossier, created = Dossier.objects.get_or_create(subject_rel=self,
+                                                         defaults=defaults)
+
+        if not created:
+            return
+
+        for role_dict in self.user_roles.values():
+            dossier_role = DossierRole(**role_dict)
+            dossier_role.id = None
+            dossier_role.subject_rel = dossier.id
+            dossier_role.save()
 
 
 

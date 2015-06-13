@@ -51,9 +51,11 @@ class Article(models.Model):
 
 class News(models.Model):
 
-    # TODO: should this be changed to use Multi-table inheritance?  - was reading up on abstract classes
+    # TODO this needs reimplementing better.  Cannot set title that is different from article, slug difficult.
+    # should investigate using multi-table inheritance?
 
-    # TODO: add image
+    # Fields
+    image = models.ImageField(upload_to='images/news/', blank=True, null=True)
 
     # Relationship Fields
     article = models.OneToOneField('publications.Article', blank=True, null=True)

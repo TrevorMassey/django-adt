@@ -7,7 +7,14 @@ class DonateCostSerializer(serializers.ModelSerializer):
         model = DonateCost
         fields = ('service', 'amount', 'created', 'last_updated',)
 
+
 class DonateAmountSerializer(serializers.ModelSerializer):
     class Meta:
         model = DonateAmount
         fields = ('user', 'amount', 'created',)
+
+
+class DonateGoalSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DonateAmount
+        fields = ('amount', 'created', 'end', 'description',)

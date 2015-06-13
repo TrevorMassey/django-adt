@@ -32,6 +32,8 @@ class UserProfileSerializer(serializers.ModelSerializer):
         model = User
         fields = (
             'display_name',
+            'username',
+            'slug',
             'email',
             'permissions',
         )
@@ -48,6 +50,8 @@ class BasicUserSerializer(serializers.ModelSerializer):
         model = User
         fields = (
             'display_name',
+            'username',
+            'slug',
             'avatar',
             'rank',
             'id',

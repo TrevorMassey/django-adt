@@ -9,7 +9,7 @@ class FeedPost(models.Model):
     body = models.TextField()
 
     # Relationships
-    author = models.ForeignKey('users.User', blank=True, null=True)
+    author = models.ForeignKey('users.User')
 
 
 class FeedItem(models.Model):

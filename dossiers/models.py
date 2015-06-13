@@ -31,14 +31,14 @@ class Role(models.Model):
         ordering = ('-created',)
 
 class UserRole(Role):
-    user = models.ForeignKey('users.User',)
+    user = models.ForeignKey('users.User', related_name='roles')
 
     def __unicode__(self):
         return u'%s' % self.role
 
 
 class DossierRole(Role):
-    dossier = models.ForeignKey('dossiers.Dossier',)
+    dossier = models.ForeignKey('dossiers.Dossier', related_name='roles')
 
     def __unicode__(self):
         return u'%s' % self.role
@@ -88,7 +88,8 @@ class Note(models.Model):
     created_by = models.ForeignKey('users.User', related_name='dossier_notes')
 
     heading = models.ForeignKey('dossiers.Heading',)
-    dossier = models.ForeignKey('dossiers.Dossier',)
+    dossier = models.ForeignKey('dossiers.Dossier', related_name='notes')
+    game = models.ForeignKey('games.Game', related_name='+')
 
     class Meta:
         ordering = ('-created',)
