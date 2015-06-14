@@ -6,8 +6,6 @@ from awards.serializers import AwardSerializer, AwardCategorySerializer, AwardRe
 from games.models import Chapter
 
 
-# TODO urls.py for awardcategory,  everything for award-image
-
 class AwardListCreateAPIView(generics.ListCreateAPIView):
     queryset = Award.objects
     serializer_class = AwardSerializer

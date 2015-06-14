@@ -51,3 +51,7 @@ class Notification(models.Model):
         ordering = ('-created',)
         verbose_name = 'notification'
         verbose_name_plural = 'notifications'
+
+    def read_notification(self):
+        self.is_read = True
+        self.save()

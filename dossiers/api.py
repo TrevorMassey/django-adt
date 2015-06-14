@@ -141,6 +141,11 @@ note_list = NoteListCreateAPIView.as_view()
 note_detail = NoteRetrieveUpdateDestroyAPIView.as_view()
 
 
+class DossierCreateAPIView(generics.CreateAPIView):
+    # TODO hook up user.create_dossier method
+    pass
+
+
 class DossierListAPIView(generics.ListAPIView):
     queryset = Dossier.objects.filter(subject_rel=None)
     serializer_class = DossierSerializer

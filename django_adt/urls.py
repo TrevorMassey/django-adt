@@ -98,8 +98,8 @@ urlpatterns += patterns('',
     url(r'^api/news/$', 'publications.api.news_list', name='news_list'),
     url(r'^api/news/(?P<slug>[a-z0-9-]+)/$', 'publications.api.news_detail', name='news_detail'),
     # TODO Comments not functioning yet
-    url(r'^api/news/(?P<slug>[a-z0-9-]+)/comments/$', 'comments.api.comment_list', name='news_comments_list'),
-    url(r'^api/news/(?P<slug>[a-z0-9-]+)/comments/(?P<pk>\d+)/$', 'comments.api.comment_detail', name='news_comments_detail'),
+    url(r'^api/news/(?P<slug>[a-z0-9-]+)/comments/$', 'comments.api.news_comment_list', name='news_comments_list'),
+    url(r'^api/news/(?P<slug>[a-z0-9-]+)/comments/(?P<pk>\d+)/$', 'comments.api.news_comment_detail', name='news_comments_detail'),
 
     url(r'^api/articles/$', 'publications.api.article_list', name='article_list'),
     url(r'^api/articles/(?P<slug>[a-z0-9-]+)/$', 'publications.api.article_detail', name='article_detail'),

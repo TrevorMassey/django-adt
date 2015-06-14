@@ -46,7 +46,7 @@ class FeedItem(models.Model):
     # Fields
 
     type = models.CharField(max_length=15, choices=FEED_TYPES)
-    public = models.BooleanField(default=False)
+    public = models.BooleanField(default=True)  # This to be replaced with something to do with member/officer visiblity
     created = models.DateField(default=timezone.now)
 
     is_deleted = models.BooleanField(default=False)
@@ -54,13 +54,15 @@ class FeedItem(models.Model):
     deleted_time = models.DateTimeField(blank=True, null=True)
 
     # Relationships
-    user = models.ForeignKey('users.User')
+    user = models.ForeignKey('users.User', related_name='+')
 
-    chapter = models.ForeignKey('games.Chapter', blank=True, null=True)
-    news = models.ForeignKey('publications.News', blank=True, null=True)
-    rank = models.ForeignKey('users.Rank', blank=True, null=True)
-    feed_post = models.ForeignKey('activityfeed.FeedPost', blank=True, null=True)
-    award = models.ForeignKey('awards.Award', blank=True, null=True)
+    chapter = models.ForeignKey('games.Chapter', blank=True, null=True, related_name='+')
+    news = models.ForeignKey('publications.News', blank=True, null=True, related_name='+')
+    rank = models.ForeignKey('users.Rank', blank=True, null=True, related_name='+')
+    feed_post = models.ForeignKey('activityfeed.FeedPost', blank=True, null=True, related_name='+')
+    award = models.ForeignKey('awards.Award', blank=True, null=True, related_name='+')
+    screenshot = models.ForeignKey('multimedia.Screenshot', blank=True, null=True, related_name='+')
+    quote = models.ForeignKey('multimedia.Quote', blank=True, null=True, related_name='+')
 
     def __unicode__(self):
         return u'{user.get_full_name} - {type}'.format(user=self.user, type=self.get_type_display())

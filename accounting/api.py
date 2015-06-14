@@ -42,12 +42,12 @@ class DonateGoalListCreateAPIView(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
 
-class DonateGoalRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+class DonateGoalRetrieveUpdateAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = DonateGoal.objects
     serializer_class = DonateGoalSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
 
 goal_list = DonateGoalListCreateAPIView.as_view()
-goal_detail = DonateGoalRetrieveUpdateDestroyAPIView.as_view()
+goal_detail = DonateGoalRetrieveUpdateAPIView.as_view()
 

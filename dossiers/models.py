@@ -44,12 +44,6 @@ class DossierRole(Role):
         return u'%s' % self.role
 
 
-class DossierManager(models.Manager):
-    # TODO when dossier is created it will copy a UserRole and create a DossierRole
-    def create_dossier(self):
-        pass
-
-
 class Dossier(models.Model):
 
     # Subject may not be a user on this website (dossier on enemy leader)

@@ -1,3 +1,4 @@
+from django.contrib.contenttypes.fields import GenericRelation
 from django.core.urlresolvers import reverse
 from django.db import models
 
@@ -9,7 +10,7 @@ class Codex(MPTTModel):
 
     # Fields
     title = models.CharField(max_length=255)
-    slug = AutoSlugField(populate_from='title', blank=True)
+    slug = AutoSlugField(populate_from='title', unique=True)
     created = models.DateTimeField(auto_now_add=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
     order = models.PositiveIntegerField(default=0)
@@ -34,7 +35,7 @@ class Article(models.Model):
 
     # Fields
     title = models.CharField(max_length=255)
-    slug = AutoSlugField(populate_from='title', blank=True)
+    slug = AutoSlugField(populate_from='title', unique=True)
     created = models.DateTimeField(auto_now_add=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
     body = models.TextField()
@@ -51,15 +52,16 @@ class Article(models.Model):
 
 class News(models.Model):
 
-    # TODO this needs reimplementing better.  Cannot set title that is different from article, slug difficult.
-    # should investigate using multi-table inheritance?
-
     # Fields
+    title = models.CharField(max_length=255)
+    slug = AutoSlugField(populate_from='title', unique=True)
     image = models.ImageField(upload_to='images/news/', blank=True, null=True)
 
     # Relationship Fields
     article = models.OneToOneField('publications.Article', blank=True, null=True)
     chapter = models.ForeignKey('games.Chapter', blank=True, null=True)
+
+    comments = GenericRelation('comments.Comment', related_query_name='news')
 
     class Meta:
         ordering = ('-id',)
@@ -67,4 +69,4 @@ class News(models.Model):
         verbose_name_plural = 'news'
 
     def __unicode__(self):
-        return u'%s' % self.article
+        return u'%s' % self.title
