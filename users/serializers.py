@@ -63,3 +63,6 @@ class BasicUserSerializer(serializers.ModelSerializer):
             'rank',
             'id',
         )
+
+class TokenUserSerializer(BasicUserSerializer):
+    pass

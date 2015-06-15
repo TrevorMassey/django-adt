@@ -139,6 +139,9 @@ JWT_AUTH = {
     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
     'JWT_VERIFY_EXPIRATION': True,
     'JWT_EXPIRATION_DELTA': timezone.timedelta(days=14),
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'users.jwt.jwt_response_payload_handler',
+    'JWT_ALLOW_REFRESH': False,
+    'JWT_REFRESH_EXPIRATION_DELTA': timezone.timedelta(days=7),
 }
 
 
