@@ -14,24 +14,24 @@ class ArticleSerializer(serializers.ModelSerializer):
         fields = ('title', 'created', 'last_updated', 'body', 'author')
 
 
-class CommentRelatedField(serializers.RelatedField):
-
-    def to_representation(self, value):
-        if isinstance(value, Comment):
-            serializer = CommentSerializer(value)
-        else:
-            raise Exception('Unexpected type of comment')
-
-        return serializer.data
+# class CommentRelatedField(serializers.RelatedField):
+#
+#     def to_representation(self, value):
+#         if isinstance(value, Comment):
+#             serializer = CommentSerializer(value)
+#         else:
+#             raise Exception('Unexpected type of comment')
+#
+#         return serializer.data
 
 class NewsSerializer(serializers.ModelSerializer):
     article = ArticleSerializer()
     chapter = ChapterSerializer()
-    comments = CommentRelatedField()
+    # comments = CommentRelatedField()
 
     class Meta:
         model = News
-        fields = ('title', 'slug', 'image', 'article', 'chapter', 'comments',)
+        fields = ('title', 'slug', 'image', 'article', 'chapter',)
 
 class RecursiveField(serializers.Serializer):
     def to_representation(self, value):
