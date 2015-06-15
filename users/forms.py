@@ -49,6 +49,7 @@ class UserCreationForm(forms.ModelForm):
         model = User
         fields = (
             "display_name",
+            "username",
             "email",
         )
 

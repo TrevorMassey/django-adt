@@ -1,12 +1,12 @@
 from rest_framework import serializers
-from games.models import Game, Chapter, ChapterMember, ChapterRole, ChapterDivision
+from games.models import Game, Chapter, ChapterMember, ChapterDivision
 from users.serializers import BasicUserSerializer
 
 
 class GameSerializer(serializers.ModelSerializer):
     class Meta:
         model = Game
-        fields = ('id', 'title', 'slug',)
+        fields = ('title', 'slug',)
 
 
 class ChapterSerializer(serializers.ModelSerializer):
@@ -17,20 +17,19 @@ class ChapterSerializer(serializers.ModelSerializer):
         fields = ('id', 'game', 'open_date', 'launch_date', 'close_date',)
 
 
+class BasicChapterDivisionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ChapterDivision
+        fields = ('title', 'slug',)
+
+
 class ChapterMemberSerializer(serializers.ModelSerializer):
     member = BasicUserSerializer()
+    division = BasicChapterDivisionSerializer()
 
     class Meta:
         model = ChapterMember
-        fields = ('member', 'join_date', 'leave_date',)
-
-
-class ChapterRoleSerializer(serializers.ModelSerializer):
-    member = BasicUserSerializer()
-
-    class Meta:
-        model = ChapterRole
-        fields = ('member', 'division', 'role',)
+        fields = ('member', 'join_date', 'leave_date', 'role', 'division',)
 
 
 class RecursiveField(serializers.Serializer):
@@ -41,11 +40,11 @@ class RecursiveField(serializers.Serializer):
 
 class ChapterDivisionSerializer(serializers.ModelSerializer):
     children = serializers.SerializerMethodField()
-    members = ChapterRoleSerializer(many=True)
+    members = ChapterMemberSerializer(many=True)
 
     class Meta:
         model = ChapterDivision
-        fields = ('title', 'order', 'parent', 'members', 'children')
+        fields = ('title', 'slug', 'order', 'parent', 'members', 'children')
 
     def get_children(self, obj):
         return ChapterDivisionSerializer(obj.get_children(), many=True).data

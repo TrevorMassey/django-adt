@@ -4,16 +4,51 @@ from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnl
 from publications.models import Article, News, Codex
 from publications.serializers import ArticleSerializer, NewsSerializer, CodexSerializer
 
-class ArticleViewSet(viewsets.ModelViewSet):
-    queryset = Article.objects.all()
-
+class ArticleListCreateAPIView(generics.ListCreateAPIView):
+    queryset = Article.objects
     serializer_class = ArticleSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly,)
 
 
-class NewsViewSet(viewsets.ModelViewSet):
-    queryset = News.objects.all()
+class ArticleRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = ArticleSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly,)
 
+    lookup_field = 'slug'
+    lookup_url_kwarg = 'slug'
+
+    def get_queryset(self):
+        qs = Article.objects
+        qs = qs.filter(slug=self.kwargs.get('slug'))
+        return qs
+
+
+article_list = ArticleListCreateAPIView.as_view()
+article_detail = ArticleRetrieveUpdateDestroyAPIView.as_view()
+
+
+class NewsListCreateAPIView(generics.ListCreateAPIView):
+    queryset = News.objects
     serializer_class = NewsSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+
+
+class NewsRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = NewsSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+
+    lookup_field = 'slug'
+    lookup_url_kwarg = 'slug'
+
+    def get_queryset(self):
+        qs = News.objects
+        qs = qs.filter(slug=self.kwargs.get('slug'))
+        return qs
+
+
+news_list = NewsListCreateAPIView.as_view()
+news_detail = NewsRetrieveUpdateDestroyAPIView.as_view()
+
 
 class CodexListAPIView(generics.ListAPIView):
     queryset = Codex.objects.root_nodes()

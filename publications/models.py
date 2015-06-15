@@ -1,3 +1,4 @@
+from django.contrib.contenttypes.fields import GenericRelation
 from django.core.urlresolvers import reverse
 from django.db import models
 
@@ -9,10 +10,10 @@ class Codex(MPTTModel):
 
     # Fields
     title = models.CharField(max_length=255)
-    slug = AutoSlugField(populate_from='title', blank=True)
+    slug = AutoSlugField(populate_from='title', unique=True)
     created = models.DateTimeField(auto_now_add=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
-    order = models.IntegerField()
+    order = models.PositiveIntegerField(default=0)
 
     # Relationship Fields
     parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True)
@@ -20,6 +21,8 @@ class Codex(MPTTModel):
 
     class Meta:
         ordering = ('-created',)
+        verbose_name = 'codex'
+        verbose_name_plural = 'codex'
 
     class MPTTMeta:
         order_insertion_by = 'order'
@@ -32,11 +35,10 @@ class Article(models.Model):
 
     # Fields
     title = models.CharField(max_length=255)
-    slug = AutoSlugField(populate_from='title', blank=True)
+    slug = AutoSlugField(populate_from='title', unique=True)
     created = models.DateTimeField(auto_now_add=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
     body = models.TextField()
-    body_clean = models.TextField()
 
     # Relationship Fields
     author = models.ForeignKey('users.User', )
@@ -50,9 +52,16 @@ class Article(models.Model):
 
 class News(models.Model):
 
+    # Fields
+    title = models.CharField(max_length=255)
+    slug = AutoSlugField(populate_from='title', unique=True)
+    image = models.ImageField(upload_to='images/news/', blank=True, null=True)
+
     # Relationship Fields
     article = models.OneToOneField('publications.Article', blank=True, null=True)
     chapter = models.ForeignKey('games.Chapter', blank=True, null=True)
+
+    comments = GenericRelation('comments.Comment', related_query_name='news')
 
     class Meta:
         ordering = ('-id',)
@@ -60,4 +69,4 @@ class News(models.Model):
         verbose_name_plural = 'news'
 
     def __unicode__(self):
-        return u'%s' % self.article
+        return u'%s' % self.title
