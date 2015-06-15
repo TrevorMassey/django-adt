@@ -119,6 +119,10 @@ if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
+urlpatterns += patterns('servermon.views',
+    url(r'^monitor/$', 'server_monitor', name='monitor'),
+)
+
 # urlpatterns += patterns('',
 #                         url(r'^.*$', 'frontend.views.index', name='catchall')
 #                         )

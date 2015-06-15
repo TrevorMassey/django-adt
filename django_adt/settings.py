@@ -49,6 +49,8 @@ INSTALLED_APPS = (
     'mptt',
     'easy_thumbnails',
 
+    'swampdragon',
+
     'accounting',
     'activityfeed',
     'applications',
@@ -62,6 +64,9 @@ INSTALLED_APPS = (
     'comments',
     'multimedia',
     'frontend',
+
+    'servermon',
+
 )
 
 MIDDLEWARE_CLASSES = (
@@ -200,3 +205,13 @@ LOGGING = {
 TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
     'django.core.context_processors.request',
 )
+
+
+# Swammpdragon Settings
+
+SWAMP_DRAGON_CONNECTION = ('swampdragon.connections.sockjs_connection.DjangoSubscriberConnection', '/data')
+
+SWAMP_DRAGON_HOST = '0.0.0.0'
+SWAMP_DRAGON_PORT = 9080
+
+DRAGON_URL = 'http://127.0.0.1:9080/'

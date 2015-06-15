@@ -1,0 +1,22 @@
+{% load static %}
+{% load swampdragon_tags %}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+    <h2>Server Monitor</h2>
+
+    <h3 id="sent"></h3>
+    <h3 id="rcvd"></h3>
+    <h3 id="cpu"></h3>
+
+
+    {% swampdragon_settings %}
+    <script type="text/javascript" src="{% static 'swampdragon/js/dist/swampdragon.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/monitor.js' %}"></script>
+</body>
+</html>
