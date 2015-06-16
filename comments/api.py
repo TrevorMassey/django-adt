@@ -1,11 +1,8 @@
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import QuerySet
-from django.http import Http404
-from rest_framework import generics, status
+from rest_framework import generics
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.generics import get_object_or_404
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
-from rest_framework.response import Response
 from comments.models import Comment
 from comments.serializers import CommentSerializer
 
