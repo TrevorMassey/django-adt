@@ -1,5 +1,6 @@
 from rest_framework import viewsets, generics
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
+from comments.api import BaseCommentListCreateAPIView, BaseCommentRetrieveUpdateAPIView
 
 from publications.models import Article, News, Codex
 from publications.serializers import ArticleSerializer, NewsSerializer, CodexSerializer
@@ -64,3 +65,16 @@ class CodexRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
 
 codex_list = CodexListAPIView.as_view()
 codex_detail = CodexRetrieveUpdateDestroyAPIView.as_view()
+
+
+class NewsCommentAPIMixin(object):
+    parent_queryset = News.objects.all()
+
+class NewsCommentListCreateAPIView(NewsCommentAPIMixin, BaseCommentListCreateAPIView):
+    pass
+
+class NewsCommentRetrieveUpdateAPIView(NewsCommentAPIMixin, BaseCommentRetrieveUpdateAPIView):
+    pass
+
+news_comment_list = NewsCommentListCreateAPIView.as_view()
+news_comment_detail = NewsCommentRetrieveUpdateAPIView.as_view()
