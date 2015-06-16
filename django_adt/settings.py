@@ -48,6 +48,7 @@ INSTALLED_APPS = (
     'filer',
     'mptt',
     'easy_thumbnails',
+    'djcelery',
 
     'accounting',
     'activityfeed',
@@ -96,6 +97,11 @@ DATABASES = {
 EMAIL_HOST = '127.0.0.1'
 EMAIL_PORT = 1025
 
+
+# Celery settings
+BROKER_URL = 'redis://localhost:6379/0'
+
+CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
