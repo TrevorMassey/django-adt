@@ -94,6 +94,3 @@ karma*.config.js
 
 
 adtsql/*
-
-
-*.pid
