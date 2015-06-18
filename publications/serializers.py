@@ -27,7 +27,6 @@ class ArticleSerializer(serializers.ModelSerializer):
 class NewsSerializer(serializers.ModelSerializer):
     article = ArticleSerializer()
     chapter = ChapterSerializer()
-    # comments = CommentRelatedField()
 
     class Meta:
         model = News

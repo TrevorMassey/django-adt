@@ -48,6 +48,7 @@ INSTALLED_APPS = (
     'filer',
     'mptt',
     'easy_thumbnails',
+    'djcelery',
 
     'accounting',
     'activityfeed',
@@ -62,6 +63,10 @@ INSTALLED_APPS = (
     'comments',
     'multimedia',
     'frontend',
+
+    'legacy.addict_forum',
+    'legacy.addict_logs',
+    'legacy.addict_website',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -90,12 +95,37 @@ DATABASES = {
         'NAME': 'django_adt',
         'USER': 'django_adt',
         'PASSWORD': 'django_adt',
-    }
+    },
+    'addict_forum': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'addict_forum',
+        'USER': 'root',
+        'PASSWORD': 'beer',
+    },
+    'addict_logs': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'addict_logs',
+        'USER': 'root',
+        'PASSWORD': 'beer',
+    },
+    'addict_website': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'addict_website',
+        'USER': 'root',
+        'PASSWORD': 'beer',
+    },
 }
+
+DATABASE_ROUTERS = ['django_adt.db.routers.LegacyDBRouter', ]
 
 EMAIL_HOST = '127.0.0.1'
 EMAIL_PORT = 1025
 
+
+# Celery settings
+BROKER_URL = 'redis://localhost:6379/0'
+
+CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 

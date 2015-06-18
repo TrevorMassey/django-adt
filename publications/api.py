@@ -68,7 +68,7 @@ codex_detail = CodexRetrieveUpdateDestroyAPIView.as_view()
 
 
 class NewsCommentAPIMixin(object):
-    parent_queryset = News.objects.all()
+    parent_queryset = Article.objects.all()
 
 class NewsCommentListCreateAPIView(NewsCommentAPIMixin, BaseCommentListCreateAPIView):
     pass
@@ -78,3 +78,29 @@ class NewsCommentRetrieveUpdateAPIView(NewsCommentAPIMixin, BaseCommentRetrieveU
 
 news_comment_list = NewsCommentListCreateAPIView.as_view()
 news_comment_detail = NewsCommentRetrieveUpdateAPIView.as_view()
+
+
+class CodexCommentAPIMixin(object):
+    parent_queryset = Article.objects.all()
+
+class CodexCommentListCreateAPIView(CodexCommentAPIMixin, BaseCommentListCreateAPIView):
+    pass
+
+class CodexCommentRetrieveUpdateAPIView(CodexCommentAPIMixin, BaseCommentRetrieveUpdateAPIView):
+    pass
+
+codex_comment_list = CodexCommentListCreateAPIView.as_view()
+codex_comment_detail = CodexCommentRetrieveUpdateAPIView.as_view()
+
+
+class ArticleCommentAPIMixin(object):
+    parent_queryset = Article.objects.all()
+
+class ArticleCommentListCreateAPIView(ArticleCommentAPIMixin, BaseCommentListCreateAPIView):
+    pass
+
+class ArticleCommentRetrieveUpdateAPIView(ArticleCommentAPIMixin, BaseCommentRetrieveUpdateAPIView):
+    pass
+
+article_comment_list = ArticleCommentListCreateAPIView.as_view()
+article_comment_detail = ArticleCommentRetrieveUpdateAPIView.as_view()
