@@ -5,7 +5,7 @@ from users.serializers import BasicUserSerializer
 
 
 class ScreenshotSerializer(serializers.ModelSerializer):
-    poster = BasicUserSerializer()
+    poster = BasicUserSerializer(read_only=True)
     chapter = ChapterSerializer()
     involved = BasicUserSerializer(many=True)
 
@@ -17,15 +17,20 @@ class ScreenshotSerializer(serializers.ModelSerializer):
             'views',
             'created',
             'image',
-
             'poster',
             'chapter',
             'involved',
         )
+        read_only_fields = (
+            'slug',
+            'views',
+            'created',
+            'poster',
+        )
 
 
 class QuoteSerializer(serializers.ModelSerializer):
-    poster = BasicUserSerializer()
+    poster = BasicUserSerializer(read_only=True)
     involved = BasicUserSerializer(many=True)
 
     class Meta:
@@ -34,9 +39,14 @@ class QuoteSerializer(serializers.ModelSerializer):
             'title',
             'slug',
             'body',
+            'created',
             'type',
             'image',
-
             'poster',
             'involved',
+        )
+        read_only_fields = (
+            'slug',
+            'created',
+            'poster',
         )

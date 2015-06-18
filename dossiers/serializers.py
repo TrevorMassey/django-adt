@@ -1,13 +1,24 @@
 from rest_framework import serializers
-from dossiers.models import Guild, UserRole, DossierRole, Dossier, Heading, Note
-from games.serializers import GameSerializer
+from dossiers.models import Guild, UserRole, DossierRole, Dossier, Heading, Note, Issue
+from games.serializers import GameSerializer, ChapterSerializer
 from users.serializers import BasicUserSerializer
 
 
 class GuildSerializer(serializers.ModelSerializer):
     class Meta:
         model = Guild
-        fields = ('title', 'slug', 'created',)
+        fields = ('id', 'title', 'slug', 'created',)
+        read_only_fields = ('id', 'slug', 'created',)
+
+
+class IssueSerializer(serializers.ModelSerializer):
+    chapter = ChapterSerializer()
+    involved = BasicUserSerializer(many=True)
+
+    class Meta:
+        model = Issue
+        fields = ('id', 'description', 'created', 'created_by', 'chapter', 'involved',)
+        read_only_fields = ('id', 'created', 'created_by',)
 
 
 class UserRoleSerializer(serializers.ModelSerializer):
@@ -16,7 +27,8 @@ class UserRoleSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserRole
-        fields = ('role', 'created', 'duration', 'guild', 'game',)
+        fields = ('id', 'role', 'created', 'duration', 'guild', 'game',)
+        read_only_fields = ('id', 'created', 'duration',)
 
 
 class DossierRoleSerializer(serializers.ModelSerializer):
@@ -25,13 +37,15 @@ class DossierRoleSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = DossierRole
-        fields = ('role', 'created', 'duration', 'guild', 'game',)
+        fields = ('id', 'role', 'created', 'duration', 'guild', 'game',)
+        read_only_fields = ('id', 'created', 'duration',)
 
 
 class HeadingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Heading
         fields = ('id', 'title', 'created', 'created_by',)
+        read_only_fields = ('id', 'created', 'created_by',)
 
 
 class NoteSerializer(serializers.ModelSerializer):
@@ -41,6 +55,7 @@ class NoteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Note
         fields = ('id', 'body', 'created', 'created_by', 'game',)
+        read_only_fields = ('id', 'created', 'created_by',)
 
 
 class DossierSerializer(serializers.ModelSerializer):
@@ -50,3 +65,4 @@ class DossierSerializer(serializers.ModelSerializer):
     class Meta:
         model = Dossier
         fields = ('subject', 'slug', 'subject_rel', 'created', 'created_by', 'roles', 'notes')
+        read_only_fields = ('slug', 'created', 'created_by', 'roles', 'notes')

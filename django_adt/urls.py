@@ -60,6 +60,8 @@ urlpatterns += patterns('',
     url(r'^api/users/(?P<slug>[a-z0-9-]+)/roles/(?P<pk>\d+)/$', 'dossiers.api.user_role_detail', name='user_dossier'),
     url(r'^api/users/(?P<slug>[a-z0-9-]+)/awards/$', 'awards.api.user_award_list', name='user_dossier'),
     url(r'^api/users/(?P<slug>[a-z0-9-]+)/awards/(?P<pk>\d+)/$', 'awards.api.user_award_detail', name='user_dossier'),
+    url(r'^api/users/(?P<slug>[a-z0-9-]+)/issues/$', 'dossiers.api.issue_list', name='user_issues'),
+    url(r'^api/users/(?P<slug>[a-z0-9-]+)/issues/(?P<pk>\d+)/$', 'dossiers.api.issue_detail', name='user_issue'),
 
     url(r'^api/ranks/$', 'users.api.rank_list', name='rank_list'),
     url(r'^api/ranks/(?P<slug>[a-z0-9-]+)/$', 'users.api.rank_detail', name='rank_detail'),

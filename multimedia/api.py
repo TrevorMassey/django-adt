@@ -5,10 +5,13 @@ from multimedia.models import Screenshot, Quote
 from multimedia.serializers import ScreenshotSerializer, QuoteSerializer
 
 
-class ScreenshotListAPIView(generics.ListAPIView):
+class ScreenshotListCreateAPIView(generics.ListCreateAPIView):
     queryset = Screenshot.objects.all()
     serializer_class = ScreenshotSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
+
+    def perform_create(self, serializer):
+        serializer.save(poster=self.request.user)
 
 
 class ScreenshotRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
@@ -26,10 +29,13 @@ class ScreenshotRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIVi
         return qs
 
 
-class QuoteListAPIView(generics.ListAPIView):
+class QuoteListCreateAPIView(generics.ListCreateAPIView):
     queryset = Quote.objects.all()
     serializer_class = QuoteSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
+
+    def perform_create(self, serializer):
+        serializer.save(poster=self.request.user)
 
 
 class QuoteRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
@@ -46,9 +52,9 @@ class QuoteRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
         return qs
 
 
-screenshot_list = ScreenshotListAPIView.as_view()
+screenshot_list = ScreenshotListCreateAPIView.as_view()
 screenshot_detail = ScreenshotRetrieveUpdateDestroyAPIView.as_view()
-quote_list = QuoteListAPIView.as_view()
+quote_list = QuoteListCreateAPIView.as_view()
 quote_detail = QuoteRetrieveUpdateDestroyAPIView.as_view()
 
 

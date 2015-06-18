@@ -64,9 +64,9 @@ INSTALLED_APPS = (
     'multimedia',
     'frontend',
 
-    'legacy.addict_forum',
-    'legacy.addict_logs',
-    'legacy.addict_website',
+    #'legacy.addict_forum',
+    #'legacy.addict_logs',
+    #'legacy.addict_website',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -116,7 +116,7 @@ DATABASES = {
     },
 }
 
-DATABASE_ROUTERS = ['django_adt.db.routers.LegacyDBRouter', ]
+#DATABASE_ROUTERS = ['django_adt.db.routers.LegacyDBRouter', ]
 
 EMAIL_HOST = '127.0.0.1'
 EMAIL_PORT = 1025

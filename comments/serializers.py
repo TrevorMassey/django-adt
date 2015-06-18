@@ -16,15 +16,17 @@ class CommentSerializer(serializers.ModelSerializer):
             'id',
             'body',
             'user',
-            'deleted_by',
             'created',
             'public',
             'is_deleted',
+            'deleted_by',
+            'deleted_time',
         )
         read_only_fields = (
             'id',
+            'created',
             'public',
             'is_deleted',
+            'deleted_by',
             'deleted_time',
-            'created',
         )

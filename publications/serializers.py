@@ -12,6 +12,7 @@ class ArticleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Article
         fields = ('title', 'created', 'last_updated', 'body', 'author')
+        read_only_fields = ('created', 'last_updated', 'author')
 
 
 # class CommentRelatedField(serializers.RelatedField):
@@ -31,6 +32,7 @@ class NewsSerializer(serializers.ModelSerializer):
     class Meta:
         model = News
         fields = ('title', 'slug', 'image', 'article', 'chapter',)
+        read_only_fields = ('slug', 'image', 'article', 'chapter',)
 
 class RecursiveField(serializers.Serializer):
     def to_representation(self, value):
@@ -52,6 +54,12 @@ class NoChildrenCodexSerializer(serializers.ModelSerializer):
             'parent',
             'article',
         )
+        read_only_fields = (
+            'id',
+            'slug',
+            'created',
+            'last_updated',
+        )
 
 
 
@@ -70,6 +78,12 @@ class CodexSerializer(serializers.ModelSerializer):
             'parent',
             'children',
             'article',
+        )
+        read_only_fields = (
+            'id',
+            'slug',
+            'created',
+            'last_updated',
         )
 
     def get_children(self, obj):
