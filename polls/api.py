@@ -15,6 +15,7 @@ class PollListCreateAPIView(generics.ListCreateAPIView):
 
 
 class PollRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = PollSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
     lookup_field = 'slug'
