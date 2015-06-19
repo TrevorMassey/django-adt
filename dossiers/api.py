@@ -1,8 +1,10 @@
 from rest_framework import  generics
+from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from dossiers.models import Guild, UserRole, DossierRole, Dossier, Heading, Note, Issue
 from dossiers.serializers import GuildSerializer, UserRoleSerializer, DossierRoleSerializer, DossierSerializer, \
     HeadingSerializer, NoteSerializer, IssueSerializer
+from users.models import User
 
 
 class GuildListCreateAPIView(generics.ListCreateAPIView):
@@ -75,7 +77,8 @@ class UserRoleListCreateAPIView(generics.ListCreateAPIView):
         return qs
 
     def perform_create(self, serializer):
-        serializer.save()
+        user = get_object_or_404(User, slug=self.kwargs.get('slug'))
+        serializer.save(user=user)
 
 
 class UserRoleRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
@@ -110,8 +113,8 @@ class DossierRoleListCreateAPIView(generics.ListCreateAPIView):
         return qs
 
     def perform_create(self, serializer):
-        serializer.save()
-
+        dossier = get_object_or_404(Dossier, slug=self.kwargs.get('slug'))
+        serializer.save(dossier=dossier)
 
 
 class DossierRoleRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
@@ -166,7 +169,8 @@ class NoteListCreateAPIView(generics.ListCreateAPIView):
         return qs
 
     def perform_create(self, serializer):
-        serializer.save(created_by=self.request.user)
+        dossier = get_object_or_404(Dossier, slug=self.kwargs.get('slug'))
+        serializer.save(created_by=self.request.user, dossier=dossier)
 
 
 class NoteRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):

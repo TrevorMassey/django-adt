@@ -64,5 +64,5 @@ class DossierSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Dossier
-        fields = ('subject', 'slug', 'subject_rel', 'created', 'created_by', 'roles', 'notes')
-        read_only_fields = ('slug', 'created', 'created_by', 'roles', 'notes')
+        fields = ('id', 'subject', 'slug', 'subject_rel', 'created', 'created_by', 'roles', 'notes')
+        read_only_fields = ('id', 'slug', 'created', 'created_by', 'roles', 'notes')

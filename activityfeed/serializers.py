@@ -9,28 +9,50 @@ from awards.serializers import AwardSerializer
 
 
 class FeedPostSerializer(ModelSerializer):
-    author = BasicUserSerializer()
+    author = BasicUserSerializer(read_only=True)
 
     class Meta:
         model = FeedPost
         fields = (
+            'id',
             'author',
             'created',
             'body',
         )
+        read_only_fields = (
+            'id',
+            'author',
+            'created',
+        )
 
 class FeedItemSerializer(ModelSerializer):
-    user = BasicUserSerializer()
+    user = BasicUserSerializer(read_only=True)
 
-    feed_post = FeedPostSerializer()
-    rank = RankSerializer()
-    award = AwardSerializer()
-    news = NewsSerializer()
-    chapter = ChapterSerializer()
+    feed_post = FeedPostSerializer(read_only=True)
+    rank = RankSerializer(read_only=True)
+    award = AwardSerializer(read_only=True)
+    news = NewsSerializer(read_only=True)
+    chapter = ChapterSerializer(read_only=True)
 
     class Meta:
         model = FeedItem
         fields = (
+            'id',
+            'user',
+            'type',
+            'created',
+            'public',
+            'is_deleted',
+            'deleted_by',
+            'deleted_time',
+
+            'chapter',
+            'news',
+            'rank',
+            'feed_post',
+            'award',
+        )
+        read_only_fields = (
             'id',
             'user',
             'type',

@@ -1,4 +1,5 @@
 from rest_framework import generics
+from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from polls.models import Poll, Item, Vote
 from polls.serializers import PollSerializer, ItemSerializer, VoteSerializer
@@ -8,6 +9,9 @@ class PollListCreateAPIView(generics.ListCreateAPIView):
     queryset = Poll.objects.prefetch_related('items')
     serializer_class = PollSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
+
+    def perform_create(self, serializer):
+        serializer.save()
 
 
 class PollRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
@@ -38,6 +42,10 @@ class ItemListCreateAPIView(generics.ListCreateAPIView):
         qs = Item.objects
         qs = qs.filter(poll__slug=self.kwargs.get('slug'))
         return qs
+
+    def perform_create(self, serializer):
+        poll = get_object_or_404(Poll, slug=self.kwargs.get('slug'))
+        serializer.save(poll=poll)
 
 
 class ItemRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
@@ -70,6 +78,11 @@ class VoteListCreateAPIView(generics.ListCreateAPIView):
         qs = Vote.objects
         qs = qs.filter(poll__slug=self.kwargs.get('slug'))
         return qs
+
+    def perform_create(self, serializer):
+        # TODO figure out how the url route for this will work
+        poll = get_object_or_404(Poll, slug=self.kwargs.get('slug'))
+        serializer.save(user=self.request.user, poll=poll)
 
 
 class VoteRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):

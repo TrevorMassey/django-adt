@@ -10,6 +10,9 @@ class ArticleListCreateAPIView(generics.ListCreateAPIView):
     serializer_class = ArticleSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
+
 
 class ArticleRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ArticleSerializer
@@ -32,6 +35,9 @@ class NewsListCreateAPIView(generics.ListCreateAPIView):
     queryset = News.objects
     serializer_class = NewsSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
+
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
 
 
 class NewsRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):

@@ -12,6 +12,7 @@ class ScreenshotSerializer(serializers.ModelSerializer):
     class Meta:
         model = Screenshot
         fields = (
+            'id',
             'title',
             'slug',
             'views',
@@ -22,6 +23,7 @@ class ScreenshotSerializer(serializers.ModelSerializer):
             'involved',
         )
         read_only_fields = (
+            'id',
             'slug',
             'views',
             'created',
@@ -36,6 +38,7 @@ class QuoteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Quote
         fields = (
+            'id',
             'title',
             'slug',
             'body',
@@ -46,6 +49,7 @@ class QuoteSerializer(serializers.ModelSerializer):
             'involved',
         )
         read_only_fields = (
+            'id',
             'slug',
             'created',
             'poster',

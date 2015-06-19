@@ -4,22 +4,25 @@ from users.serializers import BasicUserSerializer
 
 
 class VoteSerializer(serializers.ModelSerializer):
-    user = BasicUserSerializer()
+    user = BasicUserSerializer(read_only=True)
 
     class Meta:
         model = Vote
-        fields = ('created', 'poll', 'item', 'user',)
+        fields = ('id', 'created', 'poll', 'item', 'user',)
+        read_only_fields = ('id', 'created', 'user',)
 
 
 class ItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
-        fields = ('answer', 'order', 'poll', 'vote_count',)
+        fields = ('id', 'answer', 'order', 'poll', 'vote_count',)
+        read_only_fields = ('id', 'vote_count',)
 
 
 class PollSerializer(serializers.ModelSerializer):
-    items = ItemSerializer(many=True)
+    items = ItemSerializer(many=True, read_only=True)
 
     class Meta:
         model = Poll
-        fields = ('title', 'slug', 'created', 'items',)
+        fields = ('id', 'title', 'slug', 'created', 'items',)
+        read_only_fields = ('id', 'slug', 'created', 'items',)

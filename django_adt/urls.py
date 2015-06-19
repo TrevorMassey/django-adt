@@ -27,7 +27,9 @@ urlpatterns += patterns('',
     # Categories could be nested under chapter
     url(r'^api/award-categories/$', 'awards.api.award_category_list', name='award_category_list'),
     url(r'^api/award-categories/(?P<slug>[a-z0-9-]+)/$', 'awards.api.award_category_detail', name='award_category_detail'),
-    url(r'^api/awards-summary/$', 'awards.api.awards_summary', name='awards_summary'),
+    url(r'^api/award-types/$', 'awards.api.award_type_list', name='award_type_list'),
+    url(r'^api/award-types/(?P<slug>[a-z0-9-]+)/$', 'awards.api.award_type_detail', name='award_type_detail'),
+    url(r'^api/award-summary/$', 'awards.api.awards_summary', name='awards_summary'),
 
     # Donations
     url(r'^api/donations/$', 'accounting.api.donate_list', name='donation_list'),
@@ -43,7 +45,7 @@ urlpatterns += patterns('',
     url(r'^api/guilds/$', 'games.api.game_list', name='game_list'),
     url(r'^api/guilds/(?P<slug>[a-z0-9-]+)/$', 'games.api.game_detail', name='game_detail'),
 
-    # TODO this needs to be updated to slugs - not sure how to create slug for chapter
+    # TODO this needs to be updated to slugs - not sure how to create slug for chapter - or maybe not.  frontend won't directly navigate to /chapter
     url(r'^api/chapters/$', 'games.api.chapter_list', name='chapter_list'),
     url(r'^api/chapters/(?P<pk>\d+)/$', 'games.api.chapter_detail', name='chapter_detail'),
     url(r'^api/chapters/(?P<pk>\d+)/divisions/$', 'games.api.chapter_division_list', name='chapter_division_list'),

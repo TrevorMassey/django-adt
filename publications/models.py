@@ -41,7 +41,7 @@ class Article(models.Model):
     body = models.TextField()
 
     # Relationship Fields
-    author = models.ForeignKey('users.User', )
+    author = models.ForeignKey('users.User', related_name='articles')
 
     class Meta:
         ordering = ('-created',)
@@ -60,8 +60,6 @@ class News(models.Model):
     # Relationship Fields
     article = models.OneToOneField('publications.Article', blank=True, null=True)
     chapter = models.ForeignKey('games.Chapter', blank=True, null=True)
-
-    comments = GenericRelation('comments.Comment', related_query_name='news')
 
     class Meta:
         ordering = ('-id',)

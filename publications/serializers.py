@@ -7,12 +7,12 @@ from users.serializers import BasicUserSerializer
 
 
 class ArticleSerializer(serializers.ModelSerializer):
-    author = BasicUserSerializer()
+    author = BasicUserSerializer(read_only=True)
 
     class Meta:
         model = Article
-        fields = ('title', 'created', 'last_updated', 'body', 'author')
-        read_only_fields = ('created', 'last_updated', 'author')
+        fields = ('id', 'title', 'slug', 'created', 'last_updated', 'body', 'author')
+        read_only_fields = ('id', 'slug', 'created', 'last_updated', 'author')
 
 
 # class CommentRelatedField(serializers.RelatedField):
@@ -31,8 +31,8 @@ class NewsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = News
-        fields = ('title', 'slug', 'image', 'article', 'chapter',)
-        read_only_fields = ('slug', 'image', 'article', 'chapter',)
+        fields = ('id', 'title', 'slug', 'image', 'article', 'chapter',)
+        read_only_fields = ('id', 'slug',)
 
 class RecursiveField(serializers.Serializer):
     def to_representation(self, value):

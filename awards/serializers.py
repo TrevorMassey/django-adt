@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from awards.models import Award, AwardCategory, AwardRecipient, AwardImage
+from awards.models import Award, AwardCategory, AwardRecipient, AwardImage, AwardType
 from games.models import Chapter
 from games.serializers import ChapterSerializer, GameSerializer
 from users.serializers import BasicUserSerializer
@@ -8,14 +8,23 @@ from users.serializers import BasicUserSerializer
 class AwardSerializer(serializers.ModelSerializer):
     class Meta:
         model = Award
-        fields = ('id', 'title', 'slug',)
+        fields = ('id', 'title', 'slug', 'level_limit', 'order', 'description', 'category', 'image', 'type',)
+        read_only_fields = ('id', 'slug',)
 
+
+class AwardTypeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = AwardType
+        fields = ('id', 'name', 'slug',)
+        read_only_fields = ('id', 'slug',)
 
 class AwardCategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AwardCategory
-        fields = ('chapter', 'title', 'slug',)
+        fields = ('id', 'title', 'slug', 'order', 'chapter',)
+        read_only_fields = ('id', 'slug',)
 
 
 class AwardRecipientSerializer(serializers.ModelSerializer):
@@ -24,14 +33,15 @@ class AwardRecipientSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AwardRecipient
-        fields = ('recipient', 'award', 'reason',)
+        fields = ('id', 'recipient', 'award', 'reason',)
+        read_only_fields = ('id',)
 
 
 class AwardImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AwardImage
-        fields = ('title', 'slug', 'image',)
+        fields = ('id', 'title', 'slug', 'image',)
 
 
 class AwardSummaryRecipientSerializer(serializers.ModelSerializer):
@@ -39,7 +49,7 @@ class AwardSummaryRecipientSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AwardRecipient
-        fields = ('recipient', 'display_name', 'reason',)
+        fields = ('id', 'recipient', 'display_name', 'reason',)
 
 
 class AwardSummarySerializer(serializers.ModelSerializer):
@@ -55,30 +65,11 @@ class AwardSummarySerializer(serializers.ModelSerializer):
         return obj.image.image.url
 
 
-class AwardCategorySummarySerializer(serializers.ModelSerializer):
+
+
+class FullAwardSummarySerializer(serializers.ModelSerializer):
     awards = AwardSummarySerializer(many=True)
 
     class Meta:
         model = AwardCategory
-        fields = (
-            'title',
-            'slug',
-            'awards',
-        )
-
-
-class ChapterAwardSummarySerializer(ChapterSerializer):
-    categories = AwardCategorySummarySerializer(source='award_categories', many=True)
-
-    game = GameSerializer()
-
-    class Meta:
-        model = Chapter
-        fields = (
-            'id',
-            'game',
-            'open_date',
-            'launch_date',
-            'close_date',
-            'categories',
-        )
+        fields = ('id', 'title', 'slug', 'order', 'chapter', 'awards',)
