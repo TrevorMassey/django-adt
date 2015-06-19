@@ -116,6 +116,8 @@ urlpatterns += patterns('',
     url(r'^api/articles/(?P<slug>[a-z0-9-]+)/comments/$', 'publications.api.article_comment_list', name='article_comments_list'),
     url(r'^api/articles/(?P<slug>[a-z0-9-]+)/comments/(?P<pk>\d+)/$', 'publications.api.article_comment_detail', name='article_comments_detail'),
 
+    url(r'^api/events/$', 'event_calendar.api.event_list', name='event_list'),
+
     url(r'^api/codex/$', 'publications.api.codex_list', name='codex_list'),
     url(r'^api/codex/(?P<pk>\d+)/$', 'publications.api.codex_detail', name='codex_detail'),
 

@@ -50,6 +50,7 @@ INSTALLED_APPS = (
     'easy_thumbnails',
     'djcelery',
     'rest_framework_swagger',
+    'schedule',
 
     'accounting',
     'activityfeed',
@@ -63,6 +64,7 @@ INSTALLED_APPS = (
     'notifications',
     'comments',
     'multimedia',
+    'event_calendar',
     'frontend',
 
 )
