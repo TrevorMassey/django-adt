@@ -5,9 +5,10 @@ from rest_framework.routers import DefaultRouter
 from django.conf import settings
 
 urlpatterns = patterns('',
-                       url(r'^$', 'frontend.views.index', name='index'),
-                       url(r'^admin/', include(admin.site.urls)),
-                       )
+   url(r'^$', 'frontend.views.index', name='index'),
+   url(r'^admin/', include(admin.site.urls)),
+   url(r'^api/docs/', include('rest_framework_swagger.urls')),
+)
 
 router = DefaultRouter()
 
@@ -119,6 +120,8 @@ urlpatterns += patterns('',
     url(r'^api/codex/(?P<pk>\d+)/$', 'publications.api.codex_detail', name='codex_detail'),
 
     url(r'^verify/(?P<key>[A-Za-z0-9]{32})/$', 'users.views.verify_email', name='verify_email'),
+
+
     )
 
 if settings.DEBUG:
