@@ -34,4 +34,5 @@ class Command(BaseCommand):
             news.title = article.title
             news.image = legacy_news.image
             news.article = article
+            # news.chapter_id = legacy_news.game (needs to map to new id's)
             news.save()
