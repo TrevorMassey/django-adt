@@ -36,9 +36,6 @@ class NewsListCreateAPIView(generics.ListCreateAPIView):
     serializer_class = NewsSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
-    def perform_create(self, serializer):
-        serializer.save(author=self.request.user)
-
 
 class NewsRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = NewsSerializer
