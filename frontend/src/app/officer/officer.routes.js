@@ -3,9 +3,9 @@
 
     angular.module('officer')
         .config(function($breadcrumbProvider) {
-            $breadcrumbProvider.setOptions({
-                includeAbstract: true
-            });
+            //$breadcrumbProvider.setOptions({
+            //    //includeAbstract: true
+            //});
         })
         .config(['$locationProvider', '$stateProvider',
         function ($locationProvider, $stateProvider) {

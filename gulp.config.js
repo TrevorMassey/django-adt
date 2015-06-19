@@ -15,7 +15,7 @@ module.exports = function() {
         },
         less : [srcRoot + '/less/addiction-theme.less'],
         lessDir : [srcRoot + '/less/*.less'],
-        fonts: [srcRoot + '/fonts/*'],
+        fonts: srcRoot + '/fonts',
         js : [
             srcRoot + '/app/**/*.js'
         ],

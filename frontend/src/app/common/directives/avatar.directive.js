@@ -7,7 +7,7 @@
             return {
                 restrict: 'E',
                 replace: true,
-                template: '<img ng-src="https://placeimg.com/50/50/people" />',
+                template: '<img ng-src="" />',
                 link: function postLink(scope, element, attrs) {
 
                 }

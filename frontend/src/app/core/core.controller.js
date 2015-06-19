@@ -6,7 +6,7 @@
             '$scope', 'common', 'auth', 'Session',
             function($scope, common, auth, Session) {
 
-                $scope.session = { currentUser: {} };
+                $scope.currentUser = Session.currentUser;
                 $scope.site = { title: "Addiction "};
                 $scope.isAuthenticated = isAuthenticated;
                 $scope.toggleLeftPanel = toggleLeftPanel;
@@ -14,14 +14,7 @@
                 $scope.leftVisible = true;
                 $scope.rightVisible = true;
 
-                $scope.isCollapsed = false;
 
-                //console.log(auth.isAuthenticated());
-                //$scope.session.currentUser = auth.currentUser;
-
-                $scope.toggleCollapsibleMenu = function() {
-                    $scope.isCollapsed = !$scope.isCollapsed;
-                };
                 function isAuthenticated() {
                     return auth.isAuthenticated();
                 }

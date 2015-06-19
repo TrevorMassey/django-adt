@@ -5,12 +5,15 @@
         .service('Session', ['localStorageService',
             function(localStorageService) {
 
+                this.currentUser = localStorageService.get('session') || null;
+
                 this.create =function (name, email, permissions) {
                     localStorageService
                         .set('session', this.currentUser = {
                             displayName: name,
                             email: email,
-                            permissions: permissions
+                            permissions: permissions,
+                            roles: permissions
                         });
                 };
 
@@ -19,7 +22,8 @@
                         .remove('session', this.currentUser = {
                             displayName: null,
                             email: null,
-                            permissions: null
+                            permissions: null,
+                            roles: null
                         });
                 };
             }])

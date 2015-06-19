@@ -10,6 +10,7 @@
                     logger: logger,
                     exception: exception,
                     localStorage: localStorageService,
+                    errorHandler: errorHandler,
                     extractError: extractError,
                     redirectTo: redirectTo
                 };
@@ -18,11 +19,17 @@
                 /////////////////////
 
                 function extractError(errors) {
+                    if (typeof errors  == 'string') return errors;
                     var errorMsgs = [];
                     angular.forEach(errors, function(value, key) {
                         errorMsgs.push(errors[key]);
                     });
                     return errorMsgs.toString();
+                }
+
+                function errorHandler(error, title) {
+                    //exception.catcher(message)(error);
+                    logger.error(extractError(error.data), error, title);
                 }
 
                 function redirectTo(path) {

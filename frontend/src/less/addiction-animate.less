@@ -1,3 +1,58 @@
+/* The starting CSS styles for the enter animation */
+
+.breadcrumb .active span.breadcrumb-last {
+  opacity: 1;
+  //-webkit-animation: fadeIn 4s;
+  //animation: fadeIn 4s;
+}
+
+/* The starting CSS styles for the enter animation */
+//.breadcrumb .ng-enter-active.breadcrumb-last {
+//  opacity: 0;
+//}
+
+//.breadcrumb .ng-enter .breadcrumb-last {
+//  opacity: 0;
+  //-webkit-animation: fadeOut 4s;
+  //animation: fadeOut 4s;
+//}
+//.breadcrumb .ng-enter-active .breadcrumb-last {
+//  opacity: 0;
+//}
+
+.breadcrumb .ng-leave-active span.breadcrumb-last {
+  //opacity: 0;
+  -webkit-animation: fadeOut 1s;
+  animation: fadeOut 1s;
+}
+
+.breadcrumb .ng-enter-stagger,
+.breadcrumb .ng-leave-stagger {
+  transition-delay: 0.1s;
+}
+
+[ui-view].ng-enter {
+  -webkit-animation: fadeIn;
+  animation-name: fadeIn;
+  -webkit-animation-duration: .5s;
+  animation-duration: .5s;
+  //opacity: 0;
+}
+
+[ui-view].ng-enter-active {
+  opacity: 1;
+}
+
+
+[ui-view].ng-leave {
+  opacity: 1;
+}
+
+[ui-view].ng-leave-active {
+  opacity: 0;
+}
+
+
 //TODO: confirm animations with gromph before removing
 
 /*
@@ -29,43 +84,3 @@
   opacity: 1;
 }
 */
-
-
-[ui-view].ng-enter, [ui-view].ng-leave {
-  //.transition(0.5s linear opacity);
-}
-
-//[ui-view].ng-enter-stagger,
-//[ui-view].ng-leave-stagger {
-//  /* this will have a 100ms delay between each successive leave animation */
-//  -webkit-transition-delay: 0.1s;
-//  transition-delay: 0.1s;
-//
-//  /* in case the stagger doesn't work then these two values
-//   must be set to 0 to avoid an accidental CSS inheritance */
-//  -webkit-transition-duration: 0s;
-//  transition-duration: 0s;
-//}
-
-
-[ui-view].ng-enter {
-  -webkit-animation: fadeIn;
-  animation-name: fadeIn;
-  -webkit-animation-duration: .5s;
-  animation-duration: .5s;
-}
-
-[ui-view].ng-enter-active {
-  opacity: 1;
-}
-
-
-[ui-view].ng-leave {
-  opacity: 1;
-}
-
-[ui-view].ng-leave-active {
-  opacity: 0;
-}
-
-

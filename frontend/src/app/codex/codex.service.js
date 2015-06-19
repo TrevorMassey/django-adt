@@ -5,24 +5,29 @@
         .factory('Codex', ['common', 'DS',
             function(common, DS) {
 
-                var Codex = DS.defineResource('codex');
+                var Model = DS.defineResource('codex');
 
                 var service = {
                     data: [],
-                    getList: getList
+                    initialize: initialize
+
                 };
 
                 return service;
                 /////////////////////
 
+                function initialize() {
+                    return getList();
+                }
+
                 function getList() {
-                    return Codex.findAll()
+                    return Model.findAll()
                         .then(function(data) {
                             service.data = data;
                             return data;
                         })
-                        .catch(function(event) {
-                            common.logger.error('error', event, 'Error');
+                        .catch(function(error) {
+                            common.logger.error('Error retrieving data for' + Model.name, error);
                         });
                 }
             }]);

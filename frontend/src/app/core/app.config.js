@@ -20,18 +20,16 @@
 
     app.config(configure);
 
-    function configure($logProvider, exceptionHandlerProvider, RestangularProvider) {
+    function configure($logProvider, exceptionHandlerProvider, DSProvider) {
         if ($logProvider.debugEnabled) {
             $logProvider.debugEnabled(true);
         }
 
         exceptionHandlerProvider.configure(config.appErrorPrefix);
 
-        //DSProvider.defaults.basePath = '/api/';
-        //DSProvider.defaults.suffix = '/';
+        DSProvider.defaults.basePath = '/api/';
+        DSProvider.defaults.suffix = '/';
 
-        RestangularProvider.setBaseUrl('/api/');
-        RestangularProvider.setRequestSuffix('/');
     }
 
     //app.run(function($rootScope, $state) {
@@ -39,6 +37,5 @@
     //
     //    });
     //});
-
 
 }());

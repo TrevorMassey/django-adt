@@ -2,14 +2,40 @@
  * Header
  */
 #header {
+  z-index: @zindex-navbar-fixed;
   margin: 0;
-  position: relative;
-  z-index: 905;
+  border: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
 }
 
 /*
 * Navbar
 */
+.navbar-adt-wrapper {
+  display: block;
+  width: 100%;
+  height: 100px;
+  margin: auto 200px;
+  @media (min-width: @screen-lg-min) {
+    margin: auto 300px;
+  }
+  @media (max-width: @screen-sm-min) {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .container {
+    margin: 0;
+    padding: 0;
+  }
+  @media (max-width: @screen-sm-min) {
+    .container {
+      margin-left: 175px;
+    };
+  }
+}
 
 .navbar {
   border: 0;
@@ -19,13 +45,17 @@
 .navbar-adt {
   font-family: 'proxima_novasemibold';
   .navbar-nav {
-    text-transform: uppercase;
-    font-size: 24px;
-    @media (max-width: @screen-md-min) {
-      font-size: 20px;
+    @media (min-width: @screen-lg-min) {
+      font-size: 24px;
     }
-    @media (max-width: @screen-sm-min) {
-      font-size: 16px;
+    @media (max-width: @screen-lg-min) {
+      font-size: 18px;
+    }
+    @media (max-width: @screen-md-min) {
+      font-size: 14px;
+    }
+    a {
+      text-transform: uppercase;
     }
   }
   q .navbar-avatar {
@@ -44,6 +74,7 @@
       }
       > a {
         padding: 15px;
+        text-transform: uppercase;
       }
     }
   }
@@ -57,29 +88,83 @@
     }
   }
 
-  .navbar-divider {
-    height: 0;
-    margin: 0;
-  }
+  //.navbar-divider {
+  //  height: 0;
+  //  margin: 0;
+  //}
   .navbar-toggle.collapsed {
     background-color: white;
   }
+  .nav > li {
+    display: inline-block;
+  }
+  .navbar-header {
+    @media (max-width: 1599px) {
+      float: none;
+    }
+    @media (min-width: 1600px) {
+      float: right;
+    }
+
+  }
+
 }
+
+#header ul.nav.navbar-nav.right-nav {
+  @media (min-width: 1599px) {
+    margin-left: 170px;
+  }
+  @media (min-width: @screen-md-min) {
+    margin-left: 60px;
+  }
+  @media (max-width: @screen-md-min) {
+    margin-left: 70px;
+  }
+}
+
 .navbar-nav > li > a {
+  height: 50px;
   padding-left: 0;
   padding-right: 20px;
-  height: 50px;
+  @media (min-width: @screen-lg-min) {
+    padding-right: 15px;
+  }
+}
+.nav > li > a.profile-dropdown-toggle {
+  padding: 10px 0;
+  img {
+    @media (max-width: @screen-lg-min) {
+      width: 30px;
+      height: 30px;
+    }
+  }
 }
 
 //TODO: remove inherit
-//.navbar-right .dropdown-menu {
-//  right: inherit;
-//}
+.horizontal.dropdown-menu {
+  z-index: @zindex-dropdown;
+  list-style: none;
+  font-size: 14px;
+  text-align: left;
+  background-color: rgba(0, 0, 0, 0.1);
+  border: none;
+  border-radius: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  min-width: 250px;
+  width: 150%;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  ul {
+    display: inline-block;
+  }
+}
+
 
 .navbar-brand {
   font-size: 24px;
   @media (max-width: @screen-xs-min) {
-    font-size: 26px;
+    font-size: 18px;
   }
   text-transform: uppercase;
   padding: 15px 20px 15px 0;
@@ -87,5 +172,7 @@
 .navbar-user {
   font-family: 'proxima_novalight';
   font-size: 16px;
+  font-weight: bolder;
   text-transform: capitalize;
+
 }

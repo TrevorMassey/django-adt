@@ -23,7 +23,8 @@ var ApplicationConfiguration = (function() {
 		'js-data',
 		//'ui.tree',
 		'ngFitText',
-		'toastr'
+		'toastr',
+		'ee.$http.CaseConverter'
 	];
 
 	// Add a new vertical module

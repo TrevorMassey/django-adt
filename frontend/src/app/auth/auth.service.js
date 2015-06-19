@@ -8,17 +8,20 @@
             var _currentUser = null;
 
             var service = {
-                getCurrentUser: getCurrentUser
+                storeSession: storeSession,
+                currentUser: Session.currentUser
             };
 
             angular.extend(service, $auth);
+
             return service;
             /////////////////////
 
-            function getCurrentUser() {
+            function storeSession() {
                 return $http.get('/api/users/profile/')
                     .then(function(response) {
                         var user = response.data;
+                        console.log(user);
                         Session.create(
                             user.displayName,
                             user.email,

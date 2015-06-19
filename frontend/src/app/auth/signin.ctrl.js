@@ -22,13 +22,8 @@
                             vm.credentials = {};
                             logger.success('Signed in!', response);
                         })
-                        .then(function() {
-                            auth.getCurrentUser();
-                        })
-                        .catch(function(error) {
-                            var message = common.extractError(error.data);
-                            exception.catcher(message)(error);
-                        });
+                        .then(auth.storeSession)
+                        .catch(common.errorHandler);
                 };
 
             }]);

@@ -3,11 +3,10 @@
 
     angular.module('auth')
         .controller('SignupCtrl', [
-            'common', '$location', 'auth',
-            function(common, $location, auth) {
-                if (auth.isAuthenticated()) $location.path('/');
+            'common', 'auth',
+            function(common, auth) {
+                if (auth.isAuthenticated()) common.redirectTo('/');
 
-                var exception = common.exception;
                 var vm = this;
 
                 vm.credentials = {};
@@ -17,10 +16,8 @@
                         .then(function(response) {
                             vm.credentials = {};
                         })
-                        .catch(function(error) {
-                            var message = common.extractError(error.data);
-                            exception.catcher(message)(error)
-                        });
+                        .then(auth.storeSession)
+                        .catch(common.errorHandler);
                 };
 
             }]);
