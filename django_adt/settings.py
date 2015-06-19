@@ -49,6 +49,7 @@ INSTALLED_APPS = (
     'mptt',
     'easy_thumbnails',
     'djcelery',
+    'rest_framework_swagger',
 
     'accounting',
     'activityfeed',
@@ -225,3 +226,9 @@ LOGGING = {
 TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
     'django.core.context_processors.request',
 )
+
+SWAGGER_SETTINGS = {
+    'api_version': '1.0',
+    'api_path': '/api/',
+    'doc_expansion': 'none',
+}
