@@ -1,24 +1,67 @@
+import logging
+
 from rest_framework import serializers
+from comments.models import Comment
+from comments.serializers import CommentSerializer
+from games.models import Chapter
 from publications.models import Article, News, Codex
 from games.serializers import ChapterSerializer
 from users.serializers import BasicUserSerializer
 
+logger = logging.getLogger(__name__)
+
 
 class ArticleSerializer(serializers.ModelSerializer):
-    author = BasicUserSerializer()
+    author = BasicUserSerializer(read_only=True)
 
     class Meta:
         model = Article
-        fields = ('title', 'created', 'last_updated', 'body', 'body_clean', 'author')
+        fields = ('id', 'title', 'slug', 'created', 'last_updated', 'body', 'author')
+        read_only_fields = ('id', 'slug', 'created', 'last_updated', 'author')
 
+
+# class CommentRelatedField(serializers.RelatedField):
+#
+#     def to_representation(self, value):
+#         if isinstance(value, Comment):
+#             serializer = CommentSerializer(value)
+#         else:
+#             raise Exception('Unexpected type of comment')
+#
+#         return serializer.data
 
 class NewsSerializer(serializers.ModelSerializer):
-    article = ArticleSerializer()
-    chapter = ChapterSerializer()
+    article = ArticleSerializer(read_only=True)
+    chapter = ChapterSerializer(read_only=True)
+
+    article_id = serializers.PrimaryKeyRelatedField(source='article', queryset=Article.objects.filter(news__isnull=True))
+    chapter_id = serializers.PrimaryKeyRelatedField(source='chapter', queryset=Chapter.objects.all())
 
     class Meta:
         model = News
-        fields = ('article', 'chapter',)
+        fields = (
+            'id',
+            'title',
+            'slug',
+            'image',
+            'article',
+            'chapter',
+            'article_id',
+            'chapter_id',
+        )
+        read_only_fields = ('id', 'slug',)
+
+    def create(self, validated_data):
+
+        # article = validated_data.pop('article')
+        # chapter = validated_data.pop('chapter')
+
+        news = News(**validated_data)
+        # news.article = article
+        # news.chapter = chapter
+        news.save()
+
+        return news
 
 class RecursiveField(serializers.Serializer):
     def to_representation(self, value):
@@ -40,6 +83,12 @@ class NoChildrenCodexSerializer(serializers.ModelSerializer):
             'parent',
             'article',
         )
+        read_only_fields = (
+            'id',
+            'slug',
+            'created',
+            'last_updated',
+        )
 
 
 
@@ -58,6 +107,12 @@ class CodexSerializer(serializers.ModelSerializer):
             'parent',
             'children',
             'article',
+        )
+        read_only_fields = (
+            'id',
+            'slug',
+            'created',
+            'last_updated',
         )
 
     def get_children(self, obj):

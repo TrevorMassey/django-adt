@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
 from django_extensions.db.fields import AutoSlugField
@@ -51,6 +52,7 @@ class Forum(MPTTModel):
         return u'%s' % self.title
 
 
+
 class Topic(models.Model):
 
     # Fields
@@ -96,9 +98,19 @@ class Topic(models.Model):
             ['forum', 'last_post_on'],
             ['forum', 'replies'],
         ]
+        permissions = (
+            ('soft_delete_topic', 'Can soft delete topic'),
+        )
 
     def __unicode__(self):
         return u'%s' % self.title
+
+    def soft_delete(self, user):
+        self.deleted_by = user
+        self.is_deleted = True
+        self.deleted_time = timezone.now()
+        self.save()
+
 
 
 class Post(models.Model):
@@ -133,14 +145,30 @@ class Post(models.Model):
 
     class Meta:
         ordering = ('-created',)
+        permissions = (
+            ('soft_delete_post', 'Can soft delete post'),
+        )
 
     def __unicode__(self):
         return '%s...' % self.original[10:].strip()
+
+    def soft_delete(self, user):
+        self.deleted_by = user
+        self.is_deleted = True
+        self.deleted_time = timezone.now()
+        self.save()
+
 
 
 class Label(models.Model):
     # Prefix label instead of tags for threads
     forums = models.ManyToManyField('forums.Forum')
-    name = models.CharField(max_length=255)
+    title = models.CharField(max_length=255)
     slug = AutoSlugField(populate_from='title', blank=True)
     css_class = models.CharField(max_length=255, null=True, blank=True)
+
+    class Meta:
+        ordering = ('-id',)
+
+    def __unicode__(self):
+        return u'%s' % self.title

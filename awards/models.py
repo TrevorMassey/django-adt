@@ -5,7 +5,7 @@ class Award(models.Model):
 
     # Fields
     title = models.CharField(max_length=255)
-    slug = AutoSlugField(populate_from='title', blank=True, unique=True)
+    slug = AutoSlugField(populate_from='title', unique=True)
     level_limit = models.IntegerField()
     order = models.IntegerField()
     description = models.TextField()
@@ -19,12 +19,12 @@ class Award(models.Model):
         ordering = ('-id',)
 
     def __unicode__(self):
-        return u'%s' % self.slug
+        return u'%s' % self.title
 
-
+# TODO might not need slug
 class AwardType(models.Model):
     name = models.CharField(max_length=20, unique=True)
-    slug = AutoSlugField(populate_from='name', blank=True, unique=True)
+    slug = AutoSlugField(populate_from='name', unique=True)
 
     def __unicode__(self):
         return u'%s' % self.name
@@ -34,11 +34,11 @@ class AwardCategory(models.Model):
 
     # Fields
     title = models.CharField(max_length=255)
-    slug = AutoSlugField(populate_from='title', blank=True, unique=True)
+    slug = AutoSlugField(populate_from='title', unique=True)
     order = models.IntegerField()
 
     # Relationship Fields
-    chapter = models.ForeignKey('games.Chapter', related_name='award_categories')
+    chapter = models.ForeignKey('games.Chapter', related_name='award_categories', blank=True, null=True)
 
     class Meta:
         verbose_name = 'award category'
@@ -80,7 +80,7 @@ class AwardImage(models.Model):
 
     # Fields
     title = models.CharField(max_length=30)
-    slug = AutoSlugField(populate_from='title', blank=True, unique=True)
+    slug = AutoSlugField(populate_from='title', unique=True)
     image = models.ImageField(upload_to=award_image_path)
 
     def __unicode__(self):

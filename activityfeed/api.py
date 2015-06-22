@@ -7,6 +7,7 @@ from rest_framework.generics import ListCreateAPIView, RetrieveDestroyAPIView, L
 from activityfeed.models import FeedItem, FeedPost
 from activityfeed import serializers
 
+
 class FeedPostListCreateAPIView(ListCreateAPIView):
 
     serializer_class = serializers.FeedPostSerializer
@@ -14,6 +15,9 @@ class FeedPostListCreateAPIView(ListCreateAPIView):
     def get_queryset(self):
         qs = FeedPost.objects.all()
         return qs
+
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
 
 feed_post_list = FeedPostListCreateAPIView.as_view()
 

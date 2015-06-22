@@ -8,7 +8,7 @@ class Comment(models.Model):
     # Fields
     body = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
-    public = models.BooleanField(default=False)
+    public = models.BooleanField(default=True)  # This to be replaced with something to do with member/officer visiblity
 
     is_deleted = models.BooleanField(default=False)
     deleted_by = models.ForeignKey('users.User', blank=True, null=True, related_name='+')
