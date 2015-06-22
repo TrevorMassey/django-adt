@@ -1,13 +1,13 @@
 (function() {
     'use strict';
 
-    angular.module('codex').controller('CodexCtrl', [
-        '$scope', 'Restangular',
-        function($scope, Restangular) {
-            var vm = this;
-            vm.codex = {};
-            Restangular.all('codex').getList().then(function(codex) {
-                vm.codex = codex;
-            });
-        }]);
+    angular.module('codex')
+        .controller('CodexCtrl', [
+            'common', 'Codex',
+            function(common, Codex) {
+
+                var vm = this;
+                vm.codex = Codex.data;
+
+            }]);
 }());

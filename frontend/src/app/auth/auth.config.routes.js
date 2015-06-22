@@ -4,6 +4,7 @@
     angular.module('auth')
         .config(['$locationProvider', '$stateProvider', '$urlRouterProvider', '$authProvider',
             function ($locationProvider, $stateProvider, $urlRouterProvider, $authProvider) {
+
                 $stateProvider
                     .state('signin', {
                         url: '/signin',
@@ -27,7 +28,7 @@
                 $authProvider.logoutRedirect = '/';
                 $authProvider.signupRedirect = '/login';
                 $authProvider.loginUrl = 'api-token-auth/';
-                $authProvider.signupUrl = 'api-token-auth/';
+                $authProvider.signupUrl = 'api/users/register/';
                 $authProvider.loginRoute = '/signin';
                 $authProvider.signupRoute = '/signup';
 

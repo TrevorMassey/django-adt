@@ -1,0 +1,28 @@
+<div>
+    <ul class="nav navbar-nav"
+        data-ng-if="menu.shouldRender(currentUser);">
+        <li data-ng-repeat="item in menu.items | orderBy: 'position'"
+            data-ng-if="item.shouldRender(currentUser);"
+            data-ng-switch="item.type"
+            data-ng-class="{active: $state.includes(item.state)}"
+            class="{{item.class}}"
+            dropdown="item.type === 'dropdown'" data-is-open="toggledState" data-ng-mouseenter="toggledState=!toggledState">
+
+            <a data-ng-switch-when="dropdown" class="dropdown-toggle" data-ui-sref="{{item.mainState}}" data-ng-bind="item.title"></a>
+
+            <ul data-ng-switch-when="dropdown" class="horizontal dropdown-menu animated slideInRight" role="menu">
+                <li>
+                    <ul class="list-inline">
+                        <li data-ng-repeat="subitem in item.items | orderBy: 'position'"
+                            data-ng-if="subitem.shouldRender(currentUser);" data-ui-sref-active="active" >
+                            <a data-ui-sref="{{subitem.state}}" data-ng-bind="subitem.title"></a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <a data-ng-switch-default data-ui-sref="{{item.state}}" data-ng-bind="item.title"></a>
+
+        </li>
+    </ul>
+</div>

@@ -1,4 +1,21 @@
+<form name="postForm" class="form-horizontal" ng-controller="MessageCtrl" novalidate>
+    <div class="form-group" ng-hide="!rightVisible">
+
+        <div class="input-group">
+            <input type="text"
+                   class="form-control input-sm"
+                   data-ng-model="message.body"
+                   placeholder="Post something...">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default btn-sm" ng-click="createMessage()">Submit</button>
+                    </span>
+        </div><!-- /input-group -->
+
+    </div>
+</form>
+
 <aside class="activity-list">
+
     <ul class="media-list">
         <li class="media animate" data-ng-repeat="activity in activities.data">
             <div class="media-left">
@@ -9,11 +26,12 @@
             <div class="media-body">
                 <div class="media-heading">
                     <username>{{activity.actor.displayName}}</username>
-                    <span class="activity-date text-muted">{{activity.verb + 'd at '}}</span>
+                    <span class="activity-date text-muted">{{activity.verb}}  'd a'</span>
                     <timestamp time="activity.createdAt"></timestamp>
                 </div>
                 <p data-ng-bind="activity.object.title"></p>
             </div>
         </li>
     </ul>
+
 </aside>

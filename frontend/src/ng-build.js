@@ -1,7 +1,9 @@
 module.exports = function() {
+
     require('angular-strap/dist/angular-strap.min.js');
     require('angular-strap/dist/angular-strap.tpl.min.js');
-
+    //require('angular-strap/dist/angular-strap.min.js.map');
+    require('angular-local-storage');
     require('rx-angular');
     require('angular-moment');
     require('angular-breadcrumb');
