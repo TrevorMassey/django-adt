@@ -90,3 +90,20 @@ class Note(models.Model):
 
     def __unicode__(self):
         return '%s...' % self.body[10:].strip()
+
+
+class Issue(models.Model):
+
+    description = models.TextField()
+
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+    created_by = models.ForeignKey('users.User', related_name='+')
+
+    chapter = models.ForeignKey('games.Chapter', related_name='+', blank=True, null=True)
+    involved = models.ManyToManyField('users.User', related_name='issues')
+
+    class Meta:
+        ordering = ('-created',)
+
+    def __unicode__(self):
+        return '%s...' % self.description[10:].strip()

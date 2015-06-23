@@ -1,13 +1,17 @@
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from comments.api import BaseCommentListCreateAPIView, BaseCommentRetrieveUpdateAPIView
 from multimedia.models import Screenshot, Quote
 from multimedia.serializers import ScreenshotSerializer, QuoteSerializer
 
 
-class ScreenshotListAPIView(generics.ListAPIView):
+class ScreenshotListCreateAPIView(generics.ListCreateAPIView):
     queryset = Screenshot.objects.all()
     serializer_class = ScreenshotSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
+
+    def perform_create(self, serializer):
+        serializer.save(poster=self.request.user)
 
 
 class ScreenshotRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
@@ -25,10 +29,13 @@ class ScreenshotRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIVi
         return qs
 
 
-class QuoteListAPIView(generics.ListAPIView):
+class QuoteListCreateAPIView(generics.ListCreateAPIView):
     queryset = Quote.objects.all()
     serializer_class = QuoteSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
+
+    def perform_create(self, serializer):
+        serializer.save(poster=self.request.user)
 
 
 class QuoteRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
@@ -45,7 +52,33 @@ class QuoteRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
         return qs
 
 
-screenshot_list = ScreenshotListAPIView.as_view()
+screenshot_list = ScreenshotListCreateAPIView.as_view()
 screenshot_detail = ScreenshotRetrieveUpdateDestroyAPIView.as_view()
-quote_list = QuoteListAPIView.as_view()
+quote_list = QuoteListCreateAPIView.as_view()
 quote_detail = QuoteRetrieveUpdateDestroyAPIView.as_view()
+
+
+class ScreenshotCommentAPIMixin(object):
+    parent_queryset = Screenshot.objects.all()
+
+class ScreenshotCommentListCreateAPIView(ScreenshotCommentAPIMixin, BaseCommentListCreateAPIView):
+    pass
+
+class ScreenshotCommentRetrieveUpdateAPIView(ScreenshotCommentAPIMixin, BaseCommentRetrieveUpdateAPIView):
+    pass
+
+screenshot_comment_list = ScreenshotCommentListCreateAPIView.as_view()
+screenshot_comment_detail = ScreenshotCommentRetrieveUpdateAPIView.as_view()
+
+
+class QuoteCommentAPIMixin(object):
+    parent_queryset = Quote.objects.all()
+
+class QuoteCommentListCreateAPIView(QuoteCommentAPIMixin, BaseCommentListCreateAPIView):
+    pass
+
+class QuoteCommentRetrieveUpdateAPIView(QuoteCommentAPIMixin, BaseCommentRetrieveUpdateAPIView):
+    pass
+
+quote_comment_list = QuoteCommentListCreateAPIView.as_view()
+quote_comment_detail = QuoteCommentRetrieveUpdateAPIView.as_view()

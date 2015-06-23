@@ -8,8 +8,6 @@ from activityfeed.models import FeedItem, FeedPost
 from activityfeed import serializers
 
 
-# TODO @Gromph I don't think this needs to be a List, just create
-# Should make a second class that lists feed_items for a specific user perhaps?
 class FeedPostListCreateAPIView(ListCreateAPIView):
 
     serializer_class = serializers.FeedPostSerializer
@@ -17,6 +15,9 @@ class FeedPostListCreateAPIView(ListCreateAPIView):
     def get_queryset(self):
         qs = FeedPost.objects.all()
         return qs
+
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
 
 feed_post_list = FeedPostListCreateAPIView.as_view()
 

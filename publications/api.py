@@ -1,5 +1,6 @@
 from rest_framework import viewsets, generics
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
+from comments.api import BaseCommentListCreateAPIView, BaseCommentRetrieveUpdateAPIView
 
 from publications.models import Article, News, Codex
 from publications.serializers import ArticleSerializer, NewsSerializer, CodexSerializer
@@ -8,6 +9,9 @@ class ArticleListCreateAPIView(generics.ListCreateAPIView):
     queryset = Article.objects
     serializer_class = ArticleSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
+
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
 
 
 class ArticleRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
@@ -64,3 +68,42 @@ class CodexRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
 
 codex_list = CodexListAPIView.as_view()
 codex_detail = CodexRetrieveUpdateDestroyAPIView.as_view()
+
+
+class NewsCommentAPIMixin(object):
+    parent_queryset = Article.objects.all()
+
+class NewsCommentListCreateAPIView(NewsCommentAPIMixin, BaseCommentListCreateAPIView):
+    pass
+
+class NewsCommentRetrieveUpdateAPIView(NewsCommentAPIMixin, BaseCommentRetrieveUpdateAPIView):
+    pass
+
+news_comment_list = NewsCommentListCreateAPIView.as_view()
+news_comment_detail = NewsCommentRetrieveUpdateAPIView.as_view()
+
+
+class CodexCommentAPIMixin(object):
+    parent_queryset = Article.objects.all()
+
+class CodexCommentListCreateAPIView(CodexCommentAPIMixin, BaseCommentListCreateAPIView):
+    pass
+
+class CodexCommentRetrieveUpdateAPIView(CodexCommentAPIMixin, BaseCommentRetrieveUpdateAPIView):
+    pass
+
+codex_comment_list = CodexCommentListCreateAPIView.as_view()
+codex_comment_detail = CodexCommentRetrieveUpdateAPIView.as_view()
+
+
+class ArticleCommentAPIMixin(object):
+    parent_queryset = Article.objects.all()
+
+class ArticleCommentListCreateAPIView(ArticleCommentAPIMixin, BaseCommentListCreateAPIView):
+    pass
+
+class ArticleCommentRetrieveUpdateAPIView(ArticleCommentAPIMixin, BaseCommentRetrieveUpdateAPIView):
+    pass
+
+article_comment_list = ArticleCommentListCreateAPIView.as_view()
+article_comment_detail = ArticleCommentRetrieveUpdateAPIView.as_view()

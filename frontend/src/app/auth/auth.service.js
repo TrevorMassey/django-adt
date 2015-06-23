@@ -2,15 +2,35 @@
     'use strict';
 
     angular.module('auth').factory('auth', [
-        'config', '$auth', '$http', '$q',
-        function(config, $auth, $http, $q) {
+        'common', '$auth', '$http', 'Session',
+        function(common, $auth, $http, Session) {
+
+            var _currentUser = null;
+
             var service = {
-                currentUser: null
+                storeSession: storeSession,
+                currentUser: Session.currentUser
             };
 
-            var payload = null;
-
             angular.extend(service, $auth);
+
             return service;
+            /////////////////////
+
+            function storeSession() {
+                return $http.get('/api/users/profile/')
+                    .then(function(response) {
+                        var user = response.data;
+                        console.log(user);
+                        Session.create(
+                            user.displayName,
+                            user.email,
+                            user.permissions
+                        );
+                    }).catch(function(error) {
+                        common.exception.catcher(error);
+                    });
+            }
+
         }]);
 }());

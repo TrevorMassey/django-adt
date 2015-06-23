@@ -1,8 +1,10 @@
 from rest_framework import  generics
+from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
-from dossiers.models import Guild, UserRole, DossierRole, Dossier, Heading, Note
+from dossiers.models import Guild, UserRole, DossierRole, Dossier, Heading, Note, Issue
 from dossiers.serializers import GuildSerializer, UserRoleSerializer, DossierRoleSerializer, DossierSerializer, \
-    HeadingSerializer, NoteSerializer
+    HeadingSerializer, NoteSerializer, IssueSerializer
+from users.models import User
 
 
 class GuildListCreateAPIView(generics.ListCreateAPIView):
@@ -29,6 +31,39 @@ guild_list = GuildListCreateAPIView.as_view()
 guild_detail = GuildRetrieveUpdateDestroyAPIView.as_view()
 
 
+class IssueListCreateAPIView(generics.ListCreateAPIView):
+    serializer_class = IssueSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+
+    lookup_field = 'involved__slug'
+    lookup_url_kwarg = 'slug'
+
+    def get_queryset(self):
+        qs = Issue.objects.prefetch_related('involved').select_related('chapter')
+        qs = qs.filter(involved__slug=self.kwargs.get('slug'))
+        return qs
+
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)
+
+
+class IssueRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = IssueSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+
+    lookup_field = 'involved__slug'
+    lookup_url_kwarg = 'slug'
+
+    def get_queryset(self):
+        qs = Issue.objects.prefetch_related('involved').select_related('chapter')
+        qs = qs.filter(involved__slug=self.kwargs.get('slug'))
+        return qs
+
+
+issue_list = IssueListCreateAPIView.as_view()
+issue_detail = IssueRetrieveUpdateDestroyAPIView.as_view()
+
+
 class UserRoleListCreateAPIView(generics.ListCreateAPIView):
     serializer_class = UserRoleSerializer
     permission_classes = (IsAuthenticated,)
@@ -40,6 +75,10 @@ class UserRoleListCreateAPIView(generics.ListCreateAPIView):
         qs = UserRole.objects
         qs = qs.filter(user__slug=self.kwargs.get('slug'))
         return qs
+
+    def perform_create(self, serializer):
+        user = get_object_or_404(User, slug=self.kwargs.get('slug'))
+        serializer.save(user=user)
 
 
 class UserRoleRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
@@ -73,6 +112,10 @@ class DossierRoleListCreateAPIView(generics.ListCreateAPIView):
         qs = qs.filter(dossier__slug=self.kwargs.get('slug'))
         return qs
 
+    def perform_create(self, serializer):
+        dossier = get_object_or_404(Dossier, slug=self.kwargs.get('slug'))
+        serializer.save(dossier=dossier)
+
 
 class DossierRoleRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = DossierRole.objects
@@ -98,6 +141,9 @@ class HeadingListCreateAPIView(generics.ListCreateAPIView):
     serializer_class = HeadingSerializer
     permission_classes = (IsAuthenticated,)
 
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)
+
 
 class HeadingRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Heading.objects
@@ -122,6 +168,10 @@ class NoteListCreateAPIView(generics.ListCreateAPIView):
         qs = qs.filter(dossier__slug=self.kwargs.get('slug'))
         return qs
 
+    def perform_create(self, serializer):
+        dossier = get_object_or_404(Dossier, slug=self.kwargs.get('slug'))
+        serializer.save(created_by=self.request.user, dossier=dossier)
+
 
 class NoteRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = NoteSerializer
@@ -141,15 +191,13 @@ note_list = NoteListCreateAPIView.as_view()
 note_detail = NoteRetrieveUpdateDestroyAPIView.as_view()
 
 
-class DossierCreateAPIView(generics.CreateAPIView):
-    # TODO hook up user.create_dossier method
-    pass
-
-
-class DossierListAPIView(generics.ListAPIView):
+class DossierListCreateAPIView(generics.ListCreateAPIView):
     queryset = Dossier.objects.filter(subject_rel=None)
     serializer_class = DossierSerializer
     permission_classes = (IsAuthenticated,)
+
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)
 
 
 class NonUserDossierRetrieveUpdateAPIView(generics.RetrieveUpdateAPIView):
@@ -178,6 +226,6 @@ class UserDossierRetrieveUpdateAPIView(generics.RetrieveUpdateAPIView):
         return qs
 
 
-dossier_list = DossierListAPIView.as_view()
+dossier_list = DossierListCreateAPIView.as_view()
 dossier_detail = NonUserDossierRetrieveUpdateAPIView.as_view()
 dossier_detail_user = UserDossierRetrieveUpdateAPIView.as_view()

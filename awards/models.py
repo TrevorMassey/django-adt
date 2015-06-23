@@ -19,9 +19,9 @@ class Award(models.Model):
         ordering = ('-id',)
 
     def __unicode__(self):
-        return u'%s' % self.slug
+        return u'%s' % self.title
 
-
+# TODO might not need slug
 class AwardType(models.Model):
     name = models.CharField(max_length=20, unique=True)
     slug = AutoSlugField(populate_from='name', unique=True)
@@ -38,7 +38,7 @@ class AwardCategory(models.Model):
     order = models.IntegerField()
 
     # Relationship Fields
-    chapter = models.ForeignKey('games.Chapter', related_name='award_categories')
+    chapter = models.ForeignKey('games.Chapter', related_name='award_categories', blank=True, null=True)
 
     class Meta:
         verbose_name = 'award category'

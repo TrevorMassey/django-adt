@@ -20,8 +20,9 @@ var config = {
       'angular-animate',
       'angular-ui-router',
       'satellizer',
-      'restangular'
-
+      'restangular',
+      'js-data',
+      'js-data-angular'
     ]
   },
   resolve: {
@@ -34,11 +35,11 @@ var config = {
 
   module: {
     loaders: [
-      //{ test: /\.html$/, loader: 'file-loader' },
       { test: /\.css/, loader: 'style!css' },
       { test: /\.less$/, loader: 'style!css!less' },
       { test: /\.jpe?g$|\.gif$|\.png$|\.wav$|\.mp3$/, loader: 'url' },
-      { test: /\.svg$|\.woff$|\.woff2$|\.eot$|\.ttf$/, loader: 'url-loader?limit=100000' }
+      { test: /\.svg$|\.woff$|\.woff2$|\.eot$|\.ttf$/, loader: 'url-loader?limit=100000' },
+      //{ test: /\.map/, loader: 'file-loader' }
 
       //setup later for production
       //{ test: /\.less$/, loader: ExtractTextPlugin.extract('style-loader', 'less-loader') }
