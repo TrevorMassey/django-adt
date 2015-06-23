@@ -123,8 +123,7 @@ urlpatterns += patterns('',
 
     url(r'^verify/(?P<key>[A-Za-z0-9]{32})/$', 'users.views.verify_email', name='verify_email'),
 
-
-    )
+)
 
 if settings.DEBUG:
     import debug_toolbar
