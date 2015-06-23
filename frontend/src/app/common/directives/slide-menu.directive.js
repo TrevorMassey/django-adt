@@ -17,12 +17,14 @@
   .directive('leftPanelHeader', [ function() {
     return {
       restrict: 'EA',
+      replace: true,
       templateUrl: '/left-panel-header.view.html'
     };
   }])
   .directive('rightPanelHeader', [ function() {
     return {
       restrict: 'EA',
+      replace: true,
       templateUrl: '/right-panel-header.view.html'
     };
   }]);

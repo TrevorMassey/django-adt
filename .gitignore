@@ -91,3 +91,6 @@ frontend/static/fonts/
 frontend/static/assets/tz/
 frontend/static/scripts/
 karma*.config.js
+
+
+adtsql/*

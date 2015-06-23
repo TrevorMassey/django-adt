@@ -23,7 +23,6 @@
     "angular-ui-router": "^0.2.15",
     "satellizer": "^0.10.1",
     "angular-strap": "^2.2.4",
-    "rx": "^2.5.3",
     "rx-angular": "0.0.14",
     "angular-breadcrumb": "^0.4.0",
     "lodash": "^3.9.3",
@@ -35,7 +34,10 @@
     "angular-loading-bar": "^0.7.1",
     "animate.css": "^3.2.5",
     "angular-quill": "^0.1.5",
-    "angular-toastr": "^1.4.1"
+    "angular-toastr": "^1.4.1",
+    "angular-local-storage": "^0.2.2",
+    "js-data-angular": "^2.4.0",
+    "js-data": "^2.0.0-beta.6"
   },
   "devDependencies": {
     "gulp": "^3.9.0",

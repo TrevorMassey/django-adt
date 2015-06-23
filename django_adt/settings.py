@@ -48,6 +48,9 @@ INSTALLED_APPS = (
     'filer',
     'mptt',
     'easy_thumbnails',
+    'djcelery',
+    'rest_framework_swagger',
+    'schedule',
 
     'swampdragon',
 
@@ -63,6 +66,7 @@ INSTALLED_APPS = (
     'notifications',
     'comments',
     'multimedia',
+    'event_calendar',
     'frontend',
 
     'servermon',
@@ -95,12 +99,35 @@ DATABASES = {
         'NAME': 'django_adt',
         'USER': 'django_adt',
         'PASSWORD': 'django_adt',
-    }
+    },
+    # 'addict_forum': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'addict_forum',
+    #     'USER': 'root',
+    #     'PASSWORD': 'beer',
+    # },
+    # 'addict_logs': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'addict_logs',
+    #     'USER': 'root',
+    #     'PASSWORD': 'beer',
+    # },
+    # 'addict_website': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'addict_website',
+    #     'USER': 'root',
+    #     'PASSWORD': 'beer',
+    # },
 }
 
 EMAIL_HOST = '127.0.0.1'
 EMAIL_PORT = 1025
 
+
+# Celery settings
+BROKER_URL = 'redis://localhost:6379/0'
+
+CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
@@ -207,11 +234,41 @@ TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
 )
 
 
+
 # Swammpdragon Settings
 
-SWAMP_DRAGON_CONNECTION = ('swampdragon.connections.sockjs_connection.DjangoSubscriberConnection', '/data')
+SWAMP_DRAGON_CONNECTION = ('django_adt.connections.JWTDataConnection', '/data')
 
 SWAMP_DRAGON_HOST = '0.0.0.0'
 SWAMP_DRAGON_PORT = 9080
 
 DRAGON_URL = 'http://127.0.0.1:9080/'
+
+SWAGGER_SETTINGS = {
+    'api_version': '1.0',
+    'api_path': '/api/',
+    'doc_expansion': 'none',
+}
+
+class DisableMigrations(object):
+
+    def __contains__(self, item):
+        return True
+
+    def __getitem__(self, item):
+        return "notmigrations"
+
+import sys
+TESTS_IN_PROGRESS = False
+
+if 'test' in sys.argv[1:] or 'jenkins' in sys.argv[1:]:
+    PASSWORD_HASHERS = (
+        'django.contrib.auth.hashers.MD5PasswordHasher',
+    )
+    DEBUG = False
+    TEMPLATE_DEBUG = False
+    TESTS_IN_PROGRESS = True
+    MIGRATION_MODULES = DisableMigrations()
+
+    for key in DATABASES.keys():
+        DATABASES[key]['ENGINE'] = 'django.db.backends.sqlite3'

@@ -17,8 +17,7 @@ textarea:focus,
 input:focus,
 button:focus,
 button:active,
-button:hover
-{
+button:hover {
   outline:0px !important;
   -webkit-appearance: none;
 }
@@ -142,13 +141,13 @@ hr {
  *
  */
 .breadcrumb {
+  z-index: @zindex-breadcrumb;
   background-color: rgba(0, 0, 0, 0.5) !important;
   line-height: 1.0;
   font-family: 'proxima_novalight';
   font-size: 16px;
   margin: 0 0 10px 0;
-  padding: 15px;
-  padding-bottom: 9px;
+  padding: 15px 15px 9px 15px;
   text-transform: uppercase;
   .transition(background-color 0.2s);
   .box-shadow(0 0 40px rgba(0, 0, 0, 0.5));

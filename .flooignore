@@ -6,3 +6,4 @@ vendor
 .idea/misc.xml
 .vagrant
 .git
+adtsql
