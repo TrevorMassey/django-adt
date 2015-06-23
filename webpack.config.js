@@ -21,7 +21,6 @@ var config = {
       'angular-ui-router',
       'satellizer',
       'restangular'
-
     ]
   },
   resolve: {

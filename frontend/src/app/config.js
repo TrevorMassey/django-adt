@@ -10,6 +10,7 @@ var ApplicationConfiguration = (function() {
 		'ngAnimate',
         'templates',
         'ui.router',
+		'SwampDragonServices',
 		'satellizer',
 		'ui.bootstrap',
 		'mgcrea.ngStrap',
