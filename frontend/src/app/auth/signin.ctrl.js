@@ -13,7 +13,7 @@
 
                 vm.login = function () {
                     var credentials = {
-                        email: vm.credentials.email,
+                        username: vm.credentials.username,
                         password: vm.credentials.password
                     };
 

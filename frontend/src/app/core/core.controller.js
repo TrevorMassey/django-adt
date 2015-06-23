@@ -40,7 +40,7 @@
                 //console.log(channels, message);
                 console.log(message.data);
             });
-                
+
         }]);
 
 }());
