@@ -19,30 +19,12 @@
     <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
 
 </head>
-<body ng-controller="AppCtrl">
+<body ng-controller="AppCtrl" class="ng-cloak">
 
-<header id="header" data-fittext data-fittext-load-delay="500">
-    <nav class="navbar navbar-default navbar-fixed-top animated fadeInDown" role="navigation">
-        <div class="row">
-            <div id="leftPanel" class="col-sm-2">
-                <left-panel-header></left-panel-header>
-            </div>
-
-            <div class="col-xs-12 col-sm-8" data-fittext data-fittext-min="18" data-fittext-max="26">
-                <nav-bar class="navbar-adt" bs-navbar></nav-bar>
-
-            </div>
-            <div id="rightPanel" class="col-sm-2">
-                <right-panel-header></right-panel-header>
-            </div>
-        </div>
-    </nav>
-</header>
+<adt-header></adt-header>
 
 
-
-
-<side-panel visible="leftVisible" alignment="left" class="hidden-xs">
+<side-panel id="leftPanel" visible="leftVisible" alignment="left" class="hidden-xs">
     <online-user-list></online-user-list>
 </side-panel>
 
@@ -51,11 +33,9 @@
     <div ui-view></div>
 </main>
 
-
-<side-panel visible="rightVisible" alignment="right" class="hidden-xs">
+<side-panel id="rightPanel" visible="rightVisible" alignment="right" class="hidden-xs">
     <activity-list></activity-list>
 </side-panel>
-
 
 
 {% block scripts %}

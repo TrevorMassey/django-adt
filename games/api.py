@@ -4,10 +4,13 @@ from games.models import Game, Chapter, ChapterMember, ChapterDivision
 from games.serializers import GameSerializer, ChapterSerializer, ChapterMemberSerializer, ChapterDivisionSerializer
 
 
-class GameListAPIView(generics.ListAPIView):
+class GameListCreateAPIView(generics.ListCreateAPIView):
     queryset = Game.objects
     serializer_class = GameSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
+
+    def perform_create(self, serializer):
+        serializer.save()
 
 
 class GameRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
@@ -23,14 +26,17 @@ class GameRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
         return qs
 
 
-game_list = GameListAPIView.as_view()
+game_list = GameListCreateAPIView.as_view()
 game_detail = GameRetrieveUpdateDestroyAPIView.as_view()
 
 
-class ChapterListAPIView(generics.ListAPIView):
+class ChapterListCreateAPIView(generics.ListCreateAPIView):
     queryset = Chapter.objects.select_related('game',)
     serializer_class = ChapterSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
+
+    def perform_create(self, serializer):
+        serializer.save()
 
 
 class ChapterRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
@@ -39,7 +45,7 @@ class ChapterRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView)
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
 
-chapter_list = ChapterListAPIView.as_view()
+chapter_list = ChapterListCreateAPIView.as_view()
 chapter_detail = ChapterRetrieveUpdateDestroyAPIView.as_view()
 
 
@@ -51,6 +57,9 @@ class ChapterMemberListAPIView(generics.ListAPIView):
         qs = ChapterMember.objects.select_related('member', 'chapter', 'division')
         qs = qs.filter(chapter=self.kwargs.get('pk'))
         return qs
+
+    def perform_create(self, serializer):
+        serializer.save()
 
 
 class ChapterMemberRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
@@ -71,7 +80,7 @@ chapter_member_list = ChapterMemberListAPIView.as_view()
 chapter_member_detail = ChapterMemberRetrieveUpdateDestroyAPIView.as_view()
 
 
-class ChapterDivisionListAPIView(generics.ListAPIView):
+class ChapterDivisionListCreateAPIView(generics.ListCreateAPIView):
     serializer_class = ChapterDivisionSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
@@ -80,6 +89,9 @@ class ChapterDivisionListAPIView(generics.ListAPIView):
         qs = qs.prefetch_related('members', 'members__member')
         qs = qs.filter(chapter=self.kwargs.get('pk'))
         return qs
+
+    def perform_create(self, serializer):
+        serializer.save()
 
 
 class ChapterDivisionRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
@@ -96,5 +108,5 @@ class ChapterDivisionRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroy
         return qs
 
 
-chapter_division_list = ChapterDivisionListAPIView.as_view()
+chapter_division_list = ChapterDivisionListCreateAPIView.as_view()
 chapter_division_detail = ChapterDivisionRetrieveUpdateDestroyAPIView.as_view()

@@ -1,16 +1,16 @@
 (function() {
     'use strict';
 
-    angular.module('codex')
+    angular.module('applications')
         .config(['$locationProvider', '$stateProvider', '$urlRouterProvider', '$authProvider',
         function ($locationProvider, $stateProvider, $urlRouterProvider, $authProvider) {
             $stateProvider
-                .state('codex', {
-                    url: '/codex',
-                    templateUrl: '/codex.view.html',
-                    controller: 'CodexCtrl as vm',
+                .state('applications', {
+                    url: '/applications',
+                    templateUrl: '/applications.view.html',
+                    controller: 'ApplicationsCtrl as vm',
                     ncyBreadcrumb: {
-                        label: 'Codex'
+                        label: 'Applications'
                     }
                 })
 

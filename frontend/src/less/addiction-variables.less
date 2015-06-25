@@ -258,6 +258,7 @@
 // Used for a bird's eye view of components dependent on the z-axis
 // Try to avoid customizing these :)
 
+@zindex-breadcrumb:        900;
 @zindex-navbar:            1000;
 @zindex-dropdown:          1000;
 @zindex-popover:           1010;
@@ -265,6 +266,8 @@
 @zindex-navbar-fixed:      1030;
 @zindex-modal-background:  1040;
 @zindex-modal:             1050;
+/* custom */
+@zindex-side-panel-header: 1060;
 
 // Media queries breakpoints
 // --------------------------------------------------
@@ -277,7 +280,7 @@
 
 // Small screen / tablet
 // Note: Deprecated @screen-sm and @screen-tablet as of v3.0.1
-@screen-sm:                  768px;
+@screen-sm:                  798px;
 @screen-sm-min:              @screen-sm;
 @screen-tablet:              @screen-sm-min;
 
@@ -706,5 +709,7 @@
 @container-lg:                 @container-large-desktop;
 
 //Sidepanels
-@leftPanelWidth: 250px;
-@rightPanelWidth: 300px;
+
+@sidePanelMax: 300px;
+@sidePanelMed: 250px;
+@sidePanelSm: 200px;

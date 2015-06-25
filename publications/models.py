@@ -41,7 +41,7 @@ class Article(models.Model):
     body = models.TextField()
 
     # Relationship Fields
-    author = models.ForeignKey('users.User', )
+    author = models.ForeignKey('users.User', related_name='articles')
 
     class Meta:
         ordering = ('-created',)

@@ -2,16 +2,11 @@
     'use strict';
 
     angular.module('donate')
-        .factory('Donations', ['$resource',  function($resource) {
-            return $resource('http://localhost:1337/donation', {});
+        .factory('Donation', ['DS',  function(DS) {
+            return DS.defineResource({
+                name: 'donation',
+                endpoint: 'donation-amounts'
+            });
         }])
-        .factory('Costs', ['$resource', function($resource) {
-            return $resource('http://localhost:1337/cost', {});
 
-        }])
-        .filter('reverse', function() {
-            return function(items) {
-                return items.slice().reverse();
-            };
-        });
 }());

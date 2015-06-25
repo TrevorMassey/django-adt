@@ -49,6 +49,8 @@ INSTALLED_APPS = (
     'mptt',
     'easy_thumbnails',
     'djcelery',
+    'rest_framework_swagger',
+    'schedule',
 
     'accounting',
     'activityfeed',
@@ -62,11 +64,9 @@ INSTALLED_APPS = (
     'notifications',
     'comments',
     'multimedia',
+    'event_calendar',
     'frontend',
 
-    'legacy.addict_forum',
-    'legacy.addict_logs',
-    'legacy.addict_website',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -115,8 +115,6 @@ DATABASES = {
         'PASSWORD': 'beer',
     },
 }
-
-DATABASE_ROUTERS = ['django_adt.db.routers.LegacyDBRouter', ]
 
 EMAIL_HOST = '127.0.0.1'
 EMAIL_PORT = 1025
@@ -230,3 +228,9 @@ LOGGING = {
 TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
     'django.core.context_processors.request',
 )
+
+SWAGGER_SETTINGS = {
+    'api_version': '1.0',
+    'api_path': '/api/',
+    'doc_expansion': 'none',
+}
