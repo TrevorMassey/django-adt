@@ -113,8 +113,8 @@ class Command(BaseCommand):
                     stop_date = None
 
                 chapter_member = ChapterMember()
-                chapter_member.user_id = legacy_chapter_member.userrecord
-                chapter_member.chapter_id = chapter
+                chapter_member.member_id = legacy_chapter_member.userrecord
+                chapter_member.chapter = chapter
                 chapter_member.join_date = start_date
                 chapter_member.leave_date = stop_date
                 chapter_member.save()
@@ -138,7 +138,7 @@ class Command(BaseCommand):
                 news.title = article.title
                 news.image = legacy_news.image
                 news.article = article
-                news.chapter_id = chapter
+                news.chapter = chapter
                 news.save()
 
             self.stdout.write("Created News")
@@ -167,7 +167,7 @@ class Command(BaseCommand):
                 awardcat = AwardCategory()
                 awardcat.title = legacy_awardcategory.name
                 awardcat.order = legacy_awardcategory.order_id
-                awardcat.chapter_id = chapter
+                awardcat.chapter = chapter
 
                 awardcat.save()
 
@@ -209,43 +209,45 @@ class Command(BaseCommand):
 
             self.stdout.write("Finished Award stuff")
 
-            app_question = ApplicationQuestion()
-            app_question.question = 'Please list any previous guild experience.'
-            app_question.order = 1
-            app_question.chapter = chapter
-            app_question.save()
+            if chapter:
 
-            app_question = ApplicationQuestion()
-            app_question.question = 'Are you comfortable repeating game content to progress the guild or other members? Please provide an example.'
-            app_question.order = 2
-            app_question.chapter = chapter
-            app_question.save()
+                app_question = ApplicationQuestion()
+                app_question.question = 'Please list any previous guild experience.'
+                app_question.order = 1
+                app_question.chapter = chapter
+                app_question.save()
 
-            app_question = ApplicationQuestion()
-            app_question.question = 'Please describe your personality and social expectations within a guild atmosphere.'
-            app_question.order = 3
-            app_question.chapter = chapter
-            app_question.save()
+                app_question = ApplicationQuestion()
+                app_question.question = 'Are you comfortable repeating game content to progress the guild or other members? Please provide an example.'
+                app_question.order = 2
+                app_question.chapter = chapter
+                app_question.save()
 
-            app_question = ApplicationQuestion()
-            app_question.question = 'Do you have any aspirations to leadership positions within the guild?'
-            app_question.order = 4
-            app_question.chapter = chapter
-            app_question.save()
+                app_question = ApplicationQuestion()
+                app_question.question = 'Please describe your personality and social expectations within a guild atmosphere.'
+                app_question.order = 3
+                app_question.chapter = chapter
+                app_question.save()
 
-            app_question = ApplicationQuestion()
-            app_question.question = 'What do you expect from your guild?'
-            app_question.order = 5
-            app_question.chapter = chapter
-            app_question.save()
+                app_question = ApplicationQuestion()
+                app_question.question = 'Do you have any aspirations to leadership positions within the guild?'
+                app_question.order = 4
+                app_question.chapter = chapter
+                app_question.save()
 
-            app_question = ApplicationQuestion()
-            app_question.question = 'Please describe the "best" way to level your character in the previous MMO you played from personal experience.'
-            app_question.order = 6
-            app_question.chapter = chapter
-            app_question.save()
+                app_question = ApplicationQuestion()
+                app_question.question = 'What do you expect from your guild?'
+                app_question.order = 5
+                app_question.chapter = chapter
+                app_question.save()
 
-            self.stdout.write("Finished Application questions")
+                app_question = ApplicationQuestion()
+                app_question.question = 'Please describe the "best" way to level your character in the previous MMO you played from personal experience.'
+                app_question.order = 6
+                app_question.chapter = chapter
+                app_question.save()
+
+                self.stdout.write("Finished Application questions")
 
             # for legacy_application in LegacyApplication.objects.filter(game=legacy_chapter.id):
             #     assert isinstance(legacy_application, LegacyApplication)
