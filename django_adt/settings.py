@@ -67,9 +67,9 @@ INSTALLED_APPS = (
     'event_calendar',
     'frontend',
 
-    #'legacy.addict_forum',
-    #'legacy.addict_logs',
-    #'legacy.addict_website',
+    'legacy.addict_forum',
+    'legacy.addict_logs',
+    'legacy.addict_website',
 )
 
 MIDDLEWARE_CLASSES = (
