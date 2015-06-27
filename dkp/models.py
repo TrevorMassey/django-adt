@@ -10,7 +10,7 @@ class Location(models.Model):
     description = models.TextField(blank=True, null=True)
     dkp = models.DecimalField(default=1, max_digits=10, decimal_places=2)
 
-    game = models.ForeignKey('games.Game', related_name='+')
+    section = models.ForeignKey('dkp.Section', related_name='+')
 
     class Meta:
         ordering = ('-id',)
@@ -121,6 +121,8 @@ class Event(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey('users.User', related_name='+')
 
+    dkp = models.DecimalField(default=0, max_digits=10, decimal_places=2)
+
     event_leader = models.ForeignKey('users.User', related_name='events_ran')
 
     section = models.ForeignKey('dkp.Section', related_name='events')
@@ -142,13 +144,12 @@ class Event(models.Model):
 
 
 class EventAttendance(models.Model):
-    event = models.ForeignKey('dkp.Event', related_name='attendees')
-    user = models.ForeignKey('users.User', related_name='event_attandance')
-
     started = models.DateTimeField(auto_now_add=True)
     stopped = models.DateTimeField(blank=True, null=True)
-
     standby = models.BooleanField(default=False)
+
+    event = models.ForeignKey('dkp.Event', related_name='attendees')
+    user = models.ForeignKey('users.User', related_name='event_attandance')
 
     class Meta:
         ordering = ('-started',)
@@ -162,8 +163,9 @@ class EventAttendance(models.Model):
 class EventItem(models.Model):
     dkp = models.DecimalField(default=1, max_digits=10, decimal_places=2)
     created = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey('users.User', related_name='awarded_items')
+    event = models.ForeignKey('dkp.Event', related_name='awarded_items')
     item = models.ForeignKey('dkp.Item', related_name='awarded_items')
+    user = models.ForeignKey('users.User', related_name='awarded_items')
 
     class Meta:
         ordering = ('-id',)
@@ -172,21 +174,13 @@ class EventItem(models.Model):
 
     def __unicode__(self):
         return u'%s' % (self.item,)
-    #
-    # def save(self, **kwargs):
-    #     super(EventItem, self).save(**kwargs)
-    #     self.create_transaction()
-    #
-    # def create_transaction(self):
-    #     Transaction.objects.create(event=self, credit=self.dkp, item=self.item, user=self.user)
-
 
 
 class EventEntity(models.Model):
+    dkp = models.DecimalField(default=1, max_digits=10, decimal_places=2)
+    created = models.DateTimeField(auto_now_add=True)
     event = models.ForeignKey('dkp.Event', related_name='entities')
     entity = models.ForeignKey('dkp.Entity', related_name='kills')
-    created = models.DateTimeField(auto_now_add=True)
-    dkp = models.DecimalField(default=1, max_digits=10, decimal_places=2)
 
     class Meta:
         ordering = ('-id',)

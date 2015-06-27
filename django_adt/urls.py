@@ -43,6 +43,7 @@ urlpatterns += patterns('',
     # Games
     url(r'^api/games/$', 'games.api.game_list', name='game_list'),
     url(r'^api/games/(?P<slug>[a-z0-9-]+)/$', 'games.api.game_detail', name='game_detail'),
+
     url(r'^api/guilds/$', 'games.api.game_list', name='game_list'),
     url(r'^api/guilds/(?P<slug>[a-z0-9-]+)/$', 'games.api.game_detail', name='game_detail'),
 
@@ -120,6 +121,25 @@ urlpatterns += patterns('',
 
     url(r'^api/codex/$', 'publications.api.codex_list', name='codex_list'),
     url(r'^api/codex/(?P<pk>\d+)/$', 'publications.api.codex_detail', name='codex_detail'),
+
+    # DKP
+    url(r'^api/dkp/$', 'dkp.api.section_list', name='dkp_section_list'),
+    url(r'^api/dkp/(?P<slug>[a-z0-9-]+)/$', 'dkp.api.section_detail', name='dkp_section_detail'),
+    url(r'^api/dkp/(?P<section_slug>[a-z0-9-]+)/events/$', 'dkp.api.event_list', name='dkp_event_list'),
+    url(r'^api/dkp/(?P<section_slug>[a-z0-9-]+)/events/(?P<event_slug>[a-z0-9-]+)/$', 'dkp.api.event_detail', name='dkp_event_detail'),
+    url(r'^api/dkp/(?P<section_slug>[a-z0-9-]+)/events/(?P<event_slug>[a-z0-9-]+)/attendees/$', 'dkp.api.eventattendance_list', name='dkp_eventattendee_list'),
+    url(r'^api/dkp/(?P<section_slug>[a-z0-9-]+)/events/(?P<event_slug>[a-z0-9-]+)/attendees/(?P<pk>\d+)$', 'dkp.api.eventattendance_detail', name='dkp_eventattendee_detail'),
+    url(r'^api/dkp/(?P<section_slug>[a-z0-9-]+)/events/(?P<event_slug>[a-z0-9-]+)/items/$', 'dkp.api.eventitem_list', name='dkp_eventitem_list'),
+    url(r'^api/dkp/(?P<section_slug>[a-z0-9-]+)/events/(?P<event_slug>[a-z0-9-]+)/items/(?P<pk>\d+)$', 'dkp.api.eventitem_detail', name='dkp_eventitem_detail'),
+    url(r'^api/dkp/(?P<section_slug>[a-z0-9-]+)/events/(?P<event_slug>[a-z0-9-]+)/entities/$', 'dkp.api.evententity_list', name='dkp_evententity_list'),
+    url(r'^api/dkp/(?P<section_slug>[a-z0-9-]+)/events/(?P<event_slug>[a-z0-9-]+)/entities/(?P<pk>\d+)$', 'dkp.api.evententity_detail', name='dkp_evententity_detail'),
+
+    url(r'^api/dkp/(?P<section_slug>[a-z0-9-]+)/locations/$', 'dkp.api.location_list', name='dkp_location_list'),
+    url(r'^api/dkp/(?P<section_slug>[a-z0-9-]+)/locations/(?P<location_slug>[a-z0-9-]+)/$', 'dkp.api.location_detail', name='dkp_location_detail'),
+    url(r'^api/dkp/(?P<section_slug>[a-z0-9-]+)/locations/(?P<location_slug>[a-z0-9-]+)/entities/$', 'dkp.api.entity_list', name='dkp_entity_list'),
+    url(r'^api/dkp/(?P<section_slug>[a-z0-9-]+)/locations/(?P<location_slug>[a-z0-9-]+)/entities/(?P<entity_slug>[a-z0-9-]+)/$', 'dkp.api.entity_detail', name='dkp_entity_detail'),
+    url(r'^api/dkp/(?P<section_slug>[a-z0-9-]+)/locations/(?P<location_slug>[a-z0-9-]+)/entities/(?P<entity_slug>[a-z0-9-]+)/items/$', 'dkp.api.item_list', name='dkp_item_list'),
+    url(r'^api/dkp/(?P<section_slug>[a-z0-9-]+)/locations/(?P<location_slug>[a-z0-9-]+)/entities/(?P<entity_slug>[a-z0-9-]+)/items/(?P<item_slug>[a-z0-9-]+)/$', 'dkp.api.item_detail', name='dkp_item_detail'),
 
     url(r'^verify/(?P<key>[A-Za-z0-9]{32})/$', 'users.views.verify_email', name='verify_email'),
 

@@ -4,7 +4,7 @@ from dkp.models import Location, Entity, Item, Section, Bonus, Resource, Resourc
 
 
 class LocationAdmin(admin.ModelAdmin):
-    list_display = ('title', 'game',)
+    list_display = ('title', 'section',)
 
 class EntityAdmin(admin.ModelAdmin):
     list_display = ('title', 'location',)
