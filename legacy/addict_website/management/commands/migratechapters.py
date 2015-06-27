@@ -51,7 +51,7 @@ class Command(BaseCommand):
                     awardimg.save()
 
         self.stdout.write("Created award Images")
-
+        Game.objects.all().delete()
         Chapter.objects.all().delete()
         Article.objects.all().delete()
         ChapterMember.objects.all().delete()
@@ -156,7 +156,7 @@ class Command(BaseCommand):
 
                 screenshot.image = "images/screenshots/{}.{}".format(legacy_screenshot.record, legacy_screenshot.type)
                 screenshot.poster_id = legacy_screenshot.poster
-                screenshot.chapter_id = chapter
+                screenshot.chapter = chapter
                 screenshot.save()
 
             self.stdout.write("Created Screenshots")
@@ -183,8 +183,8 @@ class Command(BaseCommand):
                     award.category = awardcat
                     award.type = awardtype
 
-                    img_lookup = AwardImage.objects.get(title=legacy_award.name)
-                    award.image = img_lookup
+                    img_lookup = AwardImage.objects.filter(title=legacy_award.name).order_by('-image')
+                    award.image = img_lookup[0]
 
                     award.save()
 
@@ -209,7 +209,7 @@ class Command(BaseCommand):
 
             self.stdout.write("Finished Award stuff")
 
-            if chapter:
+            if chapter is not None:
 
                 app_question = ApplicationQuestion()
                 app_question.question = 'Please list any previous guild experience.'
@@ -258,3 +258,5 @@ class Command(BaseCommand):
             #     app = Application()
             #
             #     app.save()
+        self.stdout.write("Import Successful.  Please note you will need to delete duplicate AwardImages and their "
+                          "corresponding files in Media.")

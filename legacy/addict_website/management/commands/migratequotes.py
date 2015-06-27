@@ -12,11 +12,12 @@ logger = logging.getLogger(__name__)
 
 class Command(BaseCommand):
 
+
     def handle(self, *args, **options):
         self.migrate_quotes()
 
     def migrate_quotes(self):
-
+        Quote.objects.all().delete()
         for legacy_quote in LegacyQuote.objects.all():
             assert isinstance(legacy_quote, LegacyQuote)
 
@@ -27,6 +28,7 @@ class Command(BaseCommand):
             quote.title = legacy_quote.title
             quote.body = legacy_quote.quote
             quote.created = date
+            quote.type = 'internal'
 
             #quote.image - blob field?
 
