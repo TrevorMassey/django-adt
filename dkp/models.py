@@ -80,7 +80,7 @@ class Bonus(models.Model):
         verbose_name_plural = 'bonuses'
 
     def __unicode__(self):
-        return u'%s' % (self.user,)
+        return u'%s' % (self.dkp,)
 
 
 class Resource(models.Model):
@@ -104,6 +104,7 @@ class ResourceContrib(models.Model):
     created_by = models.ForeignKey('users.User', related_name='+')
     resource = models.ForeignKey('dkp.Resource', related_name='contributions')
     user = models.ForeignKey('users.User', related_name='+')
+    dkp = models.DecimalField(default=0, max_digits=10, decimal_places=2)
 
     class Meta:
         ordering = ('-created',)
@@ -185,6 +186,7 @@ class EventEntity(models.Model):
     event = models.ForeignKey('dkp.Event', related_name='entities')
     entity = models.ForeignKey('dkp.Entity', related_name='kills')
     created = models.DateTimeField(auto_now_add=True)
+    dkp = models.DecimalField(default=1, max_digits=10, decimal_places=2)
 
     class Meta:
         ordering = ('-id',)
@@ -203,7 +205,7 @@ class Transaction(models.Model):
     debit = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
 
-    event = models.ForeignKey('dkp.Event', related_name='+', blank=True, null=True)
+    bonus = models.ForeignKey('dkp.Bonus', related_name='+', blank=True, null=True)
     attendance = models.ForeignKey('dkp.EventAttendance', related_name='+', blank=True, null=True)
     item = models.ForeignKey('dkp.EventItem', related_name='+', blank=True, null=True)
     entity = models.ForeignKey('dkp.EventEntity', related_name='+', blank=True, null=True)

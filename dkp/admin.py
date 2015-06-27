@@ -37,7 +37,7 @@ class EventItemAdmin(admin.ModelAdmin):
     list_display = ('user', 'item',)
 
 class TransactionAdmin(admin.ModelAdmin):
-    list_display = ('credit', 'debit',)
+    list_display = ('user', 'credit', 'debit',)
 
 admin.site.register(Location, LocationAdmin)
 admin.site.register(Entity, EntityAdmin)
