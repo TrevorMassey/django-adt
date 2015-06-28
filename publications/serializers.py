@@ -20,16 +20,6 @@ class ArticleSerializer(serializers.ModelSerializer):
         read_only_fields = ('id', 'slug', 'created', 'last_updated', 'author')
 
 
-# class CommentRelatedField(serializers.RelatedField):
-#
-#     def to_representation(self, value):
-#         if isinstance(value, Comment):
-#             serializer = CommentSerializer(value)
-#         else:
-#             raise Exception('Unexpected type of comment')
-#
-#         return serializer.data
-
 class NewsSerializer(serializers.ModelSerializer):
     article = ArticleSerializer(read_only=True)
     chapter = ChapterSerializer(read_only=True)

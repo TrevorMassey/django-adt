@@ -9,7 +9,6 @@ from notifications.models import Notification
 
 class NotificationSerializer(ModelSerializer):
 
-    user = BasicUserSerializer()
     creator = BasicUserSerializer()
 
     rank = RankSerializer()

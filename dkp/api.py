@@ -265,3 +265,6 @@ class EventEntityRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIV
 
 evententity_list = EventEntityListCreateAPIView.as_view()
 evententity_detail = EventEntityRetrieveUpdateDestroyAPIView.as_view()
+
+
+# TODO Transactions - not sure of best way to relate to Section
