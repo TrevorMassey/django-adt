@@ -127,6 +127,9 @@ urlpatterns += patterns('',
     url(r'^api/reviews/(?P<pk>\d+)/$', 'reviews.api.review_detail', name='review_detail'),
     url(r'^api/reviews/(?P<pk>\d+)/votes/$', 'reviews.api.vote_list', name='vote_list'),
     url(r'^api/reviews/(?P<pk>\d+)/votes/(?P<vote_pk>\d+)/$', 'reviews.api.vote_detail', name='vote_detail'),
+    # TODO figure out why that isn't working
+    url(r'^api/reviews/(?P<pk>\d+)/comments/$', 'reviews.api.review_comment_list', name='review_comment_list'),
+    url(r'^api/reviews/(?P<pk>\d+)/comments/(?P<comment_pk>\d+)/$', 'reviews.api.review_comment_detail', name='review_comment_detail'),
 
 
     # DKP

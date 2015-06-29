@@ -1,5 +1,6 @@
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
+from comments.api import BaseCommentListCreateAPIView, BaseCommentRetrieveUpdateAPIView
 from reviews.models import Review, Vote
 from reviews.serializers import ReviewSerializer, VoteSerializer
 
@@ -80,3 +81,19 @@ class VoteRetrieveUpdateAPIView(generics.RetrieveUpdateDestroyAPIView):
 
 vote_list = VoteListCreateAPIView.as_view()
 vote_detail = VoteRetrieveUpdateAPIView.as_view()
+
+
+class ReviewCommentAPIMixin(object):
+    parent_queryset = Review.objects.all()
+
+    parent_lookup_field = 'id'
+    parent_lookup_field_kwargs = 'pk'
+
+class ReviewCommentListCreateAPIView(ReviewCommentAPIMixin, BaseCommentListCreateAPIView):
+    pass
+
+class ReviewCommentRetrieveUpdateAPIView(ReviewCommentAPIMixin, BaseCommentRetrieveUpdateAPIView):
+    pass
+
+review_comment_list = ReviewCommentListCreateAPIView.as_view()
+review_comment_detail = ReviewCommentRetrieveUpdateAPIView.as_view()

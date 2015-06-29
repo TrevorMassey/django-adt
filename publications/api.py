@@ -72,6 +72,7 @@ codex_detail = CodexRetrieveUpdateDestroyAPIView.as_view()
 
 class NewsCommentAPIMixin(object):
     parent_queryset = Article.objects.all()
+    permission_classes = (IsAuthenticatedOrReadOnly,)
 
 class NewsCommentListCreateAPIView(NewsCommentAPIMixin, BaseCommentListCreateAPIView):
     pass
@@ -85,6 +86,7 @@ news_comment_detail = NewsCommentRetrieveUpdateAPIView.as_view()
 
 class CodexCommentAPIMixin(object):
     parent_queryset = Article.objects.all()
+    permission_classes = (IsAuthenticatedOrReadOnly,)
 
 class CodexCommentListCreateAPIView(CodexCommentAPIMixin, BaseCommentListCreateAPIView):
     pass
@@ -98,6 +100,7 @@ codex_comment_detail = CodexCommentRetrieveUpdateAPIView.as_view()
 
 class ArticleCommentAPIMixin(object):
     parent_queryset = Article.objects.all()
+    permission_classes = (IsAuthenticatedOrReadOnly,)
 
 class ArticleCommentListCreateAPIView(ArticleCommentAPIMixin, BaseCommentListCreateAPIView):
     pass
