@@ -147,6 +147,10 @@ urlpatterns += patterns('',
     url(r'^api/dkp/(?P<section_slug>[a-z0-9-]+)/locations/(?P<location_slug>[a-z0-9-]+)/entities/(?P<entity_slug>[a-z0-9-]+)/$', 'dkp.api.entity_detail', name='dkp_entity_detail'),
     url(r'^api/dkp/(?P<section_slug>[a-z0-9-]+)/locations/(?P<location_slug>[a-z0-9-]+)/entities/(?P<entity_slug>[a-z0-9-]+)/items/$', 'dkp.api.item_list', name='dkp_item_list'),
     url(r'^api/dkp/(?P<section_slug>[a-z0-9-]+)/locations/(?P<location_slug>[a-z0-9-]+)/entities/(?P<entity_slug>[a-z0-9-]+)/items/(?P<item_slug>[a-z0-9-]+)/$', 'dkp.api.item_detail', name='dkp_item_detail'),
+    url(r'^api/dkp/(?P<section_slug>[a-z0-9-]+)/resources/$', 'dkp.api.resource_list', name='dkp_resource_list'),
+    url(r'^api/dkp/(?P<section_slug>[a-z0-9-]+)/resources/(?P<resource_slug>[a-z0-9-]+)/$', 'dkp.api.resource_detail', name='dkp_resource_detail'),
+    url(r'^api/dkp/(?P<section_slug>[a-z0-9-]+)/resources/(?P<resource_slug>[a-z0-9-]+)/contributions/$', 'dkp.api.resourcecontrib_list', name='dkp_resourcecontrib_list'),
+    url(r'^api/dkp/(?P<section_slug>[a-z0-9-]+)/resources/(?P<resource_slug>[a-z0-9-]+)/contributions/(?P<pk>\d+)/$', 'dkp.api.resourcecontrib_detail', name='dkp_resourcecontrib_detail'),
 
     url(r'^verify/(?P<key>[A-Za-z0-9]{32})/$', 'users.views.verify_email', name='verify_email'),
 

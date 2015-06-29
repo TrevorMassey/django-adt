@@ -1,9 +1,10 @@
 from rest_framework import generics
-from rest_framework.generics import get_object_or_404
-from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
-from dkp.models import Location, Entity, Item, Section, Event, EventAttendance, EventItem, EventEntity
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from dkp.models import Location, Entity, Item, Section, Event, EventAttendance, EventItem, EventEntity, Resource, \
+    ResourceContrib
 from dkp.serializers import LocationSerializer, EntitySerializer, ItemSerializer, SectionSerializer, EventSerializer, \
-    EventDetailSerializer, EventAttendanceSerializer, EventItemSerializer, EventEntitySerializer
+    EventDetailSerializer, EventAttendanceSerializer, EventItemSerializer, EventEntitySerializer, ResourceSerializer, \
+    ResourceContribSerializer
 
 
 class SectionListCreateAPIView(generics.ListCreateAPIView):
@@ -154,6 +155,9 @@ class EventListCreateAPIView(generics.ListCreateAPIView):
         qs = qs.select_related('location')
         return qs
 
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)
+
 
 class EventRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Event.objects
@@ -265,6 +269,70 @@ class EventEntityRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIV
 
 evententity_list = EventEntityListCreateAPIView.as_view()
 evententity_detail = EventEntityRetrieveUpdateDestroyAPIView.as_view()
+
+
+class ResourceListCreateAPIView(generics.ListCreateAPIView):
+    queryset = Resource.objects.all()
+    serializer_class = ResourceSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+
+    def get_queryset(self):
+        qs = Resource.objects
+        qs = qs.filter(section__slug=self.kwargs.get('section_slug'))
+        return qs
+
+
+class ResourceRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Resource.objects
+    serializer_class = ResourceSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+
+    lookup_field = 'slug'
+    lookup_url_kwarg = 'resource_slug'
+
+    def get_queryset(self):
+        qs = Resource.objects
+        qs = qs.filter(section__slug=self.kwargs.get('section_slug'))
+        qs = qs.filter(slug=self.kwargs.get('resource_slug'))
+        return qs
+
+
+resource_list = ResourceListCreateAPIView.as_view()
+resource_detail = ResourceRetrieveUpdateDestroyAPIView.as_view()
+
+class ResourceContribListCreateAPIView(generics.ListCreateAPIView):
+    queryset = ResourceContrib.objects.all()
+    serializer_class = ResourceContribSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+
+    def get_queryset(self):
+        qs = ResourceContrib.objects
+        qs = qs.filter(resource__section__slug=self.kwargs.get('section_slug'))
+        qs = qs.filter(resource__slug=self.kwargs.get('resource_slug'))
+        return qs
+
+
+class ResourceContribRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = ResourceContrib.objects
+    serializer_class = ResourceContribSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+
+    lookup_field = 'id'
+    lookup_url_kwarg = 'pk'
+
+    def get_queryset(self):
+        qs = ResourceContrib.objects
+        qs = qs.filter(resource__section__slug=self.kwargs.get('section_slug'))
+        qs = qs.filter(resource__slug=self.kwargs.get('resource_slug'))
+        qs = qs.filter(id=self.kwargs.get('pk'))
+        return qs
+
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)
+
+
+resourcecontrib_list = ResourceContribListCreateAPIView.as_view()
+resourcecontrib_detail = ResourceContribRetrieveUpdateDestroyAPIView.as_view()
 
 
 # TODO Transactions - not sure of best way to relate to Section
