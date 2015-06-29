@@ -1,5 +1,5 @@
-from rest_framework import viewsets, generics
-from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
+from rest_framework import generics
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from comments.api import BaseCommentListCreateAPIView, BaseCommentRetrieveUpdateAPIView
 
 from publications.models import Article, News, Codex

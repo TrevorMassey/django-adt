@@ -1,4 +1,4 @@
-from rest_framework import  generics
+from rest_framework import generics
 from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from dossiers.models import Guild, UserRole, DossierRole, Dossier, Heading, Note, Issue

@@ -65,7 +65,10 @@ INSTALLED_APPS = (
     'comments',
     'multimedia',
     'event_calendar',
+    'dkp',
+    'reviews',
     'frontend',
+
 
 )
 

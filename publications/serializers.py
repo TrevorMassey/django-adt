@@ -1,14 +1,8 @@
-import logging
-
 from rest_framework import serializers
-from comments.models import Comment
-from comments.serializers import CommentSerializer
 from games.models import Chapter
 from publications.models import Article, News, Codex
 from games.serializers import ChapterSerializer
 from users.serializers import BasicUserSerializer
-
-logger = logging.getLogger(__name__)
 
 
 class ArticleSerializer(serializers.ModelSerializer):
@@ -19,16 +13,6 @@ class ArticleSerializer(serializers.ModelSerializer):
         fields = ('id', 'title', 'slug', 'created', 'last_updated', 'body', 'author')
         read_only_fields = ('id', 'slug', 'created', 'last_updated', 'author')
 
-
-# class CommentRelatedField(serializers.RelatedField):
-#
-#     def to_representation(self, value):
-#         if isinstance(value, Comment):
-#             serializer = CommentSerializer(value)
-#         else:
-#             raise Exception('Unexpected type of comment')
-#
-#         return serializer.data
 
 class NewsSerializer(serializers.ModelSerializer):
     article = ArticleSerializer(read_only=True)
@@ -52,15 +36,8 @@ class NewsSerializer(serializers.ModelSerializer):
         read_only_fields = ('id', 'slug',)
 
     def create(self, validated_data):
-
-        # article = validated_data.pop('article')
-        # chapter = validated_data.pop('chapter')
-
         news = News(**validated_data)
-        # news.article = article
-        # news.chapter = chapter
         news.save()
-
         return news
 
 class RecursiveField(serializers.Serializer):
