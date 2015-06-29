@@ -122,6 +122,13 @@ urlpatterns += patterns('',
     url(r'^api/codex/$', 'publications.api.codex_list', name='codex_list'),
     url(r'^api/codex/(?P<pk>\d+)/$', 'publications.api.codex_detail', name='codex_detail'),
 
+    # Membership Reviews
+    url(r'^api/reviews/$', 'reviews.api.review_list', name='review_list'),
+    url(r'^api/reviews/(?P<pk>\d+)/$', 'reviews.api.review_detail', name='review_detail'),
+    url(r'^api/reviews/(?P<pk>\d+)/votes/$', 'reviews.api.vote_list', name='vote_list'),
+    url(r'^api/reviews/(?P<pk>\d+)/votes/(?P<vote_pk>\d+)/$', 'reviews.api.vote_detail', name='vote_detail'),
+
+
     # DKP
     url(r'^api/dkp/$', 'dkp.api.section_list', name='dkp_section_list'),
     url(r'^api/dkp/(?P<slug>[a-z0-9-]+)/$', 'dkp.api.section_detail', name='dkp_section_detail'),
