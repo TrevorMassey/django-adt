@@ -27,6 +27,15 @@ class AwardCategorySerializer(serializers.ModelSerializer):
         read_only_fields = ('id', 'slug',)
 
 
+class BasicAwardRecipientSerializer(serializers.ModelSerializer):
+    award = AwardSerializer(read_only=True)
+
+    class Meta:
+        model = AwardRecipient
+        fields = ('id', 'recipient', 'award', 'reason',)
+        read_only_fields = ('id',)
+
+
 class AwardRecipientSerializer(serializers.ModelSerializer):
     recipient = BasicUserSerializer()
     award = AwardSerializer()

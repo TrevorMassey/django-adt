@@ -3,6 +3,9 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django_extensions.db.fields import AutoSlugField
 
+import logging
+
+logger = logging.getLogger(__name__)
 
 class Location(models.Model):
     title = models.CharField(max_length=255)
@@ -69,7 +72,7 @@ class Section(models.Model):
 
 
 class Bonus(models.Model):
-    dkp = models.DecimalField(default=1,max_digits=10, decimal_places=2)
+    dkp = models.DecimalField(default=1, max_digits=10, decimal_places=2)
 
     section = models.ForeignKey('dkp.Section', related_name='bonus_dkp')
     user = models.ForeignKey('users.User', related_name='+')
@@ -81,6 +84,16 @@ class Bonus(models.Model):
 
     def __unicode__(self):
         return u'%s' % (self.dkp,)
+
+    def get_section(self):
+        return self.section
+
+    def credit_description(self):
+        return u'Bonus credited in {section}'.format(section=self.section)
+
+    def debit_description(self):
+        return u'Bonus debited in {section}'.format(section=self.section)
+
 
 
 class Resource(models.Model):
@@ -113,6 +126,15 @@ class ResourceContrib(models.Model):
 
     def __unicode__(self):
         return u'%s' % (self.user,)
+
+    def get_section(self):
+        return self.resource.section
+
+    def credit_description(self):
+        return u'{resource} credited for {section}'.format(resource=self.resource, section=self.resource.section)
+
+    def debit_description(self):
+        return u'{resource} debited for {section}'.format(resource=self.resource, section=self.resource.section)
 
 
 class Event(models.Model):
@@ -159,6 +181,9 @@ class EventAttendance(models.Model):
     def __unicode__(self):
         return u'%s' % (self.user,)
 
+    def get_section(self):
+        return self.event.section
+
 
 class EventItem(models.Model):
     dkp = models.DecimalField(default=1, max_digits=10, decimal_places=2)
@@ -175,6 +200,15 @@ class EventItem(models.Model):
     def __unicode__(self):
         return u'%s' % (self.item,)
 
+    def get_section(self):
+        return self.event.section
+
+    def credit_description(self):
+        return u'{item} credited for {event} in {section}'.format(item=self.item, event=self.event, section=self.event.section)
+
+    def debit_description(self):
+        return u'{item} debited for {event} in {section}'.format(item=self.item, event=self.event, section=self.event.section)
+
 
 class EventEntity(models.Model):
     dkp = models.DecimalField(default=1, max_digits=10, decimal_places=2)
@@ -190,14 +224,33 @@ class EventEntity(models.Model):
     def __unicode__(self):
         return u'%s' % (self.entity,)
 
+    def get_section(self):
+        return self.event.section
+
+    def credit_description(self):
+        return u'{entity} kill credited for {event} in {section}'.format(entity=self.entity, event=self.event, section=self.event.section)
+
+    def debit_description(self):
+        return u'{entity} kill debited for {event} in {section}'.format(entity=self.entity, event=self.event, section=self.event.section)
+
 
 class Transaction(models.Model):
+
+    PROPERTY_MAP = {
+        Bonus: 'bonus',
+        ResourceContrib: 'resource_contrib',
+        EventItem: 'item',
+        EventEntity: 'entity',
+    }
 
     user = models.ForeignKey('users.User', related_name='dkp_transactions')
 
     credit = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     debit = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
+    description = models.CharField(max_length=255, blank=True, null=True)
+
+    section = models.ForeignKey('dkp.Section', related_name='transactions')
 
     bonus = models.ForeignKey('dkp.Bonus', related_name='+', blank=True, null=True)
     attendance = models.ForeignKey('dkp.EventAttendance', related_name='+', blank=True, null=True)
@@ -212,6 +265,42 @@ class Transaction(models.Model):
 
     def __unicode__(self):
         return u'%s' % (self.user,)
+
+    def set_related_property(self, property):
+        try:
+            property_name = self.PROPERTY_MAP[type(property)]
+        except KeyError:
+            raise KeyError('Invalid property type for transaction')
+        setattr(self, property_name, property)
+
+    def get_related_property(self):
+        if self.bonus_id:
+            return self.bonus
+        elif self.attendance_id:
+            return self.attendance
+        elif self.item_id:
+            return self.item
+        elif self.entity_id:
+            return self.entity
+        elif self.resource_contrib_id:
+            return self.resource_contrib
+
+    def get_related_property_name(self, property):
+        try:
+            property_name = self.PROPERTY_MAP[property]
+        except KeyError:
+            raise KeyError('Invalid property type for transaction')
+        return property_name
+        # if self.bonus_id:
+        #     return Bonus
+        # elif self.attendance_id:
+        #     return EventAttendance
+        # elif self.item_id:
+        #     return EventItem
+        # elif self.entity_id:
+        #     return EventEntity
+        # elif self.resource_contrib_id:
+        #     return ResourceContrib
 
     def clean(self):
         if self.credit and self.debit:
