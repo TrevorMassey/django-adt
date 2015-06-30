@@ -1,5 +1,7 @@
+from django.db.models import F
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.response import Response
 from comments.api import BaseCommentListCreateAPIView, BaseCommentRetrieveUpdateAPIView
 from multimedia.models import Screenshot, Quote
 from multimedia.serializers import ScreenshotSerializer, QuoteSerializer
@@ -28,6 +30,13 @@ class ScreenshotRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIVi
         qs = qs.filter(slug=self.kwargs.get('slug'))
         return qs
 
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        self.queryset.filter(id=instance.id).update(views=F('views') + 1)
+        return Response(serializer.data)
+
+
 
 class QuoteListCreateAPIView(generics.ListCreateAPIView):
     queryset = Quote.objects.all()
@@ -50,6 +59,7 @@ class QuoteRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
         qs = Quote.objects.prefetch_related('involved')
         qs = qs.filter(slug=self.kwargs.get('slug'))
         return qs
+
 
 
 screenshot_list = ScreenshotListCreateAPIView.as_view()
