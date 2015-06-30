@@ -1,9 +1,11 @@
 from decimal import Decimal
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.utils import timezone
 from django_extensions.db.fields import AutoSlugField
 
 import logging
+from djcelery.models import PeriodicTask
 
 logger = logging.getLogger(__name__)
 
@@ -163,6 +165,17 @@ class Event(models.Model):
 
     def __unicode__(self):
         return u'%s' % (self.title,)
+
+    def start(self):
+        periodic_task = PeriodicTask()
+        self.started = timezone.now()
+        self.save()
+        # TODO task
+
+    def stop(self):
+        self.stopped = timezone.now()
+        self.save()
+        # TODO kill task
 
 
 class EventAttendance(models.Model):

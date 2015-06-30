@@ -1,4 +1,4 @@
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 from dkp.models import Transaction, Bonus, ResourceContrib, EventItem, EventEntity, EventAttendance
 
@@ -158,3 +158,6 @@ def create_entity_transaction(sender, instance, created, **kwargs):
                     transaction.description = instance.debit_description()
                     transaction.debit = instance.dkp
                 transaction.save()
+
+
+# @receiver(post_delete, sender=Niggers)
