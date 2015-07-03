@@ -167,6 +167,7 @@ class Event(models.Model):
         return u'%s' % (self.title,)
 
     def start(self):
+        # getorcreate interval for 60 seconds
         periodic_task = PeriodicTask()
         self.started = timezone.now()
         self.save()
@@ -175,7 +176,7 @@ class Event(models.Model):
     def stop(self):
         self.stopped = timezone.now()
         self.save()
-        # TODO kill task
+        # TODO kill task CeleryTask for cleanup
 
 
 class EventAttendance(models.Model):
@@ -265,11 +266,11 @@ class Transaction(models.Model):
 
     section = models.ForeignKey('dkp.Section', related_name='transactions')
 
-    bonus = models.ForeignKey('dkp.Bonus', related_name='+', blank=True, null=True)
-    attendance = models.ForeignKey('dkp.EventAttendance', related_name='+', blank=True, null=True)
-    item = models.ForeignKey('dkp.EventItem', related_name='+', blank=True, null=True)
-    entity = models.ForeignKey('dkp.EventEntity', related_name='+', blank=True, null=True)
-    resource_contrib = models.ForeignKey('dkp.ResourceContrib', related_name='+', blank=True, null=True)
+    bonus = models.ForeignKey('dkp.Bonus', related_name='+', blank=True, null=True, on_delete=models.SET_NULL)
+    attendance = models.ForeignKey('dkp.EventAttendance', related_name='+', blank=True, null=True, on_delete=models.SET_NULL)
+    item = models.ForeignKey('dkp.EventItem', related_name='+', blank=True, null=True, on_delete=models.SET_NULL)
+    entity = models.ForeignKey('dkp.EventEntity', related_name='+', blank=True, null=True, on_delete=models.SET_NULL)
+    resource_contrib = models.ForeignKey('dkp.ResourceContrib', related_name='+', blank=True, null=True, on_delete=models.SET_NULL)
 
     class Meta:
         ordering = ('-created',)

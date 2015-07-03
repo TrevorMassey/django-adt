@@ -1,4 +1,4 @@
-from django.db.models.signals import post_save, post_delete
+from django.db.models.signals import post_save, post_delete, pre_delete
 from django.dispatch import receiver
 from dkp.models import Transaction, Bonus, ResourceContrib, EventItem, EventEntity, EventAttendance
 
@@ -9,7 +9,7 @@ TRANSACTION_MODELS = (
 
 
 @receiver(post_save)
-def create_bonus_transaction(sender, instance, created, **kwargs):
+def create_generic_transaction(sender, instance, created, **kwargs):
 
     if sender not in TRANSACTION_MODELS:
         return
@@ -160,4 +160,69 @@ def create_entity_transaction(sender, instance, created, **kwargs):
                 transaction.save()
 
 
-# @receiver(post_delete, sender=Niggers)
+@receiver(pre_delete)
+def refund_transaction(sender, instance, **kwargs):
+
+    if sender not in TRANSACTION_MODELS:
+        return
+
+    # Get latest transaction and refund it
+    filter_kwargs = {
+        Transaction().get_related_property_name(sender): instance
+    }
+    previous = Transaction.objects.filter(**filter_kwargs).order_by('-created').first()
+    if not previous:
+        return
+    transaction = Transaction()
+    transaction.user_id = previous.user_id
+    transaction.instance = None
+    transaction.section = instance.get_section()
+    if previous.debit:
+        transaction.description = instance.credit_description()
+        transaction.credit = previous.debit
+    if previous.credit:
+        transaction.description = instance.debit_description()
+        transaction.debit = previous.credit
+    transaction.save()
+
+
+@receiver(pre_delete, sender=EventItem)
+def refund_item_transaction(sender, instance, **kwargs):
+
+    # Get latest transaction and refund it
+    previous = Transaction.objects.filter(item=instance).order_by('-created').first()
+    if not previous:
+        return
+    transaction = Transaction()
+    transaction.user_id = previous.user_id
+    transaction.item = None
+    transaction.section = instance.get_section()
+    if previous.debit:
+        transaction.description = instance.credit_description()
+        transaction.credit = previous.debit
+    if previous.credit:
+        transaction.description = instance.debit_description()
+        transaction.debit = previous.credit
+    transaction.save()
+
+
+@receiver(pre_delete, sender=EventEntity)
+def refund_entity_transaction(sender, instance, **kwargs):
+
+    for attendee in EventAttendance.objects.filter(event=instance.event):
+
+        previous = Transaction.objects.filter(entity=instance, user=attendee.user).order_by('-created').first()
+        if not previous:
+            continue
+        if instance.dkp:
+            transaction = Transaction()
+            transaction.user_id = previous.user_id
+            transaction.instance = None
+            transaction.section = instance.get_section()
+        if previous.debit:
+            transaction.description = instance.credit_description()
+            transaction.credit = previous.debit
+        if previous.credit:
+            transaction.description = instance.debit_description()
+            transaction.debit = previous.credit
+        transaction.save()
