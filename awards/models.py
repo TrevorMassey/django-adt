@@ -1,3 +1,4 @@
+from django.contrib.contenttypes.models import ContentType
 from django_extensions.db.fields import AutoSlugField
 from django.db import models
 
@@ -85,3 +86,21 @@ class AwardImage(models.Model):
 
     def __unicode__(self):
         return u'%s' % self.title
+
+
+class Achievement(models.Model):
+
+    CREATED = 0
+    RAIDS = 1
+    WHATEVER = 2
+
+    ACTION_CHOCIES = (
+        (CREATED, 'Created'),
+        (RAIDS, 'Raids'),
+        (WHATEVER, 'Whatever'),
+    )
+
+    action = models.CharField(choices=ACTION_CHOCIES)
+    count = models.PositiveIntegerField(blank=True, null=True)
+    award = models.ForeignKey('awards.Award')
+    item = models.ForeignKey(ContentType)
