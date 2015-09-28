@@ -1,8 +1,9 @@
-from django.db import models
+from django.db import models, transaction
 from django.utils import timezone
 from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
 from django_extensions.db.fields import AutoSlugField
+from users.models import User
 
 
 class Forum(MPTTModel):
@@ -53,7 +54,28 @@ class Forum(MPTTModel):
 
 
 class TopicManager(models.Manager):
-    pass
+
+    def create_topic(self, poster, forum, title, body, is_announcement=False, is_pinned=False, poll=None):
+        """
+        Creates a topic and associated post
+        """
+
+        with transaction.atomic():
+            topic = Topic()
+            topic.forum = forum
+            topic.title = title
+            topic.is_announcement = is_announcement
+            topic.is_pinned = is_pinned
+            topic.starter = poster
+
+            if poll is not None:
+                topic.is_poll = True
+
+            topic.save()
+
+            Post.objects.create_post(poster=poster, topic=topic, body=body)
+
+        return topic
 
 
 class Topic(models.Model):
@@ -117,6 +139,22 @@ class Topic(models.Model):
         self.save()
 
 
+class PostManager(models.Manager):
+
+    def create_post(self, poster, topic, body):
+        """
+        Creates post for a given user under an existing topic
+        """
+
+        post = Post()
+        post.thread = topic
+        post.body = body
+        post.poster = poster
+        post.poster_name = poster.display_name
+        post.poster_avatar = poster.avatar
+        post.save()
+
+        return post
 
 class Post(models.Model):
     forum = models.ForeignKey('forums.Forum')
@@ -147,6 +185,8 @@ class Post(models.Model):
     deleted_by = models.ForeignKey('users.User', related_name='+', blank=True, null=True, on_delete=models.SET_NULL)
     deleted_by_name = models.CharField(max_length=255, null=True, blank=True)
     deleted_time = models.DateTimeField(blank=True, null=True)
+
+    objects = PostManager()
 
     class Meta:
         ordering = ('-created',)
