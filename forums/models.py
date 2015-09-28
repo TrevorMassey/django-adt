@@ -52,6 +52,9 @@ class Forum(MPTTModel):
         return u'%s' % self.title
 
 
+class TopicManager(models.Manager):
+    pass
+
 
 class Topic(models.Model):
 
@@ -91,6 +94,8 @@ class Topic(models.Model):
     deleted_by = models.ForeignKey('users.User', blank=True, null=True, related_name='+', on_delete=models.SET_NULL)
     deleted_by_name = models.CharField(max_length=255, null=True, blank=True)
     deleted_time = models.DateTimeField(blank=True, null=True)
+
+    objects = TopicManager()
 
     class Meta:
         index_together = [
