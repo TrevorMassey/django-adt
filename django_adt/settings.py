@@ -68,6 +68,10 @@ INSTALLED_APPS = (
     'multimedia',
     'event_calendar',
     'frontend',
+
+    'legacy.addict_forum',
+    'legacy.addict_logs',
+    'legacy.addict_website',
 )
 
 MIDDLEWARE_CLASSES = (

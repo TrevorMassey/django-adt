@@ -55,7 +55,7 @@ class AwardCategory(models.Model):
 class AwardRecipient(models.Model):
 
     # Fields
-    reason = models.CharField(max_length=255)
+    reason = models.TextField(blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True, editable=False)
 
     # Relationship Fields
