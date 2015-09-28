@@ -43,7 +43,6 @@ urlpatterns += patterns('',
     # Games
     url(r'^api/games/$', 'games.api.game_list', name='game_list'),
     url(r'^api/games/(?P<slug>[a-z0-9-]+)/$', 'games.api.game_detail', name='game_detail'),
-
     url(r'^api/guilds/$', 'games.api.game_list', name='game_list'),
     url(r'^api/guilds/(?P<slug>[a-z0-9-]+)/$', 'games.api.game_detail', name='game_detail'),
 
@@ -122,39 +121,6 @@ urlpatterns += patterns('',
     url(r'^api/codex/$', 'publications.api.codex_list', name='codex_list'),
     url(r'^api/codex/(?P<pk>\d+)/$', 'publications.api.codex_detail', name='codex_detail'),
 
-    # Membership Reviews
-    url(r'^api/reviews/$', 'reviews.api.review_list', name='review_list'),
-    url(r'^api/reviews/(?P<pk>\d+)/$', 'reviews.api.review_detail', name='review_detail'),
-    url(r'^api/reviews/(?P<pk>\d+)/votes/$', 'reviews.api.vote_list', name='vote_list'),
-    url(r'^api/reviews/(?P<pk>\d+)/votes/(?P<vote_pk>\d+)/$', 'reviews.api.vote_detail', name='vote_detail'),
-    # TODO figure out why that isn't working
-    url(r'^api/reviews/(?P<pk>\d+)/comments/$', 'reviews.api.review_comment_list', name='review_comment_list'),
-    url(r'^api/reviews/(?P<pk>\d+)/comments/(?P<comment_pk>\d+)/$', 'reviews.api.review_comment_detail', name='review_comment_detail'),
-
-
-    # DKP
-    url(r'^api/dkp/$', 'dkp.api.section_list', name='dkp_section_list'),
-    url(r'^api/dkp/(?P<slug>[a-z0-9-]+)/$', 'dkp.api.section_detail', name='dkp_section_detail'),
-    url(r'^api/dkp/(?P<section_slug>[a-z0-9-]+)/events/$', 'dkp.api.event_list', name='dkp_event_list'),
-    url(r'^api/dkp/(?P<section_slug>[a-z0-9-]+)/events/(?P<event_slug>[a-z0-9-]+)/$', 'dkp.api.event_detail', name='dkp_event_detail'),
-    url(r'^api/dkp/(?P<section_slug>[a-z0-9-]+)/events/(?P<event_slug>[a-z0-9-]+)/attendees/$', 'dkp.api.eventattendance_list', name='dkp_eventattendee_list'),
-    url(r'^api/dkp/(?P<section_slug>[a-z0-9-]+)/events/(?P<event_slug>[a-z0-9-]+)/attendees/(?P<pk>\d+)$', 'dkp.api.eventattendance_detail', name='dkp_eventattendee_detail'),
-    url(r'^api/dkp/(?P<section_slug>[a-z0-9-]+)/events/(?P<event_slug>[a-z0-9-]+)/items/$', 'dkp.api.eventitem_list', name='dkp_eventitem_list'),
-    url(r'^api/dkp/(?P<section_slug>[a-z0-9-]+)/events/(?P<event_slug>[a-z0-9-]+)/items/(?P<pk>\d+)$', 'dkp.api.eventitem_detail', name='dkp_eventitem_detail'),
-    url(r'^api/dkp/(?P<section_slug>[a-z0-9-]+)/events/(?P<event_slug>[a-z0-9-]+)/entities/$', 'dkp.api.evententity_list', name='dkp_evententity_list'),
-    url(r'^api/dkp/(?P<section_slug>[a-z0-9-]+)/events/(?P<event_slug>[a-z0-9-]+)/entities/(?P<pk>\d+)$', 'dkp.api.evententity_detail', name='dkp_evententity_detail'),
-
-    url(r'^api/dkp/(?P<section_slug>[a-z0-9-]+)/locations/$', 'dkp.api.location_list', name='dkp_location_list'),
-    url(r'^api/dkp/(?P<section_slug>[a-z0-9-]+)/locations/(?P<location_slug>[a-z0-9-]+)/$', 'dkp.api.location_detail', name='dkp_location_detail'),
-    url(r'^api/dkp/(?P<section_slug>[a-z0-9-]+)/locations/(?P<location_slug>[a-z0-9-]+)/entities/$', 'dkp.api.entity_list', name='dkp_entity_list'),
-    url(r'^api/dkp/(?P<section_slug>[a-z0-9-]+)/locations/(?P<location_slug>[a-z0-9-]+)/entities/(?P<entity_slug>[a-z0-9-]+)/$', 'dkp.api.entity_detail', name='dkp_entity_detail'),
-    url(r'^api/dkp/(?P<section_slug>[a-z0-9-]+)/locations/(?P<location_slug>[a-z0-9-]+)/entities/(?P<entity_slug>[a-z0-9-]+)/items/$', 'dkp.api.item_list', name='dkp_item_list'),
-    url(r'^api/dkp/(?P<section_slug>[a-z0-9-]+)/locations/(?P<location_slug>[a-z0-9-]+)/entities/(?P<entity_slug>[a-z0-9-]+)/items/(?P<item_slug>[a-z0-9-]+)/$', 'dkp.api.item_detail', name='dkp_item_detail'),
-    url(r'^api/dkp/(?P<section_slug>[a-z0-9-]+)/resources/$', 'dkp.api.resource_list', name='dkp_resource_list'),
-    url(r'^api/dkp/(?P<section_slug>[a-z0-9-]+)/resources/(?P<resource_slug>[a-z0-9-]+)/$', 'dkp.api.resource_detail', name='dkp_resource_detail'),
-    url(r'^api/dkp/(?P<section_slug>[a-z0-9-]+)/resources/(?P<resource_slug>[a-z0-9-]+)/contributions/$', 'dkp.api.resourcecontrib_list', name='dkp_resourcecontrib_list'),
-    url(r'^api/dkp/(?P<section_slug>[a-z0-9-]+)/resources/(?P<resource_slug>[a-z0-9-]+)/contributions/(?P<pk>\d+)/$', 'dkp.api.resourcecontrib_detail', name='dkp_resourcecontrib_detail'),
-
     url(r'^verify/(?P<key>[A-Za-z0-9]{32})/$', 'users.views.verify_email', name='verify_email'),
 
 )
@@ -165,8 +131,3 @@ if settings.DEBUG:
                             url(r'^__debug__/', include(debug_toolbar.urls)),
                             )
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-
-# urlpatterns += patterns('',
-#                         url(r'^.*$', 'frontend.views.index', name='catchall')
-#                         )

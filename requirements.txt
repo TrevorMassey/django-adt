@@ -20,6 +20,7 @@ django-rest-swagger==0.3.2
 django-scheduler==0.7.5
 django-templated-email==0.4.9
 djangorestframework==3.1.2
+djangorestframework-camel-case==0.2.0
 djangorestframework-jwt==1.5.0
 easy-thumbnails==2.2
 future==0.14.3
