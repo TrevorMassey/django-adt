@@ -67,6 +67,7 @@ INSTALLED_APPS = (
     'comments',
     'multimedia',
     'event_calendar',
+    'forums',
     'frontend',
 
     'legacy.addict_forum',
@@ -152,7 +153,7 @@ AUTH_USER_MODEL = 'users.User'
 
 DEBUG_TOOLBAR_PATCH_SETTINGS = False
 
-INTERNAL_IPS = ('10.10.10.1',)
+INTERNAL_IPS = ('10.10.10.1', '127.0.0.1', '10.0.2.2')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
@@ -212,7 +213,7 @@ LOGGING = {
             'level': 'INFO',
             'propagate': False,
         },
-        'games.signals': {
+        'forums': {
             'handlers': ['console', ],
             'level': 'INFO',
             'propagate': False,
@@ -224,7 +225,7 @@ LOGGING = {
         },
         'django.db.backends': {
             'handlers': ['console', ],
-            'level': 'INFO',
+            'level': 'DEBUG',
             'propagate': False,
         },
     }

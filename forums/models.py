@@ -31,8 +31,8 @@ class Forum(MPTTModel):
 
     order = models.PositiveIntegerField(default=0)
 
-    topics = models.PositiveIntegerField(default=0)
-    posts = models.PositiveIntegerField(default=0)
+    topic_count = models.PositiveIntegerField(default=0)
+    post_count = models.PositiveIntegerField(default=0)
 
     # Latest post info
     last_post_on = models.DateTimeField(null=True, blank=True)
@@ -45,7 +45,7 @@ class Forum(MPTTModel):
     last_poster_rank_color = models.CharField(max_length=255, null=True, blank=True)
 
     class Meta:
-        ordering = ('-title',)
+        ordering = ('order',)
 
     class MPTTMeta:
         order_insertion_by = 'order'
@@ -82,7 +82,7 @@ class TopicManager(models.Manager):
 class Topic(models.Model):
 
     # Fields
-    forum = models.ForeignKey('forums.Forum')
+    forum = models.ForeignKey('forums.Forum', related_name='topics')
     label = models.ForeignKey('forums.Label', blank=True, null=True)
     title = models.CharField(max_length=255)
     slug = AutoSlugField(populate_from='title', blank=True, unique=True)
@@ -153,10 +153,10 @@ class PostManager(models.Manager):
         return post
 
 class Post(models.Model):
-    forum = models.ForeignKey('forums.Forum')
-    thread = models.ForeignKey('forums.Topic')
+    forum = models.ForeignKey('forums.Forum', related_name='posts')
+    thread = models.ForeignKey('forums.Topic', related_name='posts')
     poster = models.ForeignKey('users.User', null=True, blank=True, on_delete=models.SET_NULL)
-
+    created = models.DateTimeField(auto_now_add=True)
     body = models.TextField()
 
     posted = models.DateTimeField(auto_now_add=True)
@@ -182,7 +182,7 @@ class Post(models.Model):
         )
 
     def __unicode__(self):
-        return '%s...' % self.original[10:].strip()
+        return '%s...' % self.body[10:].strip()
 
     def edit(self, body, editor):
 
