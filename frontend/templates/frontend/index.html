@@ -1,4 +1,4 @@
-{% load static %}
+{% load static swampdragon_tags %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -38,12 +38,20 @@
 </side-panel>
 
 
+{% swampdragon_settings %}
+<script type="text/javascript" src="{% static 'swampdragon/js/dist/swampdragon.js' %}"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}swampdragon/js/dist/datamapper.js"></script>
+
 {% block scripts %}
     <script src="{% static 'scripts/vendors.js' %}"></script>
     <script src="{% static 'scripts/main.js' %}"></script>
     <script src="{% static 'scripts/application.js' %}"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}swampdragon/js/angular/services.js"></script>
     <script src="{% static 'scripts/templates.js' %}"></script>
 {% endblock scripts %}
+
+
+
 
 </body>
 </html>

@@ -10,6 +10,8 @@ class NotificationListAPIView(ListAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        return Notification.objects.filter(user=user)
+        qs = Notification.objects.filter(user=user)
+        qs = qs.select_related('creator', 'chapter', 'rank', 'award',)
+        return qs
 
 notification_list = NotificationListAPIView.as_view()

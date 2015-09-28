@@ -3,7 +3,7 @@ from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from awards.models import Award, AwardCategory, AwardRecipient, AwardImage, AwardType
 from awards.serializers import AwardSerializer, AwardCategorySerializer, AwardRecipientSerializer, AwardImageSerializer, \
-    AwardTypeSerializer, FullAwardSummarySerializer
+    AwardTypeSerializer, FullAwardSummarySerializer, BasicAwardRecipientSerializer
 from users.models import User
 
 
@@ -146,7 +146,7 @@ award_recipient_detail = AwardRecipientRetrieveUpdateDestroyAPIView.as_view()
 
 
 class UserAwardRecipientListCreateAPIView(generics.ListCreateAPIView):
-    serializer_class = AwardRecipientSerializer
+    serializer_class = BasicAwardRecipientSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
     lookup_field = 'slug'
@@ -154,6 +154,7 @@ class UserAwardRecipientListCreateAPIView(generics.ListCreateAPIView):
 
     def get_queryset(self):
         qs = AwardRecipient.objects
+        qs = qs.select_related('award')
         qs = qs.filter(recipient__slug=self.kwargs.get('slug'))
         return qs
 
@@ -164,7 +165,7 @@ class UserAwardRecipientListCreateAPIView(generics.ListCreateAPIView):
 
 
 class UserAwardRecipientRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = AwardRecipientSerializer
+    serializer_class = BasicAwardRecipientSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
     lookup_field = 'recipient__slug'
@@ -172,6 +173,7 @@ class UserAwardRecipientRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDest
 
     def get_queryset(self):
         qs = AwardRecipient.objects
+        qs = qs.select_related('award')
         qs = qs.filter(recipient__slug=self.kwargs.get('slug'))
         qs = qs.filter(id=self.kwargs.get('pk'))
         return qs

@@ -52,6 +52,8 @@ INSTALLED_APPS = (
     'rest_framework_swagger',
     'schedule',
 
+    'swampdragon',
+
     'accounting',
     'activityfeed',
     'applications',
@@ -118,8 +120,6 @@ DATABASES = {
         'PASSWORD': 'beer',
     },
 }
-
-DATABASE_ROUTERS = ['django_adt.db.routers.LegacyDBRouter', ]
 
 EMAIL_HOST = '127.0.0.1'
 EMAIL_PORT = 1025
@@ -234,8 +234,42 @@ TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
     'django.core.context_processors.request',
 )
 
+
+
+# Swammpdragon Settings
+
+SWAMP_DRAGON_CONNECTION = ('django_adt.connections.JWTDataConnection', '/data')
+
+SWAMP_DRAGON_HOST = '0.0.0.0'
+SWAMP_DRAGON_PORT = 9080
+
+DRAGON_URL = 'http://127.0.0.1:9080/'
+
 SWAGGER_SETTINGS = {
     'api_version': '1.0',
     'api_path': '/api/',
     'doc_expansion': 'none',
 }
+
+class DisableMigrations(object):
+
+    def __contains__(self, item):
+        return True
+
+    def __getitem__(self, item):
+        return "notmigrations"
+
+import sys
+TESTS_IN_PROGRESS = False
+
+if 'test' in sys.argv[1:] or 'jenkins' in sys.argv[1:]:
+    PASSWORD_HASHERS = (
+        'django.contrib.auth.hashers.MD5PasswordHasher',
+    )
+    DEBUG = False
+    TEMPLATE_DEBUG = False
+    TESTS_IN_PROGRESS = True
+    MIGRATION_MODULES = DisableMigrations()
+
+    for key in DATABASES.keys():
+        DATABASES[key]['ENGINE'] = 'django.db.backends.sqlite3'

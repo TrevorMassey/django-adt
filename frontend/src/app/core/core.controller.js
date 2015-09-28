@@ -3,8 +3,8 @@
 
     angular.module('core')
         .controller('AppCtrl', [
-            '$scope', 'common', 'auth', 'Session',
-            function($scope, common, auth, Session) {
+            '$scope', 'common', 'auth', 'Session', '$dragon',
+            function($scope, common, auth, Session, $dragon) {
 
                 $scope.currentUser = Session.currentUser;
                 $scope.site = { title: "Addiction "};
@@ -29,6 +29,18 @@
                     e.stopPropagation();
                 }
 
-            }]);
+
+            $dragon.onReady(function() {
+                $dragon.subscribe('sys', 'sysinfo', null).then(function(response) {
+                    console.log(response.data + ' success');
+                });
+            });
+
+            $dragon.onChannelMessage(function(channels, message) {
+                //console.log(channels, message);
+                console.log(message.data);
+            });
+
+        }]);
 
 }());

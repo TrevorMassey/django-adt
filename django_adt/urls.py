@@ -123,8 +123,7 @@ urlpatterns += patterns('',
 
     url(r'^verify/(?P<key>[A-Za-z0-9]{32})/$', 'users.views.verify_email', name='verify_email'),
 
-
-    )
+)
 
 if settings.DEBUG:
     import debug_toolbar
@@ -132,8 +131,3 @@ if settings.DEBUG:
                             url(r'^__debug__/', include(debug_toolbar.urls)),
                             )
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-
-# urlpatterns += patterns('',
-#                         url(r'^.*$', 'frontend.views.index', name='catchall')
-#                         )
