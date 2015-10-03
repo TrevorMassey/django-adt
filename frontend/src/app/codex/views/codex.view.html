@@ -5,7 +5,7 @@
         <span class="codex-file" ng-if="(node.file)">{{node.title}}</span>
     </div>
     <ol ui-tree-nodes="" ng-model="node.children">
-        <li ng-repeat="node in node.children" ui-tree-node ng-include="'nodes_renderer.html'">
+        <li ng-repeat="node in node.children | orderBy: 'order'" ui-tree-node ng-include="'nodes_renderer.html'">
         </li>
     </ol>
 
@@ -14,8 +14,8 @@
 <div class="panel">
     <div class="panel-adt">
         <div ui-tree data-drag-enabled="false">
-            <ol ui-tree-nodes="" ng-model="vm.codex" id="tree-root">
-                <li ng-repeat="node in vm.codex" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+            <ol ui-tree-nodes="" ng-model="vm.codex" id="tree-root" class="codex-list">
+                <li ng-repeat="node in vm.codex | orderBy: 'order'" ui-tree-node ng-include="'nodes_renderer.html'"></li>
             </ol>
         </div>
     </div>

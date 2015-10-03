@@ -30,7 +30,7 @@ class DonateCost(models.Model):
         ordering = ('-created',)
 
     def __unicode__(self):
-        return u'%s' % self.slug
+        return u'%s' % self.service
 
 
 class DonateGoal(models.Model):

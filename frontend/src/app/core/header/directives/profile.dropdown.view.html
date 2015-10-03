@@ -3,7 +3,7 @@
     <a href="#" dropdown-toggle class="profile-dropdown-toggle">
         <!--<img data-ng-src="{{authentication.currentUser.profileImageURL}}" alt="{{authentication.currentUser.displayName}}" class="header-profile-image"/>-->
         <span class="navbar-user visible-lg-inline-block" data-ng-bind="currentUser.displayName"></span>
-        <avatar member="{{session.currentUser.username}}" width="40" height="40"></avatar><b class="caret"></b>
+        <avatar image="{{currentUser.avatar}}" color="{{currentUser.rank.color}}" width="40" height="40"></avatar><b class="caret"></b>
     </a>
 
     <ul class="dropdown-menu" role="navigation">

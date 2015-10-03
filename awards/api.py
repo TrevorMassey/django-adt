@@ -4,6 +4,7 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from awards.models import Award, AwardCategory, AwardRecipient, AwardImage, AwardType
 from awards.serializers import AwardSerializer, AwardCategorySerializer, AwardRecipientSerializer, AwardImageSerializer, \
     AwardTypeSerializer, FullAwardSummarySerializer, BasicAwardRecipientSerializer
+from games.models import Chapter
 from users.models import User
 
 
@@ -184,24 +185,22 @@ user_award_detail = UserAwardRecipientRetrieveUpdateDestroyAPIView.as_view()
 
 
 class AwardSummaryListAPIView(generics.ListAPIView):
-    queryset = AwardCategory.objects # TODO change to AwardCategories, join on chapters, or do that in a separate request in the frontend
+    queryset = Chapter.objects
 
     serializer_class = FullAwardSummarySerializer
 
     def get_queryset(self):
-        qs = AwardCategory.objects.all()
+        qs = Chapter.objects.all()
         qs = qs.prefetch_related(
-
-            'awards',
-            'awards__award_recipient',
+            #TODO:  Redo these
+            #'awards',
+            #'awards__award_recipient',
             )
         qs = qs.select_related(
-            'awards__award_recipient__recipient',
-            'game',
-            'awards__image',
-            'awards__type',
-            'chapter',
-            'chapter__game'
+            #'awards__award_recipient__recipient',
+            #'game',
+            #'awards__image',
+            #'awards__type',
             )
 
         return qs

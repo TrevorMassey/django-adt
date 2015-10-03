@@ -10,7 +10,7 @@
 
             <a data-ng-switch-when="dropdown" class="dropdown-toggle" data-ui-sref="{{item.mainState}}" data-ng-bind="item.title"></a>
 
-            <ul data-ng-switch-when="dropdown" class="horizontal dropdown-menu animated slideInRight" role="menu">
+            <ul data-ng-switch-when="dropdown" class="navbar-subnav horizontal dropdown-menu animated fadeIn" role="menu">
                 <li>
                     <ul class="list-inline">
                         <li data-ng-repeat="subitem in item.items | orderBy: 'position'"

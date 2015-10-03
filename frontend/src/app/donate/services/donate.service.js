@@ -5,7 +5,7 @@
         .factory('Donation', ['DS',  function(DS) {
             return DS.defineResource({
                 name: 'donation',
-                endpoint: 'donation-amounts'
+                endpoint: 'donations'
             });
         }])
 

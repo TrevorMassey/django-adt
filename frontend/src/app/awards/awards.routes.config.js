@@ -9,6 +9,11 @@
                         url: '/awards',
                         templateUrl: '/awards.view.html',
                         controller: 'AwardsCtrl as vm',
+                        resolve: {
+                            awards: function (Awards) {
+                                return Awards.initialize();
+                            }
+                        },
                         ncyBreadcrumb: {
                             label: 'Awards'
                         }

@@ -1,15 +1,15 @@
 <h1>Awards</h1>
 <div class="panel">
-    <div class="panel-adt" ng-repeat="chapter in vm.awards">
-        <h2>{{chapter.game.name}}</h2>
+    <div class="panel-adt" ng-repeat="chapter in vm.awards" ng-if="chapter.awardCategories.length > 0">
+        <h2>{{chapter.game.title}}</h2>
         <ul class="media-list">
-            <li class="media" ng-repeat="category in chapter.awardCategories">
+            <li class="media" ng-repeat="category in chapter.awardCategories" ng-if="category.awards.length">
                 <div class="media-body-awards">
                     <h3 class="award-heading">{{category.title}}</h3>
                     <ul class="media-list">
-                        <li class="media" ng-repeat="award in category.childAwards">
+                        <li class="media" ng-repeat="award in category.awards">
                             <div class="media-left">
-                                <img class="media-object" src="/.tmp/images/awards/10_Praetor.gif">
+                                <img class="media-object" src="{{award.image}}">
                             </div>
                             <div class="media-body">
                                 <div class="pull-right">
@@ -19,7 +19,7 @@
                                                         'other': '{} recipients'}">
                                     </ng-pluralize>
                                 </div>
-                                <h4 class="media-heading">{{award.name}}</h4>
+                                <h4 class="media-heading">{{award.title}}</h4>
                                 <p>{{award.description}}</p>
                             </div>
                         </li>

@@ -21,8 +21,8 @@ donate_detail = DonateAmountRetrieveUpdateDestroyAPIView.as_view()
 
 
 class DonateCostListCreateAPIView(generics.ListCreateAPIView):
-    queryset = DonateAmount.objects
-    serializer_class = DonateAmountSerializer
+    queryset = DonateCost.objects
+    serializer_class = DonateCostSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
 

@@ -1,4 +1,5 @@
 from rest_framework import generics
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from comments.api import BaseCommentListCreateAPIView, BaseCommentRetrieveUpdateAPIView
 
@@ -33,6 +34,7 @@ article_detail = ArticleRetrieveUpdateDestroyAPIView.as_view()
 
 class NewsListCreateAPIView(generics.ListCreateAPIView):
     queryset = News.objects
+    page_size = 3
     serializer_class = NewsSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 

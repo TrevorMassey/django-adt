@@ -113,7 +113,7 @@ class NoteSerializer(serializers.ModelSerializer):
             'body',
             'created',
             'created_by',
-            'game'
+            'game',
             'game_id',
         )
         read_only_fields = (
