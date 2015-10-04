@@ -1,17 +1,17 @@
 (function() {
     'use strict';
 
-    angular.module('news')
-        .factory('News', ['common', 'DS',
+    angular.module('donate')
+        .factory('Donations', ['common', 'DS',
             function(common, DS) {
 
-                var Model = DS.defineResource('news');
+                var Model = DS.defineResource('donations');
 
                 var service = {
-                    list: [],
+                    model: Model,
                     data: [],
                     initialize: initialize,
-                    detail: detail
+                    save: save
 
                 };
 
@@ -22,14 +22,14 @@
                     return getList();
                 }
 
-                function detail($param) {
-                    return getDetail($param);
+                function save(data) {
+                    return newDonation(data);
                 }
 
                 function getList() {
                     return Model.findAll()
                         .then(function(data) {
-                            service.list = data;
+                            service.data = data;
                             return data;
                         })
                         .catch(function(error) {
@@ -37,14 +37,13 @@
                         });
                 }
 
-                function getDetail($param) {
-                    return Model.find($param)
-                        .then(function(data) {
-                            service.data = data;
-                            return data;
+                function newDonation(data) {
+                    return Model.create(data)
+                        .then(function(res) {
+                            return res;
                         })
                         .catch(function(error) {
-                            common.logger.error('Error retrieving data for ' + Model.name, error);
+                            common.logger.error('Error creating record for ' + Model.name, error);
                         });
                 }
             }]);
