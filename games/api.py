@@ -1,11 +1,12 @@
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from django_adt.pagination import StandardResultsSetPagination
 from games.models import Game, Chapter, ChapterMember, ChapterDivision
 from games.serializers import GameSerializer, ChapterSerializer, ChapterMemberSerializer, ChapterDivisionSerializer
 
 
 class GameListCreateAPIView(generics.ListCreateAPIView):
-    queryset = Game.objects
+    queryset = Game.objects.all()
     serializer_class = GameSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
