@@ -7,11 +7,26 @@
 
                 var Model = DS.defineResource('news');
 
+                var Comment = DS.defineResource({
+                    name: 'comments',
+                    relations: {
+                        belongsTo: {
+                            news: {
+                                parent: true,
+                                localKey: 'slug',
+                                localField: 'news'
+                            }
+                        }
+                    }
+                });
+
                 var service = {
                     list: [],
                     data: [],
                     initialize: initialize,
-                    detail: detail
+                    detail: detail,
+
+                    comments: Comment,
 
                 };
 
@@ -39,6 +54,10 @@
 
                 function getDetail($param) {
                     return Model.find($param)
+                        .then(function(data) {
+                            data.comments = Comment.findAll({'slug': $param});
+                            return data;
+                        })
                         .then(function(data) {
                             service.data = data;
                             return data;

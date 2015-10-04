@@ -12,12 +12,13 @@
 
             }])
         .controller('NewsDetailCtrl', [
-            'common', 'News',
-            function(common, News) {
+            '$scope', 'common', 'News',
+            function($scope, common, News) {
 
                 var vm = this;
                 vm.detail = News.data;
-                vm.title = 'test';
+
+                News.comments.bindAll({}, $scope, 'vm.detail.comments')
 
             }]);
 }());

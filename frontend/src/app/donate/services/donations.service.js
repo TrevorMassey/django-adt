@@ -8,10 +8,11 @@
                 var Model = DS.defineResource('donations');
 
                 var service = {
-                    model: Model,
                     data: [],
                     initialize: initialize,
-                    save: save
+                    save: save,
+
+                    model: Model,
 
                 };
 
