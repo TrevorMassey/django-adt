@@ -34,13 +34,13 @@
             <ul class="nav navbar-nav right-nav hidden-xs" ng-if="isAuthenticated()" data-fittext data-fittext-min="12" data-fittext-max="18">
                 <!-- This works well for static text, like a username -->
 
-                <notification-dropdown></notification-dropdown>
-
                 <li data-ui-sref-active="active">
                     <a>
-                        <span class="glyphicon glyphicon-flag" aria-hidden="true"></span>
+                        <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
                     </a>
                 </li>
+
+                <notification-dropdown></notification-dropdown>
 
                 <li data-ui-sref-active="active">
                     <a data-ui-sref="donate">

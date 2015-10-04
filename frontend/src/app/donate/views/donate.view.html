@@ -32,7 +32,7 @@
     </div>
 </div>
 <ul class="list-group donate-list-group">
-    <li class="donate-list-group-item animate" data-ng-repeat="donation in vm.donations | limitTo:10 | orderBy:'-created' track by donation.id">
+    <li class="donate-list-group-item animate" data-ng-repeat="donation in vm.donations | orderBy:'-created' | limitTo:10 track by donation.id">
         <div><username>{{donation.user.displayName}}</username>: ${{donation.amount}} <span class="pull-right"><timestamp time="donation.createdAt"></timestamp></span></div>
     </li>
 </ul>

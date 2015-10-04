@@ -25,7 +25,6 @@ urlpatterns += patterns('',
     url(r'^api/awards/(?P<slug>[a-z0-9-]+)/recipients/(?P<pk>\d+)/$', 'awards.api.award_recipient_detail', name='award_recipient_detail'),
     url(r'^api/award-images/$', 'awards.api.award_image_list', name='award_image_list'),
     url(r'^api/award-images/(?P<slug>[a-z0-9-]+)/$', 'awards.api.award_image_detail', name='award_image_detail'),
-    # Categories could be nested under chapter
     url(r'^api/award-categories/$', 'awards.api.award_category_list', name='award_category_list'),
     url(r'^api/award-categories/(?P<slug>[a-z0-9-]+)/$', 'awards.api.award_category_detail', name='award_category_detail'),
     url(r'^api/award-types/$', 'awards.api.award_type_list', name='award_type_list'),
