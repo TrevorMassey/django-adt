@@ -48,6 +48,12 @@
                 //isPublic: false
             });
 
+            Menus.addSubMenuItem('topbar', 'home', {
+                title: 'Awards',
+                state: 'awards'
+                //isPublic: false
+            });
+
 
             $rootScope.$state = $state;
             $rootScope.$stateParams = $stateParams;

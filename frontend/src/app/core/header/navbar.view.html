@@ -1,56 +1,57 @@
-<!-- Begin Navbar -->
+<div class="navbar-divider">
+    <!-- Begin Navbar -->
 
-<!-- Title -->
-
-
-<!--
- <menu-subitems></menu-subitems>
--->
-
-<!-- The Collapsing items navbar-left or navbar-right -->
-<main-menu class="collapse navbar-collapse navbar-left" collapse="!isCollapsed"></main-menu>
-
-<!-- Additional navbar items -->
+    <!-- Title -->
 
 
-<!-- 'Sticky' (non-collapsing) right-side menu item(s) -->
-<div class="navbar-header">
+    <!--
+     <menu-subitems></menu-subitems>
+    -->
+    <div class="navbar-padding">
+        <!-- The Collapsing items navbar-left or navbar-right -->
+        <main-menu class="collapse navbar-collapse navbar-left" collapse="!isCollapsed"></main-menu>
 
-    <!-- Required bootstrap placeholder for the collapsed menu -->
-    <button type="button" class="navbar-toggle collapsed" data-ng-click="toggleCollapsibleMenu()">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-    </button>
+        <!-- Additional navbar items -->
 
 
-    <ul class="nav navbar-nav right-nav nav-pills pull-right" ng-if="!isAuthenticated()">
-        <li data-ui-sref-active="active"><a data-ui-sref="signin">Sign In</a></li>
-        <li data-ui-sref-active="active"><a data-ui-sref="signup">Sign up</a></li>
-    </ul>
+        <!-- 'Sticky' (non-collapsing) right-side menu item(s) -->
+        <div class="navbar-header">
 
-    <ul class="nav navbar-nav right-nav hidden-xs" ng-if="isAuthenticated()" data-fittext data-fittext-min="12" data-fittext-max="18">
-        <!-- This works well for static text, like a username -->
-
-        <notification-dropdown></notification-dropdown>
-
-        <li data-ui-sref-active="active">
-            <a>
-                <span class="glyphicon glyphicon-flag" aria-hidden="true"></span>
-            </a>
-        </li>
-
-        <li data-ui-sref-active="active">
-            <a data-ui-sref="donate">
-                <span class="glyphicon glyphicon-tag" aria-hidden="true"></span>
-            </a>
-        </li>
-
-        <!-- Add any additional bootstrap header items.  This is a drop-down from an users avatar image -->
-        <profile-dropdown></profile-dropdown>
-    </ul>
+            <!-- Required bootstrap placeholder for the collapsed menu -->
+            <button type="button" class="navbar-toggle collapsed" data-ng-click="toggleCollapsibleMenu()">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
 
 
+            <ul class="nav navbar-nav right-nav nav-pills pull-right" ng-if="!isAuthenticated()">
+                <li data-ui-sref-active="active"><a data-ui-sref="signin">Sign In</a></li>
+                <li data-ui-sref-active="active"><a data-ui-sref="signup">Sign up</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav right-nav hidden-xs" ng-if="isAuthenticated()" data-fittext data-fittext-min="12" data-fittext-max="18">
+                <!-- This works well for static text, like a username -->
+
+                <li data-ui-sref-active="active">
+                    <a>
+                        <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
+                    </a>
+                </li>
+
+                <notification-dropdown></notification-dropdown>
+
+                <li data-ui-sref-active="active">
+                    <a data-ui-sref="donate">
+                        <span class="glyphicon glyphicon-tag" aria-hidden="true"></span>
+                    </a>
+                </li>
+
+                <!-- Add any additional bootstrap header items.  This is a drop-down from an users avatar image -->
+                <profile-dropdown></profile-dropdown>
+            </ul>
+        </div>
+
+    </div>
 </div>
-

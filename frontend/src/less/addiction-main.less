@@ -33,7 +33,9 @@ h1 {
   .transition(color 0.2s);
   &:hover {
     color: #fff;
-    .transition(color 0.2s);
+    background-color: rgba(0, 0, 0, 0.75);
+    background-color: rgba(0, 0, 0, 0.75);
+    transition: color 0.2s, background-color 0.2s;
   }
 }
 
@@ -97,6 +99,10 @@ hr {
   }
 }
 
+ul, ol {
+  list-style-type: none;
+}
+
 .nowrap {
   white-space: nowrap;
   overflow: hidden;
@@ -109,6 +115,19 @@ hr {
 }
 .timestamp {
   cursor: help;
+}
+
+.avatar {
+  display: inline;
+  opacity: 0.8;
+  .transition(opacity 0.2s);
+  .avatar-rank {
+    width: 5px;
+    height: 32px;
+    position: absolute;
+    top: 0;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.0);
+  }
 }
 
 /* Panels */

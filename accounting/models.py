@@ -9,7 +9,7 @@ class DonateAmount(models.Model):
     amount = models.DecimalField(max_digits=7, decimal_places=2)
 
     # Relationship Fields
-    user = models.OneToOneField('users.User',)
+    user = models.ForeignKey('users.User',)
 
     class Meta:
         ordering = ('-created',)
@@ -23,14 +23,13 @@ class DonateCost(models.Model):
     # Fields
     service = models.CharField(max_length=255)
     created = models.DateTimeField(auto_now_add=True, editable=False)
-    last_updated = models.DateTimeField(auto_now=True, editable=False)
     amount = models.DecimalField(max_digits=7, decimal_places=2)
 
     class Meta:
         ordering = ('-created',)
 
     def __unicode__(self):
-        return u'%s' % self.slug
+        return u'%s' % self.service
 
 
 class DonateGoal(models.Model):

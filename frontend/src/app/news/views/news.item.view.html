@@ -1,0 +1,45 @@
+<h1>{{vm.detail.title}}</h1>
+<div class="news-detail news-post" news-image="/media/images/news/news-placeholder.jpg">
+
+</div>
+<div class="panel-adt">
+    <div class="row">
+        <div class="col-xs-4">
+            <div class="news-img pull-left">
+                <avatar image="{{vm.detail.article.author.avatar}}" color="{{vm.detail.article.author.rank.color}}" width="32px" height="32px"></avatar>
+            </div>
+            <h3 class="news-member"><username data-ng-bind="vm.detail.article.author.displayName"></username></h3>
+            <span data-ng-bind="vm.detail.article.created | date:'mediumDate'" class="news-muted"></span>
+        </div>
+        <div class="col-xs-4">
+            <h4 class="news-game"><a href="#">{{vm.detail.chapter.game.title}}</a></h4>
+        </div>
+        <div class="col-xs-4 news-comments">
+            <a href="#"><span class="glyphicon glyphicon-comment"></span> 0</a>
+        </div>
+    </div>
+</div>
+<div class="panel-adt news-body">
+    <h2>{{vm.detail.title}}</h2>
+    <p>{{vm.detail.article.body}}</p>
+</div>
+<div class="panel-adt">
+    <h3>Comments</h3>
+</div>
+<div class="panel-adt">
+    <textarea>Quill placeholder</textarea>
+</div>
+<div class="panel-adt" ng-repeat="comment in vm.detail.comments | orderBy:'-created' track by comment.id">
+    <div class="row">
+        <div class="col-xs-2">
+            <div class="news-img pull-left">
+                <avatar image="{{comment.user.avatar}}" color="{{comment.user.rank.color}}" width="32px" height="32px"></avatar>
+            </div>
+            <h3 class="news-member"><username data-ng-bind="comment.user.displayName"></username></h3>
+            <span data-ng-bind="comment.created | date:'mediumDate'" class="news-muted"></span>
+        </div>
+        <div class="col-xs-10">
+            <p>{{comment.body}}</p>
+        </div>
+    </div>
+</div>

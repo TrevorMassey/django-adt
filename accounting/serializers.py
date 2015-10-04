@@ -6,7 +6,16 @@ from users.serializers import BasicUserSerializer
 class DonateCostSerializer(serializers.ModelSerializer):
     class Meta:
         model = DonateCost
-        fields = ('service', 'amount', 'created', 'last_updated',)
+        fields = (
+            'id',
+            'service',
+            'amount',
+            'created',
+        )
+        read_only_fields = (
+            'id',
+            'created',
+        )
 
 
 class DonateAmountSerializer(serializers.ModelSerializer):
@@ -14,10 +23,31 @@ class DonateAmountSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = DonateAmount
-        fields = ('user', 'amount', 'created',)
+        fields = (
+            'id',
+            'user',
+            'amount',
+            'created',
+        )
+        read_only_fields = (
+            'id',
+            'user',
+            'created',
+        )
 
 
 class DonateGoalSerializer(serializers.ModelSerializer):
     class Meta:
         model = DonateGoal
-        fields = ('amount', 'created', 'end', 'description',)
+        fields = (
+            'id',
+            'amount',
+            'created',
+            'end',
+            'description',
+        )
+        read_only_fields = (
+            'id',
+            'created',
+        )
+

@@ -39,10 +39,10 @@ class Command(BaseCommand):
             user.email = legacy_user.email
             user.username = legacy_user.username
             user.display_name = legacy_user.username
-            if legacy_user.rank > 19:
-                legacy_user.rank = 19
             if legacy_user.rank >= 0:
                 user.rank_id = legacy_user.rank + 1
+            if legacy_user.rank > 19:
+                user.rank_id = 19
             user.date_joined = reg_date
             user.ts_uid = legacy_user.tsuid
             if user.username == "Gromph" or user.username == "unkle" or user.username == "mrbaboon":

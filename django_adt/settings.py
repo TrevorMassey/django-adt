@@ -60,8 +60,10 @@ INSTALLED_APPS = (
     'awards',
     'dossiers',
     'games',
+    'dkp',
     'publications',
     'users',
+    'reviews',
     'polls',
     'notifications',
     'comments',
@@ -122,6 +124,8 @@ DATABASES = {
     },
 }
 
+DATABASE_ROUTERS = ['django_adt.db.routers.LegacyDBRouter', ]
+
 EMAIL_HOST = '127.0.0.1'
 EMAIL_PORT = 1025
 
@@ -167,6 +171,8 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     ),
+    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    # 'PAGE_SIZE': 10
 }
 
 JWT_AUTH = {

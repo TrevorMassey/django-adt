@@ -61,24 +61,53 @@ class AwardSummaryRecipientSerializer(serializers.ModelSerializer):
         fields = ('id', 'recipient', 'display_name', 'reason',)
 
 
+
 class AwardSummarySerializer(serializers.ModelSerializer):
-    recipients = AwardRecipientSerializer(source='award_recipient', many=True)
+    #recipients = AwardRecipientSerializer(source='award_recipient', many=True)
     image = serializers.SerializerMethodField(method_name='get_image_url')
     type = serializers.CharField(source='type.name')
 
     class Meta:
         model = Award
-        fields = ('id', 'title', 'slug', 'level_limit', 'order', 'description', 'recipients', 'image', 'type',)
+        fields = (
+            'id',
+            'title',
+            'slug',
+            'level_limit',
+            'order',
+            'description',
+            #'recipients',
+            'image',
+            'type',
+            )
 
     def get_image_url(self, obj):
         return obj.image.image.url
 
 
-
-
-class FullAwardSummarySerializer(serializers.ModelSerializer):
+class AwardCategorySummarySerializer(serializers.ModelSerializer):
     awards = AwardSummarySerializer(many=True)
 
     class Meta:
         model = AwardCategory
-        fields = ('id', 'title', 'slug', 'order', 'chapter', 'awards',)
+        fields = (
+            'id',
+            'title',
+            'slug',
+            'order',
+            'awards',
+        )
+
+
+
+class FullAwardSummarySerializer(serializers.ModelSerializer):
+    award_categories = AwardCategorySummarySerializer(many=True)
+    game = GameSerializer(read_only=True)
+
+    class Meta:
+        model = Chapter
+        fields = (
+            'id',
+            'game',
+            'award_categories',
+        )

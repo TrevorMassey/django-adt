@@ -1,11 +1,11 @@
 (function() {
     'use strict';
 
-    angular.module('awards')
-        .factory('Awards', ['common', 'DS',
+    angular.module('donate')
+        .factory('Goals', ['common', 'DS',
             function(common, DS) {
 
-                var Model = DS.defineResource('award-summary');
+                var Model = DS.defineResource('donation-goals');
 
                 var service = {
                     data: [],
@@ -27,9 +27,8 @@
                             return data;
                         })
                         .catch(function(error) {
-                            common.logger.error('Error retrieving data for' + Model.name, error);
+                            common.logger.error('Error retrieving data for ' + Model.name, error);
                         });
                 }
             }]);
-
 }());

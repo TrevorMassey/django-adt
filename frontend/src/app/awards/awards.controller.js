@@ -3,14 +3,11 @@
 
     angular.module('awards')
         .controller('AwardsCtrl', [
-            'common', 'Award',
-            function(common, Award) {
-                var vm = this;
-                vm.awards = [];
+            'common', 'Awards',
+            function(common, Awards) {
 
-                Award.findAll()
-                    .then(function(awards) {
-                        vm.awards = awards;
-                    });
+                var vm = this;
+                vm.awards = Awards.data;
+
             }]);
 }());

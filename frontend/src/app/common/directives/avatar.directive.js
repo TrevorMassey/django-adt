@@ -7,7 +7,13 @@
             return {
                 restrict: 'E',
                 replace: true,
-                template: '<img ng-src="" />',
+                scope: {
+                    image: '@',
+                    color: '@',
+                    width: '@',
+                    height:'@',
+                },
+                templateUrl: '/avatar.view.html',
                 link: function postLink(scope, element, attrs) {
 
                 }

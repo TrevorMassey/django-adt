@@ -9,6 +9,9 @@ class DonateAmountListCreateAPIView(generics.ListCreateAPIView):
     serializer_class = DonateAmountSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
 
 class DonateAmountRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = DonateAmount.objects
@@ -21,9 +24,10 @@ donate_detail = DonateAmountRetrieveUpdateDestroyAPIView.as_view()
 
 
 class DonateCostListCreateAPIView(generics.ListCreateAPIView):
-    queryset = DonateAmount.objects
-    serializer_class = DonateAmountSerializer
+    queryset = DonateCost.objects
+    serializer_class = DonateCostSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
+
 
 
 class DonateCostRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
