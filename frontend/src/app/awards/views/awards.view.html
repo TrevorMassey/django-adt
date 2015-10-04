@@ -1,7 +1,7 @@
 <h1>Awards</h1>
 <div class="panel">
-    <div class="panel-adt" ng-repeat="chapter in vm.awards" ng-if="chapter.awardCategories.length > 0">
-        <h2>{{chapter.game.title}}</h2>
+    <div class="panel-adt" ng-repeat="chapter in vm.awards | orderBy:'id' track by chapter.id" ng-if="chapter.awardCategories.length > 0">
+        <h2>{{chapter.game.title}} Awards</h2>
         <ul class="media-list">
             <li class="media" ng-repeat="category in chapter.awardCategories" ng-if="category.awards.length">
                 <div class="media-body-awards">

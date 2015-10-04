@@ -82,21 +82,21 @@ class Command(BaseCommand):
             else:
                 close_date = None
 
-            # if its the No Game record, make it blank
-            if legacy_chapter.record != -1:
-                game = Game()
-                game.title = legacy_chapter.game_name
-                game.save()
+            # if its the No Game record, make it blank  --REMOVED
+            # if legacy_chapter.record != -1:
+            game = Game()
+            game.title = legacy_chapter.game_name
+            game.save()
 
-                chapter = Chapter()
-                chapter.game = game
-                chapter.creator_id = 24
-                chapter.open_date = launch_date
-                chapter.launch_date = launch_date
-                chapter.close_date = close_date
-                chapter.save()
-            else:
-                chapter = None
+            chapter = Chapter()
+            chapter.game = game
+            chapter.creator_id = 24
+            chapter.open_date = launch_date
+            chapter.launch_date = launch_date
+            chapter.close_date = close_date
+            chapter.save()
+            # else:
+            #    chapter = None
 
             self.stdout.write("Created Chapter")
 

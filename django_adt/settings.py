@@ -60,8 +60,10 @@ INSTALLED_APPS = (
     'awards',
     'dossiers',
     'games',
+    'dkp',
     'publications',
     'users',
+    'reviews',
     'polls',
     'notifications',
     'comments',
@@ -120,6 +122,8 @@ DATABASES = {
         'PASSWORD': 'beer',
     },
 }
+
+DATABASE_ROUTERS = ['django_adt.db.routers.LegacyDBRouter', ]
 
 EMAIL_HOST = '127.0.0.1'
 EMAIL_PORT = 1025
