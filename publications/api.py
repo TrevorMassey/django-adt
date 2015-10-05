@@ -42,13 +42,13 @@ class NewsListCreateAPIView(generics.ListCreateAPIView):
     def get_queryset(self):
         qs = News.objects.all()
         qs = qs.prefetch_related(
-            # TODO: figure out why 'game' still generating so many queries
             )
         qs = qs.select_related(
             'article',
             'article__author',
             'article__author__rank',
-            'chapter__game'
+            'chapter',
+            'chapter__game',
             )
 
         return qs
