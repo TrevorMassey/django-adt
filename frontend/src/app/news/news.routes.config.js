@@ -17,7 +17,7 @@
                         controller: 'NewsCtrl as vm',
                         resolve: {
                             news: function (News) {
-                                return News.initialize();
+                                return News.list();
                             }
                         }
                     })
@@ -26,7 +26,7 @@
                         views: {
                             "@" : {
                                 templateUrl: '/news.item.view.html',
-                                controller: 'NewsDetailCtrl as vm',
+                                controller: 'NewsDetailCtrl as vm'
                             }
                         },
                         resolve: {

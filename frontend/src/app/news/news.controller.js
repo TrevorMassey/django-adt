@@ -7,14 +7,12 @@
             function(common, News, $scope) {
 
                 var vm = this;
-                vm.news = News.list;
-                vm.page = 1;
+                vm.page = 2;
 
                 News.model.bindAll({}, $scope, 'vm.news');
 
-
                 vm.loadMoar = function() {
-                    News.moar(vm.page);
+                    News.list(vm.page);
                     vm.page++;
                 };
 

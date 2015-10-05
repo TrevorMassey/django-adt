@@ -5,7 +5,7 @@
         .factory('News', ['common', 'DS',
             function(common, DS) {
 
-                var Model = DS.defineResource('news');
+                var Model = DS.defineResource( 'news');
 
                 var Comment = DS.defineResource({
                     name: 'comments',
@@ -21,44 +21,28 @@
                 });
 
                 var service = {
-                    list: [],
                     data: [],
-                    initialize: initialize,
+                    list: list,
                     detail: detail,
-                    moar: moar,
 
                     model: Model,
-                    comments: Comment,
+                    comments: Comment
 
                 };
 
                 return service;
                 /////////////////////
 
-                function initialize() {
-                    return getList();
+                function list($page) {
+                    return getList($page);
                 }
 
                 function detail($param) {
                     return getDetail($param);
                 }
 
-                function moar($page) {
-                    return getMoar($page);
-                }
-
-                function getList() {
-                    return Model.findAll()
-                        .then(function(data) {
-                            service.list = data;
-                            return data;
-                        })
-                        .catch(function(error) {
-                            common.logger.error('Error retrieving data for ' + Model.name, error);
-                        });
-                }
-
-                function getMoar($page) {
+                function getList($page) {
+                    $page = ($page == 'undefined') ? 1 : $page;
                     return Model.findAll({'page': $page})
                         .then(function(data) {
                             return data;
