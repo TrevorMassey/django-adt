@@ -192,15 +192,13 @@ class AwardSummaryListAPIView(generics.ListAPIView):
     def get_queryset(self):
         qs = Chapter.objects.all()
         qs = qs.prefetch_related(
-            #TODO:  Redo these
-            #'awards',
-            #'awards__award_recipient',
+            'award_categories',
+            'award_categories__awards',
+            'award_categories__awards__image',
+            'award_categories__awards__type',
             )
         qs = qs.select_related(
-            #'awards__award_recipient__recipient',
-            #'game',
-            #'awards__image',
-            #'awards__type',
+            'game',
             )
 
         return qs
