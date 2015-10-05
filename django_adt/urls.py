@@ -93,6 +93,20 @@ urlpatterns += patterns('',
     url(r'^api/polls/(?P<slug>[a-z0-9-]+)/votes/$', 'polls.api.vote_list', name='vote_list'),
     url(r'^api/polls/(?P<slug>[a-z0-9-]+)/votes/(?P<pk>\d+)/$', 'polls.api.vote_detail', name='vote_detail'),
 
+    # Forums
+    url(r'^api/forums/$', 'forums.api.forum_list', name='forum_list'),
+    url(r'^api/forums/(?P<forum_slug>[a-z0-9-]+)/$', 'forums.api.forum_detail', name='forum_detail'),
+    url(r'^api/forums/(?P<forum_slug>[a-z0-9-]+)/topics/$', 'forums.api.topic_list', name='topic_list'),
+
+    url(r'^api/forums/(?P<forum_slug>[a-z0-9-]+)/topics/(?P<topic_slug>[a-z0-9-]+)/$',
+        'forums.api.topic_detail', name='topic_detail'),
+
+    url(r'^api/forums/(?P<forum_slug>[a-z0-9-]+)/topics/(?P<topic_slug>[a-z0-9-]+)/posts/$',
+        'forums.api.post_list', name='post_list'),
+
+    url(r'^api/forums/(?P<forum_slug>[a-z0-9-]+)/topics/(?P<topic_slug>[a-z0-9-]+)/posts/(?P<post_pk>\d+)/$',
+        'forums.api.post_detail', name='post_detail'),
+
     # Multimedia
     url(r'^api/screenshots/$', 'multimedia.api.screenshot_list', name='screenshot_list'),
     url(r'^api/screenshots/(?P<slug>[a-z0-9-]+)/$', 'multimedia.api.screenshot_detail', name='screenshot_detail'),
