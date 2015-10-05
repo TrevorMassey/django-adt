@@ -25,7 +25,9 @@ var ApplicationConfiguration = (function() {
 		//'ui.tree',
 		'ngFitText',
 		'toastr',
-		'ee.$http.CaseConverter'
+		'ee.$http.CaseConverter',
+
+        'infinite-scroll',
 	];
 
 	// Add a new vertical module

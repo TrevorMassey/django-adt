@@ -3,12 +3,20 @@
 
     angular.module('news')
         .controller('NewsCtrl', [
-            'common', 'News',
-            function(common, News) {
+            'common', 'News', '$scope',
+            function(common, News, $scope) {
 
                 var vm = this;
                 vm.news = News.list;
+                vm.page = 1;
 
+                News.model.bindAll({}, $scope, 'vm.news');
+
+
+                vm.loadMoar = function() {
+                    News.moar(vm.page);
+                    vm.page++;
+                };
 
             }])
         .controller('NewsDetailCtrl', [

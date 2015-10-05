@@ -25,7 +25,9 @@
                     data: [],
                     initialize: initialize,
                     detail: detail,
+                    moar: moar,
 
+                    model: Model,
                     comments: Comment,
 
                 };
@@ -41,10 +43,24 @@
                     return getDetail($param);
                 }
 
+                function moar($page) {
+                    return getMoar($page);
+                }
+
                 function getList() {
                     return Model.findAll()
                         .then(function(data) {
                             service.list = data;
+                            return data;
+                        })
+                        .catch(function(error) {
+                            common.logger.error('Error retrieving data for ' + Model.name, error);
+                        });
+                }
+
+                function getMoar($page) {
+                    return Model.findAll({'page': $page})
+                        .then(function(data) {
                             return data;
                         })
                         .catch(function(error) {

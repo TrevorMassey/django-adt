@@ -1,22 +1,24 @@
 <h1>News</h1>
-<div data-ng-repeat="post in vm.news track by post.id" class="news-post" news-image="/media/images/news/news-placeholder.jpg">
-    <a data-ui-sref="news.item({newsSlug: post.slug})">
-        <h2 data-ng-bind="post.title" class="news-title"></h2>
-    </a>
-    <div class="news-bar">
-        <div class="row">
-            <div class="col-xs-4">
-                <div class="news-img pull-left">
-                    <avatar image="{{post.article.author.avatar}}" color="{{post.article.author.rank.color}}" width="32px" height="32px"></avatar>
+<div infinite-scroll="vm.loadMoar()" infinite-scroll-distance="1" class="news">
+    <div data-ng-repeat="post in vm.news track by post.id" class="news-post" news-image="{{post.image}}">
+        <a data-ui-sref="news.item({newsSlug: post.slug})">
+            <h2 data-ng-bind="post.title" class="news-title"></h2>
+        </a>
+        <div class="news-bar">
+            <div class="row">
+                <div class="col-xs-4">
+                    <div class="news-img pull-left">
+                        <avatar image="{{post.article.author.avatar}}" color="{{post.article.author.rank.color}}" width="32px" height="32px"></avatar>
+                    </div>
+                    <h3 class="news-member"><username data-ng-bind="post.article.author.displayName"></username></h3>
+                    <span data-ng-bind="post.article.created | date:'mediumDate'" class="news-muted"></span>
                 </div>
-                <h3 class="news-member"><username data-ng-bind="post.article.author.displayName"></username></h3>
-                <span data-ng-bind="post.article.created | date:'mediumDate'" class="news-muted"></span>
-            </div>
-            <div class="col-xs-4">
-                <h4 class="news-game"><a href="#">{{post.chapter.game.title}} News</a></h4>
-            </div>
-            <div class="col-xs-4 news-comments">
-                <a href="#"><span class="glyphicon glyphicon-comment"></span> 0</a>
+                <div class="col-xs-4">
+                    <h4 class="news-game"><a href="#">{{post.chapter.game.title}} News</a></h4>
+                </div>
+                <div class="col-xs-4 news-comments">
+                    <a href="#"><span class="glyphicon glyphicon-comment"></span> 0</a>
+                </div>
             </div>
         </div>
     </div>
