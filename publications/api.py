@@ -39,6 +39,20 @@ class NewsListCreateAPIView(generics.ListCreateAPIView):
     serializer_class = NewsSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
+    def get_queryset(self):
+        qs = News.objects.all()
+        qs = qs.prefetch_related(
+            # TODO: figure out why 'game' still generating so many queries
+            )
+        qs = qs.select_related(
+            'article',
+            'article__author',
+            'article__author__rank',
+            'chapter__game'
+            )
+
+        return qs
+
 
 class NewsRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = NewsSerializer
