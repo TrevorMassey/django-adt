@@ -22,7 +22,7 @@ class GameRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     lookup_url_kwarg = 'slug'
 
     def get_queryset(self):
-        qs = Game.objects
+        qs = Game.objects.all()
         qs = qs.filter(slug=self.kwargs.get('slug'))
         return qs
 

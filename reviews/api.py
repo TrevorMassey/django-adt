@@ -6,7 +6,7 @@ from reviews.serializers import ReviewSerializer, VoteSerializer
 
 
 class ReviewListCreateAPIView(generics.ListCreateAPIView):
-    queryset = Review.objects
+    queryset = Review.objects.all()
     queryset = queryset.prefetch_related(
         'votes',
         'votes__created_by',
@@ -55,7 +55,7 @@ class VoteListCreateAPIView(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
-        qs = Vote.objects
+        qs = Vote.objects.all()
         qs = qs.select_related('created_by', 'created_by__rank')
         qs = qs.filter(review__id=self.kwargs.get('pk'))
         return qs
@@ -72,7 +72,7 @@ class VoteRetrieveUpdateAPIView(generics.RetrieveUpdateDestroyAPIView):
     lookup_url_kwarg = 'vote_pk'
 
     def get_queryset(self):
-        qs = Vote.objects
+        qs = Vote.objects.all()
         qs = qs.select_related('created_by', 'created_by__rank')
         qs = qs.filter(review__id=self.kwargs.get('pk'))
         qs = qs.filter(id=self.kwargs.get('vote_pk'))

@@ -17,7 +17,7 @@ class ScreenshotListCreateAPIView(generics.ListCreateAPIView):
 
 
 class ScreenshotRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Screenshot.objects
+    queryset = Screenshot.objects.all()
     serializer_class = ScreenshotSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
@@ -48,7 +48,7 @@ class QuoteListCreateAPIView(generics.ListCreateAPIView):
 
 
 class QuoteRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Quote.objects
+    queryset = Quote.objects.all()
     serializer_class = QuoteSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 

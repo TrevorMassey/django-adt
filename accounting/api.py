@@ -5,7 +5,7 @@ from accounting.serializers import DonateCostSerializer, DonateAmountSerializer,
 
 
 class DonateAmountListCreateAPIView(generics.ListCreateAPIView):
-    queryset = DonateAmount.objects
+    queryset = DonateAmount.objects.all()
     serializer_class = DonateAmountSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
@@ -14,7 +14,7 @@ class DonateAmountListCreateAPIView(generics.ListCreateAPIView):
 
 
 class DonateAmountRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = DonateAmount.objects
+    queryset = DonateAmount.objects.all()
     serializer_class = DonateAmountSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
@@ -24,14 +24,14 @@ donate_detail = DonateAmountRetrieveUpdateDestroyAPIView.as_view()
 
 
 class DonateCostListCreateAPIView(generics.ListCreateAPIView):
-    queryset = DonateCost.objects
+    queryset = DonateCost.objects.all()
     serializer_class = DonateCostSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
 
 
 class DonateCostRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = DonateCost.objects
+    queryset = DonateCost.objects.all()
     serializer_class = DonateCostSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
@@ -41,13 +41,13 @@ cost_detail = DonateCostRetrieveUpdateDestroyAPIView.as_view()
 
 
 class DonateGoalListCreateAPIView(generics.ListCreateAPIView):
-    queryset = DonateGoal.objects
+    queryset = DonateGoal.objects.all()
     serializer_class = DonateGoalSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
 
 class DonateGoalRetrieveUpdateAPIView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = DonateGoal.objects
+    queryset = DonateGoal.objects.all()
     serializer_class = DonateGoalSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 

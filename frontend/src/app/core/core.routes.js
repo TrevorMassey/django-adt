@@ -43,6 +43,12 @@
             });
 
             Menus.addSubMenuItem('topbar', 'home', {
+                title: 'Roster',
+                state: 'roster'
+                //isPublic: false
+            });
+
+            Menus.addSubMenuItem('topbar', 'home', {
                 title: 'DKP',
                 state: 'home'
                 //isPublic: false

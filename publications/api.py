@@ -2,12 +2,13 @@ from rest_framework import generics
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from comments.api import BaseCommentListCreateAPIView, BaseCommentRetrieveUpdateAPIView
+from django_adt.pagination import NewsResultsSetPagination
 
 from publications.models import Article, News, Codex
 from publications.serializers import ArticleSerializer, NewsSerializer, CodexSerializer
 
 class ArticleListCreateAPIView(generics.ListCreateAPIView):
-    queryset = Article.objects
+    queryset = Article.objects.all()
     serializer_class = ArticleSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
@@ -33,8 +34,8 @@ article_detail = ArticleRetrieveUpdateDestroyAPIView.as_view()
 
 
 class NewsListCreateAPIView(generics.ListCreateAPIView):
-    queryset = News.objects
-    page_size = 3
+    queryset = News.objects.all()
+    pagination_class = NewsResultsSetPagination
     serializer_class = NewsSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
@@ -63,7 +64,7 @@ class CodexListAPIView(generics.ListAPIView):
 
 
 class CodexRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Codex.objects
+    queryset = Codex.objects.all()
     serializer_class = CodexSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 

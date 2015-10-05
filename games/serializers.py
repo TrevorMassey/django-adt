@@ -24,6 +24,7 @@ class ChapterSerializer(serializers.ModelSerializer):
             'open_date',
             'launch_date',
             'close_date',
+            'divisions',
         )
         read_only_fields = (
             'id',
@@ -83,6 +84,7 @@ class ChapterDivisionSerializer(serializers.ModelSerializer):
             'title',
             'slug',
             'order',
+            'chapter',
             'parent',
             'members',
             'members_ids',

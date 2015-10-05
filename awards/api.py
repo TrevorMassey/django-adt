@@ -9,7 +9,7 @@ from users.models import User
 
 
 class AwardListCreateAPIView(generics.ListCreateAPIView):
-    queryset = Award.objects
+    queryset = Award.objects.all()
     serializer_class = AwardSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
@@ -35,7 +35,7 @@ award_detail = AwardRetrieveUpdateDestroyAPIView.as_view()
 
 
 class AwardTypeListCreateAPIView(generics.ListCreateAPIView):
-    queryset = AwardType.objects
+    queryset = AwardType.objects.all()
     serializer_class = AwardTypeSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
@@ -60,7 +60,7 @@ award_type_detail = AwardTypeRetrieveUpdateDestroyAPIView.as_view()
 
 
 class AwardImageListCreateAPIView(generics.ListCreateAPIView):
-    queryset = AwardImage.objects
+    queryset = AwardImage.objects.all()
     serializer_class = AwardImageSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
@@ -86,7 +86,7 @@ award_image_detail = AwardImageRetrieveUpdateDestroyAPIView.as_view()
 
 
 class AwardCategoryListCreateAPIView(generics.ListCreateAPIView):
-    queryset = AwardCategory.objects
+    queryset = AwardCategory.objects.all()
     serializer_class = AwardCategorySerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
@@ -185,7 +185,7 @@ user_award_detail = UserAwardRecipientRetrieveUpdateDestroyAPIView.as_view()
 
 
 class AwardSummaryListAPIView(generics.ListAPIView):
-    queryset = Chapter.objects
+    queryset = Chapter.objects.all()
 
     serializer_class = FullAwardSummarySerializer
 

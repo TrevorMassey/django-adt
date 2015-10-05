@@ -125,12 +125,12 @@ class Command(BaseCommand):
                 assert isinstance(legacy_news, LegacyNews)
 
                 date_naive = datetime.utcfromtimestamp(legacy_news.date)
-                date = timezone.make_aware(date_naive, timezone.utc)
+                news_date = timezone.make_aware(date_naive, timezone.utc)
 
                 article = Article()
                 article.title = legacy_news.title
                 article.body = legacy_news.news
-                article.created = date
+                article.created = news_date
                 article.author_id = legacy_news.creator
                 article.save()
 

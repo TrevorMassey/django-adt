@@ -14,7 +14,7 @@ class GuildListCreateAPIView(generics.ListCreateAPIView):
 
 
 class GuildRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Guild.objects
+    queryset = Guild.objects.all()
     serializer_class = GuildSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
@@ -72,7 +72,7 @@ class UserRoleListCreateAPIView(generics.ListCreateAPIView):
     lookup_url_kwarg = 'slug'
 
     def get_queryset(self):
-        qs = UserRole.objects
+        qs = UserRole.objects.all()
         qs = qs.filter(user__slug=self.kwargs.get('slug'))
         return qs
 
@@ -89,7 +89,7 @@ class UserRoleRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView
     lookup_url_kwarg = 'slug'
 
     def get_queryset(self):
-        qs = UserRole.objects
+        qs = UserRole.objects.all()
         qs = qs.filter(user__slug=self.kwargs.get('slug'))
         qs = qs.filter(id=self.kwargs.get('pk'))
         return qs
@@ -108,7 +108,7 @@ class DossierRoleListCreateAPIView(generics.ListCreateAPIView):
     lookup_url_kwarg = 'slug'
 
     def get_queryset(self):
-        qs = DossierRole.objects
+        qs = DossierRole.objects.all()
         qs = qs.filter(dossier__slug=self.kwargs.get('slug'))
         return qs
 
@@ -118,7 +118,7 @@ class DossierRoleListCreateAPIView(generics.ListCreateAPIView):
 
 
 class DossierRoleRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = DossierRole.objects
+    queryset = DossierRole.objects.all()
     serializer_class = DossierRoleSerializer
     permission_classes = (IsAuthenticated,)
 
@@ -126,7 +126,7 @@ class DossierRoleRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIV
     lookup_url_kwarg = 'slug'
 
     def get_queryset(self):
-        qs = DossierRole.objects
+        qs = DossierRole.objects.all()
         qs = qs.filter(dossier__slug=self.kwargs.get('slug'))
         qs = qs.filter(id=self.kwargs.get('pk'))
         return qs
@@ -146,7 +146,7 @@ class HeadingListCreateAPIView(generics.ListCreateAPIView):
 
 
 class HeadingRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Heading.objects
+    queryset = Heading.objects.all()
     serializer_class = HeadingSerializer
     permission_classes = (IsAuthenticated,)
 

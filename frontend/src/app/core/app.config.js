@@ -30,12 +30,9 @@
         DSProvider.defaults.basePath = '/api/';
         DSProvider.defaults.suffix = '/';
 
+        DSProvider.defaults.deserialize = function (resource, data) {
+            return data ? ('data' in data ? ('results' in data.data ? data.data.results : data.data) : data) : data;
+        }
     }
-
-    //app.run(function($rootScope, $state) {
-    //    $rootScope.$on('$stateChangeStart', function(e, to) {
-    //
-    //    });
-    //});
 
 }());

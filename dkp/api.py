@@ -13,13 +13,13 @@ class SectionListCreateAPIView(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
     def get_queryset(self):
-        qs = Section.objects
+        qs = Section.objects.all()
         qs = qs.select_related('chapter', 'chapter__game')
         return qs
 
 
 class SectionRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Section.objects
+    queryset = Section.objects.all()
     serializer_class = SectionSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
@@ -27,7 +27,7 @@ class SectionRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView)
     lookup_url_kwarg = 'slug'
 
     def get_queryset(self):
-        qs = Section.objects
+        qs = Section.objects.all()
         qs = qs.filter(slug=self.kwargs.get('slug'))
         qs = qs.select_related('chapter', 'chapter__game')
         return qs
@@ -45,13 +45,13 @@ class LocationListCreateAPIView(generics.ListCreateAPIView):
     lookup_url_kwarg = 'section_slug'
 
     def get_queryset(self):
-        qs = Location.objects
+        qs = Location.objects.all()
         qs = qs.filter(section__slug=self.kwargs.get('section_slug'))
         return qs
 
 
 class LocationRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Location.objects
+    queryset = Location.objects.all()
     serializer_class = LocationSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
@@ -59,7 +59,7 @@ class LocationRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView
     lookup_url_kwarg = 'location_slug'
 
     def get_queryset(self):
-        qs = Location.objects
+        qs = Location.objects.all()
         qs = qs.filter(section__slug=self.kwargs.get('section_slug'))
         qs = qs.filter(slug=self.kwargs.get('location_slug'))
         return qs
@@ -70,7 +70,7 @@ location_detail = LocationRetrieveUpdateDestroyAPIView.as_view()
 
 
 class EntityListCreateAPIView(generics.ListCreateAPIView):
-    queryset = Entity.objects
+    queryset = Entity.objects.all()
     serializer_class = EntitySerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
@@ -85,7 +85,7 @@ class EntityListCreateAPIView(generics.ListCreateAPIView):
 
 
 class EntityRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Entity.objects
+    queryset = Entity.objects.all()
     serializer_class = EntitySerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
@@ -93,7 +93,7 @@ class EntityRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     lookup_url_kwarg = 'entity_slug'
 
     def get_queryset(self):
-        qs = Entity.objects
+        qs = Entity.objects.all()
         qs = qs.filter(location__section__slug=self.kwargs.get('section_slug'))
         qs = qs.filter(location__slug=self.kwargs.get('location_slug'))
         qs = qs.filter(slug=self.kwargs.get('entity_slug'))
@@ -105,7 +105,7 @@ entity_detail = EntityRetrieveUpdateDestroyAPIView.as_view()
 
 
 class ItemListCreateAPIView(generics.ListCreateAPIView):
-    queryset = Item.objects
+    queryset = Item.objects.all()
     serializer_class = ItemSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
@@ -113,7 +113,7 @@ class ItemListCreateAPIView(generics.ListCreateAPIView):
     lookup_url_kwarg = 'item_slug'
 
     def get_queryset(self):
-        qs = Item.objects
+        qs = Item.objects.all()
         qs = qs.filter(entity__location__section__slug=self.kwargs.get('section_slug'))
         qs = qs.filter(entity__location__slug=self.kwargs.get('location_slug'))
         qs = qs.filter(entity__slug=self.kwargs.get('entity_slug'))
@@ -121,7 +121,7 @@ class ItemListCreateAPIView(generics.ListCreateAPIView):
 
 
 class ItemRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Item.objects
+    queryset = Item.objects.all()
     serializer_class = ItemSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
@@ -129,7 +129,7 @@ class ItemRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     lookup_url_kwarg = 'item_slug'
 
     def get_queryset(self):
-        qs = Item.objects
+        qs = Item.objects.all()
         qs = qs.filter(entity__location__section__slug=self.kwargs.get('section_slug'))
         qs = qs.filter(entity__location__slug=self.kwargs.get('location_slug'))
         qs = qs.filter(entity__slug=self.kwargs.get('entity_slug'))
@@ -150,7 +150,7 @@ class EventListCreateAPIView(generics.ListCreateAPIView):
     lookup_url_kwarg = 'section_slug'
 
     def get_queryset(self):
-        qs = Event.objects
+        qs = Event.objects.all()
         qs = qs.filter(section__slug=self.kwargs.get('section_slug'))
         qs = qs.select_related('location')
         return qs
@@ -160,7 +160,7 @@ class EventListCreateAPIView(generics.ListCreateAPIView):
 
 
 class EventRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Event.objects
+    queryset = Event.objects.all()
     serializer_class = EventDetailSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
@@ -168,7 +168,7 @@ class EventRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     lookup_url_kwarg = 'event_slug'
 
     def get_queryset(self):
-        qs = Event.objects
+        qs = Event.objects.all()
         qs = qs.filter(section__slug=self.kwargs.get('section_slug'))
         qs = qs.filter(slug=self.kwargs.get('event_slug'))
         qs = qs.select_related('location')
@@ -186,19 +186,19 @@ class EventAttendanceListCreateAPIView(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
     def get_queryset(self):
-        qs = EventAttendance.objects
+        qs = EventAttendance.objects.all()
         qs = qs.filter(event__section__slug=self.kwargs.get('section_slug'))
         qs = qs.filter(event__slug=self.kwargs.get('event_slug'))
         return qs
 
 
 class EventAttendanceRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = EventAttendance.objects
+    queryset = EventAttendance.objects.all()
     serializer_class = EventAttendanceSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
     def get_queryset(self):
-        qs = EventAttendance.objects
+        qs = EventAttendance.objects.all()
         qs = qs.filter(event__section__slug=self.kwargs.get('section_slug'))
         qs = qs.filter(event__slug=self.kwargs.get('event_slug'))
         qs = qs.filter(id=self.kwargs.get('pk'))
@@ -215,7 +215,7 @@ class EventItemListCreateAPIView(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
     def get_queryset(self):
-        qs = EventItem.objects
+        qs = EventItem.objects.all()
         qs = qs.filter(event__section__slug=self.kwargs.get('section_slug'))
         qs = qs.filter(event__slug=self.kwargs.get('event_slug'))
         qs = qs.select_related('item')
@@ -223,12 +223,12 @@ class EventItemListCreateAPIView(generics.ListCreateAPIView):
 
 
 class EventItemRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = EventItem.objects
+    queryset = EventItem.objects.all()
     serializer_class = EventItemSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
     def get_queryset(self):
-        qs = EventItem.objects
+        qs = EventItem.objects.all()
         qs = qs.filter(event__section__slug=self.kwargs.get('section_slug'))
         qs = qs.filter(event__slug=self.kwargs.get('event_slug'))
         qs = qs.filter(id=self.kwargs.get('pk'))
@@ -246,7 +246,7 @@ class EventEntityListCreateAPIView(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
     def get_queryset(self):
-        qs = EventEntity.objects
+        qs = EventEntity.objects.all()
         qs = qs.filter(event__section__slug=self.kwargs.get('section_slug'))
         qs = qs.filter(event__slug=self.kwargs.get('event_slug'))
         qs = qs.select_related('entity')
@@ -259,7 +259,7 @@ class EventEntityRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIV
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
     def get_queryset(self):
-        qs = EventEntity.objects
+        qs = EventEntity.objects.all()
         qs = qs.filter(event__section__slug=self.kwargs.get('section_slug'))
         qs = qs.filter(event__slug=self.kwargs.get('event_slug'))
         qs = qs.filter(id=self.kwargs.get('pk'))
@@ -277,13 +277,13 @@ class ResourceListCreateAPIView(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
     def get_queryset(self):
-        qs = Resource.objects
+        qs = Resource.objects.all()
         qs = qs.filter(section__slug=self.kwargs.get('section_slug'))
         return qs
 
 
 class ResourceRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Resource.objects
+    queryset = Resource.objects.all()
     serializer_class = ResourceSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
@@ -291,7 +291,7 @@ class ResourceRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView
     lookup_url_kwarg = 'resource_slug'
 
     def get_queryset(self):
-        qs = Resource.objects
+        qs = Resource.objects.all()
         qs = qs.filter(section__slug=self.kwargs.get('section_slug'))
         qs = qs.filter(slug=self.kwargs.get('resource_slug'))
         return qs
@@ -306,14 +306,14 @@ class ResourceContribListCreateAPIView(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
     def get_queryset(self):
-        qs = ResourceContrib.objects
+        qs = ResourceContrib.objects.all()
         qs = qs.filter(resource__section__slug=self.kwargs.get('section_slug'))
         qs = qs.filter(resource__slug=self.kwargs.get('resource_slug'))
         return qs
 
 
 class ResourceContribRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = ResourceContrib.objects
+    queryset = ResourceContrib.objects.all()
     serializer_class = ResourceContribSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
@@ -321,7 +321,7 @@ class ResourceContribRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroy
     lookup_url_kwarg = 'pk'
 
     def get_queryset(self):
-        qs = ResourceContrib.objects
+        qs = ResourceContrib.objects.all()
         qs = qs.filter(resource__section__slug=self.kwargs.get('section_slug'))
         qs = qs.filter(resource__slug=self.kwargs.get('resource_slug'))
         qs = qs.filter(id=self.kwargs.get('pk'))
