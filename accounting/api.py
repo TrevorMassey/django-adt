@@ -9,6 +9,17 @@ class DonateAmountListCreateAPIView(generics.ListCreateAPIView):
     serializer_class = DonateAmountSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
+    def get_queryset(self):
+        qs = DonateAmount.objects.all()
+        qs = qs.prefetch_related(
+            )
+        qs = qs.select_related(
+            'user',
+            'user__rank',
+            )
+
+        return qs
+
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
