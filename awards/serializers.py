@@ -5,11 +5,11 @@ from games.serializers import ChapterSerializer, GameSerializer
 from users.serializers import BasicUserSerializer
 
 
-class AwardSerializer(serializers.ModelSerializer):
+class AwardImageSerializer(serializers.ModelSerializer):
+
     class Meta:
-        model = Award
-        fields = ('id', 'title', 'slug', 'level_limit', 'order', 'description', 'category', 'image', 'type',)
-        read_only_fields = ('id', 'slug',)
+        model = AwardImage
+        fields = ('id', 'title', 'slug', 'image',)
 
 
 class AwardTypeSerializer(serializers.ModelSerializer):
@@ -18,6 +18,24 @@ class AwardTypeSerializer(serializers.ModelSerializer):
         model = AwardType
         fields = ('id', 'name', 'slug',)
         read_only_fields = ('id', 'slug',)
+
+
+class AwardSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Award
+        fields = ('id', 'title', 'slug', 'level_limit', 'order', 'description', 'category', 'image', 'type',)
+        read_only_fields = ('id', 'slug',)
+
+
+class AwardFullSerializer(serializers.ModelSerializer):
+    image = AwardImageSerializer(read_only=True)
+    type = AwardTypeSerializer(read_only=True)
+
+    class Meta:
+        model = Award
+        fields = ('id', 'title', 'slug', 'level_limit', 'order', 'description', 'category', 'image', 'type',)
+        read_only_fields = ('id', 'slug',)
+
 
 class AwardCategorySerializer(serializers.ModelSerializer):
 
@@ -44,13 +62,6 @@ class AwardRecipientSerializer(serializers.ModelSerializer):
         model = AwardRecipient
         fields = ('id', 'recipient', 'award', 'reason',)
         read_only_fields = ('id',)
-
-
-class AwardImageSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = AwardImage
-        fields = ('id', 'title', 'slug', 'image',)
 
 
 class AwardSummaryRecipientSerializer(serializers.ModelSerializer):

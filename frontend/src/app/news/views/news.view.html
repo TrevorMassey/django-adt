@@ -1,5 +1,5 @@
 <h1>News</h1>
-<div infinite-scroll="vm.loadMoar()" infinite-scroll-distance="1" class="news">
+<div infinite-scroll="vm.loadMoar()" infinite-scroll-distance="1" infinite=scroll-disabled="News.fetching" class="news">
     <div data-ng-repeat="post in vm.news track by post.id" class="news-post" news-image="{{post.image}}">
         <a data-ui-sref="news.item({newsSlug: post.slug})">
             <h2 data-ng-bind="post.title" class="news-title"></h2>

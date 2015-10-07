@@ -25,6 +25,8 @@
                     list: list,
                     detail: detail,
 
+                    fetching: false,
+
                     model: Model,
                     comments: Comment
 
@@ -60,6 +62,7 @@
                         })
                         .then(function(data) {
                             service.data = data;
+                            service.fetching = false;
                             return data;
                         })
                         .catch(function(error) {

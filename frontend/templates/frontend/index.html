@@ -36,12 +36,11 @@
 <side-panel id="rightPanel" visible="rightVisible" alignment="right" class="hidden-xs">
     <activity-list></activity-list>
 </side-panel>
-<script type='text/javascript' src='{{ STATIC_URL }}ng-infinite-scroll/jquery.min.js'></script>
+<script type='text/javascript' src='{{ STATIC_URL }}jquery/jquery.min.js'></script>
 
 {% swampdragon_settings %}
 <script type="text/javascript" src="{% static 'swampdragon/js/dist/swampdragon.js' %}"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}swampdragon/js/dist/datamapper.js"></script>
-
 
 {% block scripts %}
     <script src="{% static 'scripts/vendors.js' %}"></script>
@@ -52,7 +51,9 @@
 {% endblock scripts %}
 
 
-<script type='text/javascript' src='{{ STATIC_URL }}ng-infinite-scroll/ng-infinite-scroll.min.js'></script>
+<link rel="stylesheet" href="{{ STATIC_URL }}nano-scroller/nanoscroller.css"/>
+<script src="{{ STATIC_URL }}nano-scroller/jquery.nanoscroller.min.js" type="text/javascript"></script>
+<script src="{{ STATIC_URL }}nano-scroller/scrollable.js" type="text/javascript"></script>
 
 
 </body>

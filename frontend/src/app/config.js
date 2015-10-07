@@ -27,7 +27,9 @@ var ApplicationConfiguration = (function() {
 		'toastr',
 		'ee.$http.CaseConverter',
 
-        'infinite-scroll',
+        //These aren't in webpack yet and require the evil jQuery
+        'sun.scrollable',
+        'infinite-scroll'
 	];
 
 	// Add a new vertical module

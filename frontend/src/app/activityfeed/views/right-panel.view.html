@@ -1,0 +1,187 @@
+<script type="text/ng-template" id="feed_post.html">
+    <div class="row">
+        <div class="col-xs-2">
+             <avatar image="{{item.user.avatar}}" color="{{item.user.rank.color}}" width="32px" height="32px"></avatar>
+        </div>
+        <div class="col-xs-10">
+            <username>{{item.user.displayName}}</username>
+            <span class="activity-date text-muted">posted on</span>
+            <span data-ng-bind="item.created | date:'mediumDate'"></span>
+            <p>{{item.feedPost.body}}</p>
+        </div>
+    </div>
+</script>
+
+<script type="text/ng-template" id="feed_news.html">
+    <div class="row">
+        <div class="col-xs-2">
+        </div>
+        <div class="col-xs-10">
+            <username>{{item.user.displayName}}</username>
+            <span class="activity-date text-muted">posted news,</span>
+            <a href="/news/{{item.news.slug}}" ui-sref="news.item({newsSlug: item.news.slug})">"{{item.news.title}}"</a>
+        </div>
+    </div>
+</script>
+
+<script type="text/ng-template" id="feed_award.html">
+    <div class="row">
+        <div class="col-xs-2">
+        </div>
+        <div class="col-xs-10">
+            <username>{{item.user.displayName}}</username>
+            <span class="activity-date text-muted">received an award,</span>
+            <a href="/awards" ui-sref="awards">"{{item.award.title}}"</a>
+            <div class="media-left">
+                <!-- TODO: fix icon -->
+                <i class="glyphicon glyphicon-certificate"></i>
+            </div>
+            <div class="media-body">
+                <img ng-src="{{item.award.image.image}}" />
+                <p class="activity-date text-muted">{{item.award.description}}</p>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/ng-template" id="feed_screenshot.html">
+    <div class="row">
+        <div class="col-xs-2">
+        </div>
+        <div class="col-xs-10">
+            <username>{{item.user.displayName}}</username>
+            <span class="activity-date text-muted">uploaded an image,</span>
+            <a href="/awards" ui-sref="awards">"{{item.screenshot.title}}"</a>
+            <div class="media-left">
+                <!-- TODO: fix icon -->
+                <i class="glyphicon glyphicon-picture"></i>
+            </div>
+            <div class="media-body">
+                <img class="feed-image" ng-src="{{item.screenshot.image}}" />
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/ng-template" id="feed_join_chapter.html">
+    <div class="row">
+        <div class="col-xs-2">
+        </div>
+        <div class="col-xs-10">
+            <username>{{item.user.displayName}}</username>
+            <span class="activity-date text-muted">joined the</span>
+            <a href="#">{{item.chapter.game.title}}</a>
+            <span class="activity-date text-muted">chapter</span>
+        </div>
+    </div>
+</script>
+
+<script type="text/ng-template" id="feed_quote.html">
+    <div class="row">
+        <div class="col-xs-2">
+        </div>
+        <div class="col-xs-10">
+            <username>{{item.user.displayName}}</username>
+            <span class="activity-date text-muted">added a new quote,</span>
+            <a href="#">"{{item.quote.title}}"</a>
+            <div class="media-left">
+                <!-- TODO: fix icon -->
+                <i class="glyphicon glyphicon-comment"></i>
+            </div>
+            <div class="media-body">
+                <p class="activity-date text-muted">{{item.quote.body}}</p>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/ng-template" id="feed_new_chapter.html">
+    <div class="row">
+        <div class="col-xs-2">
+        </div>
+        <div class="col-xs-10">
+            <username>{{item.user.displayName}}</username>
+            <span class="activity-date text-muted">opened the</span>
+            <a href="#">{{item.chapter.game.title}}</a>
+            <span class="activity-date text-muted">chapter!</span>
+        </div>
+    </div>
+</script>
+
+<script type="text/ng-template" id="feed_promotion.html">
+    <div class="row">
+        <div class="col-xs-2">
+        </div>
+        <div class="col-xs-10">
+            <username>{{item.user.displayName}}</username>
+            <span class="activity-date text-muted">was promoted to</span>
+            <a href="#">{{item.rank.title}}</a>
+            <div class="media-left">
+                <!-- TODO: fix icon -->
+                <i class="glyphicon glyphicon-certificate"></i>
+            </div>
+            <div class="media-body">
+                <img ng-src="{{item.rank.image}}" />
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/ng-template" id="feed_demotion.html">
+    <div class="row">
+        <div class="col-xs-2">
+        </div>
+        <div class="col-xs-10">
+            <username>{{item.user.displayName}}</username>
+            <span class="activity-date text-muted">was demoted to</span>
+            <a href="#">{{item.rank.title}}</a>
+        </div>
+    </div>
+</script>
+
+<script type="text/ng-template" id="feed_kicked.html">
+    <div class="row">
+        <div class="col-xs-2">
+        </div>
+        <div class="col-xs-10">
+            <username>{{item.user.displayName}}</username>
+            <span class="activity-date text-muted">was kicked</span>
+        </div>
+    </div>
+</script>
+
+<form name="feedForm" class="form-horizontal" data-ng-submit="vm.post()" novalidate>
+    <div class="form-group" ng-hide="!rightVisible">
+
+        <div class="input-group">
+            <input type="text"
+                   required
+                   class="form-control input-sm"
+                   data-ng-model="message.body"
+                   placeholder="Post something...">
+            <span class="input-group-btn">
+                <button type="submit" ng-disabled="feedForm.$invalid" class="btn btn-default btn-sm">Submit</button>
+            </span>
+        </div>
+
+    </div>
+</form>
+
+<aside class="activity-list" scrollable static="true" watch-collection="vm.feed"  id="scrollContainer">
+    <ul class="media-list" infinite-scroll="vm.loadMoar()" infinite-scroll-distance="2" infinite-scroll-disabled="Feed.fetching" infinite-scroll-container="'#scrollContainer'" infinite-scroll-parent>
+        <li class="media animate" data-ng-repeat="item in vm.feed track by item.id">
+            <div ng-if="item.type == 'feed_post'" ng-include="'feed_post.html'"></div>
+            <div ng-if="item.type == 'news'" ng-include="'feed_news.html'"></div>
+            <div ng-if="item.type == 'award'" ng-include="'feed_award.html'"></div>
+            <div ng-if="item.type == 'screenshot'" ng-include="'feed_screenshot.html'"></div>
+            <div ng-if="item.type == 'join_chapter'" ng-include="'feed_join_chapter.html'"></div>
+            <div ng-if="item.type == 'quote'" ng-include="'feed_quote.html'"></div>
+            <div ng-if="item.type == 'new_chapter'" ng-include="'feed_new_chapter.html'"></div>
+            <div ng-if="item.type == 'promotion'" ng-include="'feed_promotion.html'"></div>
+            <div ng-if="item.type == 'demotion'" ng-include="'feed_demotion.html'"></div>
+            <div ng-if="item.type == 'kicked'" ng-include="'feed_kicked.html'"></div>
+
+        </li>
+    </ul>
+</aside>
+

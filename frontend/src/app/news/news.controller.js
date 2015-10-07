@@ -12,6 +12,8 @@
                 News.model.bindAll({}, $scope, 'vm.news');
 
                 vm.loadMoar = function() {
+                    // TODO: disable during fetch, and at end of list
+                    News.fetching = true;
                     News.list(vm.page);
                     vm.page++;
                 };

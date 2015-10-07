@@ -6,6 +6,7 @@ from rest_framework.generics import ListCreateAPIView, RetrieveDestroyAPIView, L
 
 from activityfeed.models import FeedItem, FeedPost
 from activityfeed import serializers
+from django_adt.pagination import SmallResultsSetPagination
 
 
 class FeedPostListCreateAPIView(ListCreateAPIView):
@@ -24,12 +25,38 @@ feed_post_list = FeedPostListCreateAPIView.as_view()
 class FeedItemAPIMixin(object):
     serializer_class = serializers.FeedItemSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
+    pagination_class = SmallResultsSetPagination
 
     def get_queryset(self):
         qs = FeedItem.objects.all()
 
         if not self.request.user.has_perm('activityfeed.soft_delete_feeditem'):
             qs = qs.filter(is_deleted=False)
+
+        qs = qs.prefetch_related(
+            )
+        qs = qs.select_related(
+            'user',
+            'user__rank',
+
+            'chapter',
+            'chapter__game',
+
+            'feed_post',
+            'feed_post__author',
+            'feed_post__author__rank',
+
+            'news',
+            'news__article',
+            'news__article__author',
+            'news__article__author__rank',
+
+            'quote',
+            'quote__poster',
+            'quote__poster__rank',
+
+            'award',
+            )
 
         return qs
 

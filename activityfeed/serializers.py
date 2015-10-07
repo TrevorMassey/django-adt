@@ -1,11 +1,12 @@
 from rest_framework.serializers import ModelSerializer
 
 from activityfeed.models import FeedItem, FeedPost
+from multimedia.serializers import QuoteSerializer, ScreenshotSerializer
 
 from users.serializers import BasicUserSerializer, RankSerializer
 from games.serializers import ChapterSerializer
 from publications.serializers import NewsSerializer
-from awards.serializers import AwardSerializer
+from awards.serializers import AwardFullSerializer
 
 
 class FeedPostSerializer(ModelSerializer):
@@ -30,9 +31,11 @@ class FeedItemSerializer(ModelSerializer):
 
     feed_post = FeedPostSerializer(read_only=True)
     rank = RankSerializer(read_only=True)
-    award = AwardSerializer(read_only=True)
+    award = AwardFullSerializer(read_only=True)
     news = NewsSerializer(read_only=True)
     chapter = ChapterSerializer(read_only=True)
+    quote = QuoteSerializer(read_only=True)
+    screenshot = ScreenshotSerializer(read_only=True)
 
     class Meta:
         model = FeedItem
@@ -51,6 +54,8 @@ class FeedItemSerializer(ModelSerializer):
             'rank',
             'feed_post',
             'award',
+            'quote',
+            'screenshot',
         )
         read_only_fields = (
             'id',
@@ -67,4 +72,6 @@ class FeedItemSerializer(ModelSerializer):
             'rank',
             'feed_post',
             'award',
+            'quote',
+            'screenshot',
         )

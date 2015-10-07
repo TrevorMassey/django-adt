@@ -47,7 +47,7 @@ class FeedItem(models.Model):
 
     type = models.CharField(max_length=15, choices=FEED_TYPES)
     public = models.BooleanField(default=True)  # This to be replaced with something to do with member/officer visiblity
-    created = models.DateField(default=timezone.now)
+    created = models.DateTimeField(default=timezone.now)
 
     is_deleted = models.BooleanField(default=False)
     deleted_by = models.ForeignKey('users.User', blank=True, null=True, related_name='+')
@@ -68,6 +68,9 @@ class FeedItem(models.Model):
         return u'{user.get_full_name} - {type}'.format(user=self.user, type=self.get_type_display())
 
     class Meta:
+        ordering = ('-created',)
+        verbose_name = 'Feed Item'
+        verbose_name_plural = 'Feed items'
         permissions = (
             ('soft_delete_feeditem', 'Can soft delete feed item'),
         )

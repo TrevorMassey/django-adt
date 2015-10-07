@@ -16,6 +16,16 @@
   background-size: cover;
   .box-shadow(0 0 40px rgba(0, 0, 0, 0.5));
   .transition(color 0.2s);
+
+  &:hover .news-title {
+    color: @gray-lighter;
+    .transition(color 0.2s);
+  }
+
+  &:hover .avatar {
+    opacity: 1;
+    .transition(opacity 0.2s);
+  }
 }
 
 .news-detail {
@@ -38,15 +48,7 @@
   .transition(color 0.2s);
 }
 
-&:hover .news-title {
-  color: @gray-lighter;
-  .transition(color 0.2s);
-}
 
-&:hover .avatar {
-  opacity: 1;
-  .transition(opacity 0.2s);
-}
 
 .news-bar {
   position: absolute;
